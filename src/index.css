@@ -1,0 +1,435 @@
+/* ==========================================================================
+   Malam UI: dark design system for Tailwind v4 + shadcn/ui
+
+   Structure
+   1. @theme inline   Tailwind bindings (bg-*, text-*, shadow-*, …)
+   2. :root           shared surfaces, text, status (identical in every theme)
+   3. themes          accent palettes, selected with data-theme="…" on ANY
+                      element (usually <html>). Default = crimson.
+   4. derived         gradients/glows recomputed per themed element, so a
+                      nested <div data-theme="classic"> re-themes its subtree.
+
+   Dark-first: :root IS the dark theme. `.dark` is kept as an alias so
+   shadcn components that use `dark:` variants still resolve.
+   ========================================================================== */
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+@import "@fontsource-variable/figtree";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  /* Typography ---------------------------------------------------------- */
+  --font-sans: "Figtree Variable", "Motiva Sans", Arial, Helvetica, sans-serif;
+  --font-heading: var(--font-sans);
+  --font-mono: "JetBrains Mono", Consolas, "SFMono-Regular", Menlo, monospace;
+
+  /* shadcn semantic colors --------------------------------------------- */
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+
+  /* Malam extensions ----------------------------------------------------- */
+  --color-heading: var(--heading);
+  --color-header: var(--header);
+  --color-surface: var(--surface);
+  --color-surface-raised: var(--surface-raised);
+  --color-link: var(--link);
+  --color-sale: var(--sale);
+  --color-sale-foreground: var(--sale-foreground);
+  --color-price-surface: var(--price-surface);
+  --color-strike: var(--strike);
+  --color-success: var(--success);
+  --color-success-foreground: var(--success-foreground);
+  --color-review-positive: var(--review-positive);
+  --color-review-mixed: var(--review-mixed);
+  --color-review-negative: var(--review-negative);
+  --color-live: var(--live);
+
+  /* Shadows ------------------------------------------------------------- */
+  --shadow-glow: var(--glow);
+  --shadow-glow-sm: var(--glow-sm);
+  --shadow-panel: 0 2px 8px rgb(0 0 0 / 0.25);
+
+  /* Radius: this design is nearly square. Never exceed radius-lg. ------- */
+  --radius-xs: 1px;
+  --radius-sm: 2px;
+  --radius-md: 3px;
+  --radius-lg: var(--radius);
+  --radius-xl: var(--radius);
+  --radius-2xl: var(--radius);
+  --radius-3xl: var(--radius);
+  --radius-4xl: 9999px;
+
+  /* Motion ---------------------------------------------------------------*/
+  --ease-malam: cubic-bezier(0.25, 0.1, 0.25, 1);
+  --animate-capsule-in: capsule-in 0.35s var(--ease-malam) both;
+
+  @keyframes capsule-in {
+    from { opacity: 0; transform: translateY(4px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+}
+
+/* 2. Shared base --------------------------------------------------------- */
+:root,
+.dark {
+  color-scheme: dark;
+  --radius: 4px;
+
+  /* Surfaces (darkest → lightest) */
+  --header: #0a0a0b;
+  --background: #121214;
+  --surface: #0d0d0f;
+  --card: #19191c;
+  --surface-raised: #2a2a30;
+  --popover: #232327;
+  --muted: #1f1f23;
+  --accent: #2a2a30;
+  --accent-foreground: #ffffff;
+
+  /* Text */
+  --heading: #ffffff;
+  --foreground: #d4d4d8;
+  --card-foreground: #d4d4d8;
+  --popover-foreground: #e4e4e7;
+  --muted-foreground: #8e8e96;
+
+  /* Status (theme-independent) */
+  --primary-foreground: #ffffff;
+  --destructive: #c15755;
+  --strike: #7b7b83;
+  --price-surface: #2f2f35;
+  --review-mixed: #b9a074;
+  --review-negative: #a34c25;
+
+  /* Lines */
+  --border: rgb(255 255 255 / 0.09);
+  --input: #3a3a42;
+  --input-placeholder: #8e8e96;
+
+  --chart-3: #7a7a86;
+  --chart-5: #b9a074;
+
+  --sidebar: #0a0a0b;
+  --sidebar-foreground: #d4d4d8;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #2a2a30;
+  --sidebar-accent-foreground: #ffffff;
+  --sidebar-border: rgb(255 255 255 / 0.08);
+
+  --gradient-panel: linear-gradient(180deg, rgb(255 255 255 / 0.045) 0%, rgb(25 25 28 / 0.9) 100%);
+  --gradient-hero-info: linear-gradient(135deg, #131316 0%, #222228 100%);
+  --gradient-promo: linear-gradient(90deg, #26262c 0%, #1d1d22 100%);
+  --page-glow: radial-gradient(ellipse 80% 420px at 50% 0%, rgb(255 255 255 / 0.05), transparent 70%);
+}
+
+/* 3. Themes -------------------------------------------------------------- */
+/* Every theme defines the same set of variables:
+   primary(+from/to) · link · ring · secondary(+fg, hover from/to) · nav-tint
+   success(+fg, from/to) · sale(+fg) · review-positive · live · chart-1/2/4 */
+
+/* Crimson (default): blue · black · red */
+:root,
+[data-theme="crimson"] {
+  --primary: #1a9fff;
+  --primary-from: #06bfff;
+  --primary-to: #2d73ff;
+  --link: #66c0f4;
+  --ring: #66c0f4;
+  --secondary: rgb(103 193 245 / 0.2);
+  --secondary-foreground: #66c0f4;
+  --secondary-from: #417a9b;
+  --secondary-to: #66c0f4;
+  --nav-tint: 62 103 150;
+
+  --success: #c8232c;
+  --success-from: #e5343d;
+  --success-to: #a3161e;
+  --success-foreground: #ffe3e4;
+  --sale: #7a1d24;
+  --sale-foreground: #ff6b70;
+  --review-positive: #66c0f4;
+  --live: #ff3b42;
+
+  --chart-1: #1a9fff;
+  --chart-2: #66c0f4;
+  --chart-4: #ff4d55;
+}
+
+/* Classic: blue · black · green (the original extraction) */
+[data-theme="classic"] {
+  --primary: #1a9fff;
+  --primary-from: #06bfff;
+  --primary-to: #2d73ff;
+  --link: #66c0f4;
+  --ring: #66c0f4;
+  --secondary: rgb(103 193 245 / 0.2);
+  --secondary-foreground: #66c0f4;
+  --secondary-from: #417a9b;
+  --secondary-to: #66c0f4;
+  --nav-tint: 62 103 150;
+
+  --success: #5c7e10;
+  --success-from: #75b022;
+  --success-to: #588a1b;
+  --success-foreground: #d2efa9;
+  --sale: #4c6b22;
+  --sale-foreground: #beee11;
+  --review-positive: #66c0f4;
+  --live: #e0393e;
+
+  --chart-1: #1a9fff;
+  --chart-2: #66c0f4;
+  --chart-4: #beee11;
+}
+
+/* Ember: blue · black · orange */
+[data-theme="ember"] {
+  --primary: #1a9fff;
+  --primary-from: #06bfff;
+  --primary-to: #2d73ff;
+  --link: #66c0f4;
+  --ring: #66c0f4;
+  --secondary: rgb(103 193 245 / 0.2);
+  --secondary-foreground: #66c0f4;
+  --secondary-from: #417a9b;
+  --secondary-to: #66c0f4;
+  --nav-tint: 62 103 150;
+
+  --success: #d9731a;
+  --success-from: #f48c25;
+  --success-to: #c25a0c;
+  --success-foreground: #fff0dd;
+  --sale: #6e3a0c;
+  --sale-foreground: #ffb347;
+  --review-positive: #66c0f4;
+  --live: #ff3b42;
+
+  --chart-1: #1a9fff;
+  --chart-2: #66c0f4;
+  --chart-4: #ffb347;
+}
+
+/* Amethyst: violet · black · pink */
+[data-theme="amethyst"] {
+  --primary: #9b6bff;
+  --primary-from: #b98cff;
+  --primary-to: #7346e8;
+  --link: #c3a6ff;
+  --ring: #c3a6ff;
+  --secondary: rgb(155 107 255 / 0.2);
+  --secondary-foreground: #c3a6ff;
+  --secondary-from: #6a4ca8;
+  --secondary-to: #b98cff;
+  --nav-tint: 104 78 170;
+
+  --success: #c2357f;
+  --success-from: #e0479e;
+  --success-to: #a8236f;
+  --success-foreground: #ffe0f1;
+  --sale: #5e1f47;
+  --sale-foreground: #ff7ac6;
+  --review-positive: #c3a6ff;
+  --live: #ff3b72;
+
+  --chart-1: #9b6bff;
+  --chart-2: #c3a6ff;
+  --chart-4: #ff7ac6;
+}
+
+/* Emerald: green · black · gold */
+[data-theme="emerald"] {
+  --primary: #2fbf71;
+  --primary-from: #4be08e;
+  --primary-to: #1c9a55;
+  --link: #7be3ac;
+  --ring: #7be3ac;
+  --secondary: rgb(47 191 113 / 0.2);
+  --secondary-foreground: #7be3ac;
+  --secondary-from: color-mix(in srgb, #2fbf71 55%, #121214);
+  --secondary-to: #7be3ac;
+  --nav-tint: 40 110 85;
+
+  --success: #c99a1c;
+  --success-from: #e8b730;
+  --success-to: #a87a0c;
+  --success-foreground: #fff3cf;
+  --sale: #5e4a0c;
+  --sale-foreground: #ffd45e;
+  --review-positive: #7be3ac;
+  --live: #ff3b42;
+
+  --chart-1: #2fbf71;
+  --chart-2: #7be3ac;
+  --chart-4: #ffd45e;
+}
+
+/* Ocean: teal · black · coral */
+[data-theme="ocean"] {
+  --primary: #12b8c9;
+  --primary-from: #38d9e8;
+  --primary-to: #0c8ea0;
+  --link: #7de3ee;
+  --ring: #7de3ee;
+  --secondary: rgb(18 184 201 / 0.2);
+  --secondary-foreground: #7de3ee;
+  --secondary-from: color-mix(in srgb, #12b8c9 55%, #121214);
+  --secondary-to: #7de3ee;
+  --nav-tint: 40 105 120;
+
+  --success: #e0583f;
+  --success-from: #ff7358;
+  --success-to: #bf3f28;
+  --success-foreground: #ffe4de;
+  --sale: #6e2a1c;
+  --sale-foreground: #ff9a85;
+  --review-positive: #7de3ee;
+  --live: #ff3b42;
+
+  --chart-1: #12b8c9;
+  --chart-2: #7de3ee;
+  --chart-4: #ff9a85;
+}
+
+/* Rose: rose · black · amber */
+[data-theme="rose"] {
+  --primary: #f0507a;
+  --primary-from: #ff7a9c;
+  --primary-to: #d02f5c;
+  --link: #ff9db7;
+  --ring: #ff9db7;
+  --secondary: rgb(240 80 122 / 0.2);
+  --secondary-foreground: #ff9db7;
+  --secondary-from: color-mix(in srgb, #f0507a 55%, #121214);
+  --secondary-to: #ff9db7;
+  --nav-tint: 150 60 90;
+
+  --success: #e39a1b;
+  --success-from: #ffb938;
+  --success-to: #bf7a0a;
+  --success-foreground: #fff0d0;
+  --sale: #6b4308;
+  --sale-foreground: #ffc861;
+  --review-positive: #ff9db7;
+  --live: #ff3b42;
+
+  --chart-1: #f0507a;
+  --chart-2: #ff9db7;
+  --chart-4: #ffc861;
+}
+
+/* Solar: amber · black · sky */
+[data-theme="solar"] {
+  --primary: #f5a524;
+  --primary-from: #ffc145;
+  --primary-to: #d98a0a;
+  --link: #ffd27d;
+  --ring: #ffd27d;
+  --secondary: rgb(245 165 36 / 0.2);
+  --secondary-foreground: #ffd27d;
+  --secondary-from: color-mix(in srgb, #f5a524 55%, #121214);
+  --secondary-to: #ffd27d;
+  --nav-tint: 140 100 40;
+
+  --success: #2a9df4;
+  --success-from: #4db6ff;
+  --success-to: #1a7fd1;
+  --success-foreground: #dff1ff;
+  --sale: #17476e;
+  --sale-foreground: #7cc8ff;
+  --review-positive: #ffd27d;
+  --live: #ff3b42;
+
+  --chart-1: #f5a524;
+  --chart-2: #ffd27d;
+  --chart-4: #7cc8ff;
+}
+
+/* 4. Derived (recomputed on every themed element) ------------------------ */
+:root,
+[data-theme] {
+  --sidebar-primary: var(--primary);
+  --sidebar-ring: var(--ring);
+  --gradient-primary: linear-gradient(90deg, var(--primary-from) 0%, var(--primary-to) 100%);
+  --gradient-secondary: linear-gradient(90deg, var(--secondary-from) 0%, var(--secondary-to) 100%);
+  --gradient-success: linear-gradient(180deg, var(--success-from) 0%, var(--success-to) 100%);
+  --gradient-nav: linear-gradient(90deg, rgb(var(--nav-tint) / 0.55) 10%, rgb(var(--nav-tint) / 0.35) 50%, rgb(var(--nav-tint) / 0.25) 100%);
+  --glow: 0 0 12px color-mix(in srgb, var(--primary) 40%, transparent);
+  --glow-sm: 0 0 8px color-mix(in srgb, var(--primary) 45%, transparent);
+}
+
+/* Utilities --------------------------------------------------------------- */
+@utility bg-nav { background-image: var(--gradient-nav); }
+@utility bg-panel { background-image: var(--gradient-panel); }
+@utility bg-hero-info { background-image: var(--gradient-hero-info); }
+@utility bg-primary-gradient { background-image: var(--gradient-primary); }
+@utility bg-secondary-gradient { background-image: var(--gradient-secondary); }
+@utility bg-success-gradient { background-image: var(--gradient-success); }
+@utility bg-promo { background-image: var(--gradient-promo); }
+@utility text-eyebrow {
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--heading);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  html {
+    @apply font-sans antialiased;
+  }
+  body {
+    @apply min-h-dvh bg-background text-sm text-foreground;
+    background-image: var(--page-glow);
+    background-repeat: no-repeat;
+  }
+  h1, h2, h3, h4 {
+    @apply font-heading text-heading;
+  }
+  a {
+    @apply transition-colors duration-200 ease-out;
+  }
+  ::selection {
+    background: color-mix(in srgb, var(--primary) 40%, transparent);
+    color: #fff;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
