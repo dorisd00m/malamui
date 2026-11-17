@@ -13,7 +13,7 @@ import { useTheme, type ThemeDefinition } from "./theme-provider"
 
 function Swatches({ theme, className }: { theme: ThemeDefinition; className?: string }) {
   return (
-    <span className={cn("flex overflow-hidden rounded-xs ring-1 ring-white/15", className)} aria-hidden>
+    <span className={cn("flex overflow-hidden rounded-xs ring-1 ring-border", className)} aria-hidden>
       {theme.swatches.map((c, i) => (
         <span key={i} className="h-3.5 w-2.5" style={{ background: c }} />
       ))}
@@ -53,7 +53,7 @@ function ThemeSwitcher({
             aria-checked={t.name === theme}
             onClick={() => select(t.name)}
             className={cn(
-              "flex items-center gap-2 rounded-sm border border-border bg-black/20 px-3 py-2 text-[0.8125rem] transition-colors duration-200 ease-out hover:border-link hover:text-heading focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none",
+              "flex items-center gap-2 rounded-sm border border-border bg-(--tint) px-3 py-2 text-[0.8125rem] transition-colors duration-200 ease-out hover:border-link hover:text-heading focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none",
               t.name === theme && "border-link bg-accent text-heading"
             )}
           >

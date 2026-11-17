@@ -93,7 +93,7 @@ function ProductCapsule({
             </Button>
           )}
           {onAddToCart && (
-            <Button size="icon-sm" variant="success" aria-label={`Add ${title} to cart`} onClick={onAddToCart}>
+            <Button size="icon-sm" variant="cta" aria-label={`Add ${title} to cart`} onClick={onAddToCart}>
               <ShoppingCartIcon />
             </Button>
           )}

@@ -5,13 +5,15 @@
 import formsSrc from "./demos-forms.tsx?raw"
 import overlaySrc from "./demos-overlay.tsx?raw"
 import displaySrc from "./demos-display.tsx?raw"
+import chartsSrc from "./demos-charts.tsx?raw"
+import extendedSrc from "./demos-extended.tsx?raw"
 
 const uiFiles = import.meta.glob("../components/ui/*.tsx", { query: "?raw", import: "default", eager: true }) as Record<
   string,
   string
 >
 
-const demoSources = [formsSrc, overlaySrc, displaySrc]
+const demoSources = [formsSrc, overlaySrc, displaySrc, chartsSrc, extendedSrc]
 
 type ImportStmt = { names: string[]; from: string; namespace?: string }
 

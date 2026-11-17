@@ -17,6 +17,8 @@ const pkg = JSON.parse(read("package.json"))
 const versions = { ...pkg.dependencies, ...pkg.devDependencies }
 
 const NS = "@malam"
+/** Components that depend on third-party libraries beyond shadcn/ui + Recharts. Kept out of the core bundle. */
+const EXTENDED = ["file-upload", "dynamic-select", "image-slider", "rich-text-editor", "motion"]
 const importsOf = (src) => [...src.matchAll(/(?:import|export)\s[^;]*?from\s+"([^"]+)"/g)].map((m) => m[1])
 
 function npmName(spec) {
@@ -111,12 +113,24 @@ items.push({
   name: "malam-ui",
   type: "registry:item",
   title: "Malam UI (everything)",
-  description: "The full library: theme, all UI components and the Malam blocks. Prefer installing single components when you only need a few.",
+  description: "The core library: theme, every shadcn-based component and the Malam blocks. Components that need extra libraries are in malam-extended.",
   registryDependencies: [
     `${NS}/malam-theme`,
     `${NS}/malam-blocks`,
-    ...uiFiles.map((f) => `${NS}/${f.replace(/\.tsx$/, "")}`),
+    ...uiFiles
+      .map((f) => f.replace(/\.tsx$/, ""))
+      .filter((n) => !EXTENDED.includes(n))
+      .map((n) => `${NS}/${n}`),
   ],
+})
+
+items.push({
+  name: "malam-extended",
+  type: "registry:item",
+  title: "Malam extended components",
+  description:
+    "File upload, dynamic select, image slider, rich text editor and motion. Adds react-dropzone, react-select, Swiper, Editor.js and Framer Motion to your project.",
+  registryDependencies: [`${NS}/malam-theme`, ...EXTENDED.map((n) => `${NS}/${n}`)],
 })
 
 const out = {

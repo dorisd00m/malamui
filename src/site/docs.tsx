@@ -1,5 +1,6 @@
 import * as React from "react"
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
+import { Badge } from "@/components/ui/badge"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { InfoIcon } from "lucide-react"
 import { DEFAULT_THEMES } from "@/components/malam"
@@ -11,6 +12,7 @@ const sections = [
   { id: "installation", title: "Installation" },
   { id: "usage", title: "Basic usage" },
   { id: "theming", title: "Theming" },
+  { id: "color-mode", title: "Light and dark mode" },
   { id: "custom-theme", title: "Create a theme" },
   { id: "tokens", title: "Design tokens" },
   { id: "store-components", title: "Store components" },
@@ -97,6 +99,12 @@ export function Docs() {
             <Code title="2a. Register the registry in components.json">{COMPONENTS_JSON_SNIPPET}</Code>
             <Code title="2b. Install everything">{INSTALL_CMD}</Code>
             <Code title="…or just the components you need">{`npx shadcn@latest add @malam/button @malam/card @malam/dialog`}</Code>
+            <Code title="Extended components (each adds a third-party library)">{`npx shadcn@latest add @malam/file-upload      # react-dropzone
+npx shadcn@latest add @malam/dynamic-select   # react-select
+npx shadcn@latest add @malam/image-slider     # swiper
+npx shadcn@latest add @malam/rich-text-editor # editor.js
+npx shadcn@latest add @malam/motion           # framer-motion
+npx shadcn@latest add @malam/malam-extended   # all five`}</Code>
             <p>
               <code>-o</code> overwrites the default shadcn primitives with the Malam versions. Every component pulls in the Malam theme
               and its npm packages automatically.
@@ -114,9 +122,10 @@ export function Docs() {
             <Code title="4. index.html">{`<html lang="en" class="dark">`}</Code>
             <Alert>
               <InfoIcon />
-              <AlertTitle>Dark only</AlertTitle>
+              <AlertTitle>Dark by default, light on demand</AlertTitle>
               <AlertDescription>
-                <code>:root</code> is the dark theme. <code>.dark</code> is kept as an alias so shadcn <code>dark:</code> variants still resolve.
+                <code>:root</code> is the dark theme, and <code>ThemeProvider</code> adds light mode (see Light and dark mode below).
+                The <code>.dark</code> class is kept in sync so shadcn <code>dark:</code> variants still resolve.
               </AlertDescription>
             </Alert>
           </Section>
@@ -139,7 +148,7 @@ createRoot(document.getElementById("root")!).render(
 import { PriceTag, ProductCapsule } from "@/components/malam"
 
 <ProductCapsule title="Lantern Hollow" price={14.99} originalPrice={24.99} />
-<Button variant="success">Add to cart</Button>`}</Code>
+<Button variant="cta">Add to cart</Button>`}</Code>
           </Section>
 
           <Section id="theming" title="Theming">
@@ -181,6 +190,34 @@ setTheme("ocean")`}</Code>
             <p>The choice is stored in <code>localStorage</code> under <code>malam-theme</code>. Pass <code>storageKey=&#123;null&#125;</code> to disable that.</p>
           </Section>
 
+          <Section id="color-mode" title="Light and dark mode">
+            <p>
+              Color mode is separate from the accent theme, so every theme works in both. <code>ThemeProvider</code> writes{" "}
+              <code>data-mode="light" | "dark"</code> and the <code>dark</code> class on <code>&lt;html&gt;</code>, and remembers the choice.
+            </p>
+            <Code title="Switching">{`import { ModeToggle, useTheme } from "@/components/malam"
+
+<ModeToggle />   // dropdown: Light, Dark, System
+
+const { mode, setMode, resolvedMode } = useTheme()
+setMode("light")            // "light" | "dark" | "system"`}</Code>
+            <Code title="Default mode and no-flash script">{`<ThemeProvider defaultMode="system">…</ThemeProvider>
+
+<!-- index.html, before your app script: apply the saved mode before first paint -->
+<script>
+  try {
+    var m = localStorage.getItem("malam-theme-mode") || "dark";
+    if (m === "system") m = matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+    document.documentElement.dataset.mode = m;
+    document.documentElement.classList.toggle("dark", m === "dark");
+  } catch (e) {}
+</script>`}</Code>
+            <p>
+              Need a region that stays dark in light mode (a game scene, a video player)? Give it <code>className="dark"</code> and the
+              current <code>data-theme</code>.
+            </p>
+          </Section>
+
           <Section id="custom-theme" title="Create a theme">
             <p>Add a block to your CSS that sets the accent variables, then register it with the provider.</p>
             <Code title="malam.css">{`[data-theme="mint"] {
@@ -195,10 +232,10 @@ setTheme("ocean")`}</Code>
   --secondary-to: #9af2cc;
   --nav-tint: 40 110 85;
 
-  --success: #d9731a;           /* buy / install */
-  --success-from: #f48c25;
-  --success-to: #c25a0c;
-  --success-foreground: #fff0dd;
+  --cta: #d9731a;           /* second accent: buy / install */
+  --cta-from: #f48c25;
+  --cta-to: #c25a0c;
+  --cta-foreground: #fff0dd;
   --sale: #6e3a0c;              /* discounts only */
   --sale-foreground: #ffb347;
   --review-positive: #9af2cc;
@@ -239,7 +276,7 @@ const themes = [
                   ["Meta text", "text-muted-foreground", "Captions, tags"],
                   ["Link / info", "text-link", "Links, active nav"],
                   ["Primary CTA", "bg-primary-gradient", "One per region"],
-                  ["Buy / install", "variant=\"success\"", "Purchase actions only"],
+                  ["Buy / install", "variant=\"cta\"", "Purchase actions only (themed)"],
                   ["Discount", "bg-sale text-sale-foreground", "Discounts only"],
                 ].map(([a, b, c]) => (
                   <TableRow key={a}>
@@ -251,6 +288,38 @@ const themes = [
               </TableBody>
             </Table>
             <p>Use tokens instead of raw hex. That is what keeps every theme consistent.</p>
+            <h3 className="pt-2 text-lg font-semibold">Status colors</h3>
+            <p>
+              Status colors do not change with the accent theme: success is always green, warning amber, info blue and destructive red. They
+              are separate from <code>cta</code>, the theme's second accent used for buy and install actions.
+            </p>
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>Status</TableHead>
+                  <TableHead>Tokens</TableHead>
+                  <TableHead>Example</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {(
+                  [
+                    ["Success", "bg-success · text-success-text", "success"],
+                    ["Warning", "bg-warning · text-warning-text", "warning"],
+                    ["Info", "bg-info · text-info-text", "info"],
+                    ["Destructive", "bg-destructive · text-destructive-text", "destructive"],
+                  ] as const
+                ).map(([name, tokens, v]) => (
+                  <TableRow key={name}>
+                    <TableCell>{name}</TableCell>
+                    <TableCell><code>{tokens}</code></TableCell>
+                    <TableCell>
+                      <Badge variant={v}>{name}</Badge>
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
           </Section>
 
           <Section id="store-components" title="Store components">

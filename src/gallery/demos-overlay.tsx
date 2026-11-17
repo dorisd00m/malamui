@@ -369,7 +369,16 @@ export function ToastDemo() {
         Show toast
       </Button>
       <Button variant="outline" onClick={() => toast.add({ title: "Purchase complete", type: "success" })}>
-        Success toast
+        Success
+      </Button>
+      <Button variant="outline" onClick={() => toast.add({ title: "Low storage", type: "warning" })}>
+        Warning
+      </Button>
+      <Button variant="outline" onClick={() => toast.add({ title: "Update available", type: "info" })}>
+        Info
+      </Button>
+      <Button variant="outline" onClick={() => toast.add({ title: "Upload failed", type: "error" })}>
+        Error
       </Button>
     </div>
   )

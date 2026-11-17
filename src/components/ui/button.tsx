@@ -14,9 +14,12 @@ const buttonVariants = cva(
         /** Primary CTA — blue gradient, white text (e.g. "Sign In", "Play Now"). */
         default:
           "bg-primary-gradient text-primary-foreground shadow-[0_1px_2px_rgb(0_0_0/0.3)] hover:brightness-115 hover:shadow-glow-sm",
-        /** Purchase / install — green. Reserve for money or install actions. */
-        success:
-          "bg-success-gradient text-success-foreground shadow-[0_1px_2px_rgb(0_0_0/0.3)] hover:brightness-120 hover:text-white",
+        /** Purchase / install: the theme's second accent (red in Crimson, green in Classic…). */
+        cta: "bg-cta-gradient text-cta-foreground shadow-[0_1px_2px_rgb(0_0_0/0.3)] hover:brightness-120 hover:text-white",
+        /** Status actions: always green / amber / blue regardless of theme. */
+        success: "bg-success/20 text-(--success-text) hover:bg-success hover:text-success-foreground",
+        warning: "bg-warning/20 text-(--warning-text) hover:bg-warning hover:text-warning-foreground",
+        info: "bg-info/20 text-(--info-text) hover:bg-info hover:text-info-foreground",
         /** Quiet blue — the workhorse for nav and secondary actions. */
         secondary:
           "bg-secondary text-secondary-foreground hover:bg-secondary-gradient hover:text-white aria-expanded:bg-accent aria-expanded:text-white",
@@ -25,7 +28,7 @@ const buttonVariants = cva(
         ghost:
           "text-foreground hover:bg-accent hover:text-heading aria-expanded:bg-accent aria-expanded:text-heading",
         destructive:
-          "bg-destructive/20 text-[color-mix(in_srgb,var(--destructive),white_45%)] hover:bg-destructive hover:text-white",
+          "bg-destructive/20 text-(--destructive-text) hover:bg-destructive hover:text-white",
         link: "h-auto px-0 text-link hover:text-heading",
       },
       size: {

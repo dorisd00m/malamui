@@ -33,7 +33,7 @@ Then make the main stylesheet (`src/index.css`, `app/globals.css`, …) contain 
 ```
 
 Add `class="dark"` to `<html>` and wrap the app in `<TooltipProvider>`.
-Malam is dark-only: `:root` *is* the dark theme. Do not build a light mode unless asked.
+Malam is dark by default: `:root` *is* the dark theme. Light mode exists as `data-mode="light"` on `<html>`, managed by `<ThemeProvider>` and `<ModeToggle />`. Design with tokens so both modes work and never hardcode dark-only colors. For a region that must stay dark, add `className="dark"` plus the current `data-theme`.
 
 ## 2. Non-negotiable rules
 
@@ -43,7 +43,8 @@ Malam is dark-only: `:root` *is* the dark theme. Do not build a light mode unles
    (#d4d4d8, the default) for body, `text-muted-foreground` for metadata. Links/info use `text-link`.
 3. **Color has meaning. Don't spend it on decoration.**
    - Blue gradient (`Button` default): the one primary action in a region.
-   - Green (`Button variant="success"`): only money or install actions (Buy, Add to Cart, Install).
+   - CTA (`Button variant="cta"`, the theme's second accent): only money or install actions (Buy, Add to Cart, Install).
+   - Status (`success` green, `warning` amber, `info` blue, `destructive` red): feedback only (Badge, Alert, toast, status buttons). They never change with the theme.
    - Lime on olive (`bg-sale text-sale-foreground`): only discounts. Never use lime for anything else.
    - Review colors: blue = positive, tan = mixed, rust = negative. Only for sentiment.
 4. **Corners are nearly square.** `rounded-sm` (2px) for controls, `rounded-md`/`rounded-lg` (3-4px)
@@ -78,7 +79,7 @@ Malam is dark-only: `:root` *is* the dark theme. Do not build a light mode unles
 | Image / placeholder | `<CoverArt title src? ratio="capsule|header|hero|screenshot|portrait">` |
 | Promo strip | `<PromoBanner title description? action? art?>` |
 | Site header / sub-nav | `<StoreHeader logo links utility?>` + `<StoreNav menus onSearch?>` |
-| Buttons | `Button` variants: `default` (CTA) · `success` (buy) · `secondary` (quiet blue) · `outline` · `ghost` · `destructive` · `link` |
+| Buttons | `Button` variants: `default` (CTA) · `cta` (buy/install) · `success` / `warning` / `info` (status) · `secondary` (quiet blue) · `outline` · `ghost` · `destructive` · `link` |
 | Badges | `Badge` variants: `sale` · `label` (overlay on art) · `live` · `tag` (genre) · `default` · `secondary` · `outline` |
 | Tabs | `Tabs` (active tab = raised blue-grey block, content panel `bg-accent/40 p-2`) |
 | Carousel | `Carousel` + `CarouselDots`; arrows are big bare chevrons outside the track |
@@ -113,7 +114,7 @@ rules above (square corners, tokens, 200ms ease-out) before using it.
   <h3 className="text-base">Buy {title}</h3>
   <div className="flex items-stretch bg-black/40 p-0.5">
     <PriceTag price={price} originalPrice={originalPrice} />
-    <Button variant="success" className="ml-0.5 rounded-none">Add to Cart</Button>
+    <Button variant="cta" className="ml-0.5 rounded-none">Add to Cart</Button>
   </div>
 </div>
 ```

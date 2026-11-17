@@ -185,7 +185,7 @@ export function KioskDemo() {
               <span>Total</span>
               <span>{money(total * 1.1)}</span>
             </div>
-            <Button variant="success" disabled={count === 0} onClick={() => setPaid(true)} className="h-14 w-full text-lg">
+            <Button variant="cta" disabled={count === 0} onClick={() => setPaid(true)} className="h-14 w-full text-lg">
               Pay now
             </Button>
             <Button variant="ghost" disabled={count === 0} onClick={() => setCart({})} className="h-10 w-full">

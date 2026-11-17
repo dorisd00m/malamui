@@ -8,6 +8,18 @@
   </head>
   <body>
     <div id="root"></div>
+    <script>
+      // Apply the saved color mode and accent theme before first paint (no flash).
+      try {
+        var r = document.documentElement;
+        var m = localStorage.getItem("malam-theme-mode") || "dark";
+        if (m === "system") m = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+        r.dataset.mode = m;
+        r.classList.toggle("dark", m === "dark");
+        var t = localStorage.getItem("malam-theme");
+        if (t) r.dataset.theme = t;
+      } catch (e) {}
+    </script>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

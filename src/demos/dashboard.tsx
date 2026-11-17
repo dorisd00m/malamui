@@ -86,7 +86,7 @@ const orders = [
   { id: "#MLM-3206", customer: "Silas Reed", status: "Paid", total: "$550.00", date: "Nov 11" },
 ]
 
-const statusVariant = { Paid: "secondary", Pending: "outline", Refunded: "destructive" } as const
+const statusVariant = { Paid: "success", Pending: "warning", Refunded: "destructive" } as const
 
 const goals = [
   { label: "Monthly revenue", value: 72, note: "$45.2k of $62k" },
@@ -200,7 +200,7 @@ export function DashboardDemo() {
                     <CardTitle className="text-2xl group-data-[size=sm]/card:text-2xl">{s.value}</CardTitle>
                   </CardHeader>
                   <CardContent className="flex items-center gap-2 text-xs text-muted-foreground">
-                    <Badge variant={s.up ? "secondary" : "destructive"}>
+                    <Badge variant={s.up ? "success" : "destructive"}>
                       {s.up ? <ArrowUpRightIcon /> : <ArrowDownRightIcon />}
                       {s.delta}
                     </Badge>

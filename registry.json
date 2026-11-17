@@ -489,6 +489,23 @@
       ]
     },
     {
+      "name": "dynamic-select",
+      "type": "registry:ui",
+      "title": "Dynamic Select",
+      "dependencies": [
+        "react-select@^5.10.2"
+      ],
+      "registryDependencies": [
+        "@malam/malam-theme"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/dynamic-select.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
       "name": "empty",
       "type": "registry:ui",
       "title": "Empty",
@@ -525,6 +542,26 @@
       ]
     },
     {
+      "name": "file-upload",
+      "type": "registry:ui",
+      "title": "File Upload",
+      "dependencies": [
+        "lucide-react@^1.74.0",
+        "react-dropzone@^20.2.0"
+      ],
+      "registryDependencies": [
+        "@malam/button",
+        "@malam/malam-theme",
+        "@malam/progress"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/file-upload.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
       "name": "hover-card",
       "type": "registry:ui",
       "title": "Hover Card",
@@ -537,6 +574,24 @@
       "files": [
         {
           "path": "src/components/ui/hover-card.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "image-slider",
+      "type": "registry:ui",
+      "title": "Image Slider",
+      "dependencies": [
+        "lucide-react@^1.74.0",
+        "swiper@^14.4.0"
+      ],
+      "registryDependencies": [
+        "@malam/malam-theme"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/image-slider.tsx",
           "type": "registry:ui"
         }
       ]
@@ -717,6 +772,23 @@
       ]
     },
     {
+      "name": "motion",
+      "type": "registry:ui",
+      "title": "Motion",
+      "dependencies": [
+        "framer-motion@^14.14.0"
+      ],
+      "registryDependencies": [
+        "@malam/malam-theme"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/motion.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
       "name": "native-select",
       "type": "registry:ui",
       "title": "Native Select",
@@ -853,6 +925,33 @@
       "files": [
         {
           "path": "src/components/ui/resizable.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "rich-text-editor",
+      "type": "registry:ui",
+      "title": "Rich Text Editor",
+      "dependencies": [
+        "@editorjs/delimiter@^1.4.2",
+        "@editorjs/editorjs@^2.31.7",
+        "@editorjs/header@^2.8.9",
+        "@editorjs/inline-code@^1.5.2",
+        "@editorjs/list@^2.0.9",
+        "@editorjs/quote@^2.7.6",
+        "lucide-react@^1.74.0"
+      ],
+      "registryDependencies": [
+        "@malam/malam-theme",
+        "@malam/select",
+        "@malam/separator",
+        "@malam/toggle",
+        "@malam/tooltip"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/rich-text-editor.tsx",
           "type": "registry:ui"
         }
       ]
@@ -1192,6 +1291,11 @@
           "target": "src/components/malam/index.ts"
         },
         {
+          "path": "src/components/malam/mode-toggle.tsx",
+          "type": "registry:component",
+          "target": "src/components/malam/mode-toggle.tsx"
+        },
+        {
           "path": "src/components/malam/price-tag.tsx",
           "type": "registry:component",
           "target": "src/components/malam/price-tag.tsx"
@@ -1237,7 +1341,7 @@
       "name": "malam-ui",
       "type": "registry:item",
       "title": "Malam UI (everything)",
-      "description": "The full library: theme, all UI components and the Malam blocks. Prefer installing single components when you only need a few.",
+      "description": "The core library: theme, every shadcn-based component and the Malam blocks. Components that need extra libraries are in malam-extended.",
       "registryDependencies": [
         "@malam/malam-theme",
         "@malam/malam-blocks",
@@ -1304,6 +1408,20 @@
         "@malam/toggle",
         "@malam/tooltip",
         "@malam/trace"
+      ]
+    },
+    {
+      "name": "malam-extended",
+      "type": "registry:item",
+      "title": "Malam extended components",
+      "description": "File upload, dynamic select, image slider, rich text editor and motion. Adds react-dropzone, react-select, Swiper, Editor.js and Framer Motion to your project.",
+      "registryDependencies": [
+        "@malam/malam-theme",
+        "@malam/file-upload",
+        "@malam/dynamic-select",
+        "@malam/image-slider",
+        "@malam/rich-text-editor",
+        "@malam/motion"
       ]
     }
   ]

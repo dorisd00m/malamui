@@ -14,7 +14,7 @@ Every page: `StoreHeader` → `StoreNav` (inside the 1200px container) → `<mai
 - Media + summary: `grid md:grid-cols-[2fr_1fr] gap-4`. Left: big `CoverArt ratio="screenshot"` + thumb strip
   (`grid grid-cols-5 gap-1`, active thumb `ring-2 ring-link`). Right: `CoverArt ratio="header"`, short description
   (`text-[0.8125rem]`), `ReviewSummary` rows (Recent / All), release date, developer as `text-link`, tag `Badge variant="tag"` row.
-- Purchase blocks: one per edition, `bg-panel p-4`, title left, `[PriceTag][Button success]` joined on the right.
+- Purchase blocks: one per edition, `bg-panel p-4`, title left, `[PriceTag][Button cta]` joined on the right.
 - Long-form "About" text: `text-sm leading-relaxed max-w-prose`, section headings `text-eyebrow` with a
   `border-b border-link/30 pb-1` underline.
 - Sidebar (right, `md:w-80`): small panels, each `bg-black/20 p-3` with an eyebrow header.
@@ -22,13 +22,13 @@ Every page: `StoreHeader` → `StoreNav` (inside the 1200px container) → `<mai
 ## Library / launcher
 - Left sidebar list (`w-72 bg-header`): search `Input`, then rows `h-8 px-3 text-[0.8125rem] hover:bg-accent`, active `bg-accent text-heading`.
 - Main: hero art (`CoverArt ratio="hero"`, darkened bottom with `bg-gradient-to-t from-background`), then a
-  bar with big `Button variant="success" size="lg"` (Play/Install) + stats in `text-xs text-muted-foreground`.
+  bar with big `Button variant="cta" size="lg"` (Play/Install) + stats in `text-xs text-muted-foreground`.
 - Grid view: `grid grid-cols-[repeat(auto-fill,minmax(160px,1fr))] gap-3` of `CoverArt ratio="portrait"`;
   hover = glow, show `Progress` overlay for downloads.
 
 ## Cart / checkout
 - Line items: list rows (capsule art, title, `PriceTag` right, `Button variant="link" size="xs"` "Remove").
-- Totals panel `bg-panel p-4`: estimated total `text-lg text-heading`, then full-width `Button variant="success" size="lg"`.
+- Totals panel `bg-panel p-4`: estimated total `text-lg text-heading`, then full-width `Button variant="cta" size="lg"`.
 - Confirmations use `Dialog`; destructive actions use `variant="destructive"`.
 
 ## Account / settings / admin

@@ -1,5 +1,5 @@
 import * as React from "react"
-import { InboxIcon, InfoIcon, TriangleAlertIcon } from "lucide-react"
+import { CircleCheckIcon, InboxIcon, InfoIcon, OctagonXIcon, TriangleAlertIcon } from "lucide-react"
 import { Bar, BarChart, CartesianGrid, XAxis } from "recharts"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
@@ -68,8 +68,18 @@ export function AlertDemo() {
         <AlertTitle>Heads up</AlertTitle>
         <AlertDescription>Your wallet balance is running low.</AlertDescription>
       </Alert>
-      <Alert variant="destructive">
+      <Alert variant="success">
+        <CircleCheckIcon />
+        <AlertTitle>Payment received</AlertTitle>
+        <AlertDescription>Your receipt is on its way.</AlertDescription>
+      </Alert>
+      <Alert variant="warning">
         <TriangleAlertIcon />
+        <AlertTitle>Card expires soon</AlertTitle>
+        <AlertDescription>Update it before the next billing date.</AlertDescription>
+      </Alert>
+      <Alert variant="destructive">
+        <OctagonXIcon />
         <AlertTitle>Payment failed</AlertTitle>
         <AlertDescription>Check your card details and retry.</AlertDescription>
       </Alert>
@@ -84,6 +94,9 @@ export function BadgeDemo() {
       <Badge variant="secondary">Secondary</Badge>
       <Badge variant="outline">Outline</Badge>
       <Badge variant="destructive">Destructive</Badge>
+      <Badge variant="success">Success</Badge>
+      <Badge variant="warning">Warning</Badge>
+      <Badge variant="info">Info</Badge>
     </div>
   )
 }

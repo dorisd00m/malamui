@@ -16,8 +16,11 @@ const badgeVariants = cva(
         label: "rounded-none bg-primary px-2 font-semibold tracking-wide text-white uppercase shadow-[0_2px_6px_rgb(0_0_0/0.4)]",
         live: "rounded-sm bg-black/70 font-semibold tracking-wide text-white uppercase before:size-2 before:rounded-full before:bg-live before:content-['']",
         /** Tag pills (genre, feature). */
-        tag: "bg-white/10 font-normal text-link [a]:hover:bg-link [a]:hover:text-white",
-        destructive: "bg-destructive/20 text-[color-mix(in_srgb,var(--destructive),white_45%)]",
+        tag: "bg-foreground/10 font-normal text-link [a]:hover:bg-link [a]:hover:text-white",
+        destructive: "bg-destructive/20 text-(--destructive-text)",
+        success: "bg-success/20 text-(--success-text)",
+        warning: "bg-warning/20 text-(--warning-text)",
+        info: "bg-info/20 text-(--info-text)",
         outline: "border-border text-foreground [a]:hover:border-link",
         ghost: "hover:bg-accent hover:text-heading",
         link: "text-link underline-offset-4 hover:underline",

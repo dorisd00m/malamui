@@ -70,7 +70,7 @@ No `src` → seeded gradient with the title. Children are overlaid (it is `relat
 <StoreHeader
   logo={<Logo />}
   links={[{ label: "Store", active: true }, { label: "Community" }, { label: "Support" }]}
-  utility={<><Button variant="success" size="xs"><DownloadIcon /> Install</Button><a href="/login">sign in</a></>}
+  utility={<><Button variant="cta" size="xs"><DownloadIcon /> Install</Button><a href="/login">sign in</a></>}
 />
 <div className="mx-auto max-w-[1200px] px-4 pt-4">
   <StoreNav menus={[{ label: "Browse", items: [{ label: "Top Sellers", href: "/top" }] }]} onSearch={(q) => go(q)} />
@@ -80,14 +80,14 @@ No `src` → seeded gradient with the title. Children are overlaid (it is `relat
 ## Restyled shadcn primitives
 
 ### Button
-Variants: `default` (blue gradient CTA) · `success` (green, buy/install only) · `secondary` (quiet
+Variants: `default` (blue gradient CTA) · `cta` (themed second accent, buy/install only) · `success` / `warning` / `info` (status) · `secondary` (quiet
 blue; hover sweeps to a blue gradient) · `outline` · `ghost` · `destructive` · `link`.
 Sizes: `xs` 24 · `sm` 28 · `default` 32 · `lg` 40 · `icon` / `icon-xs` / `icon-sm` / `icon-lg`.
 ```tsx
 <Button>Sign In</Button>
-<Button variant="success"><ShoppingCartIcon /> Add to Cart</Button>
+<Button variant="cta"><ShoppingCartIcon /> Add to Cart</Button>
 <Button variant="secondary" size="icon" aria-label="Wishlist"><HeartIcon /></Button>
-<DialogTrigger render={<Button variant="success" />}>Buy</DialogTrigger>   // Base UI composition
+<DialogTrigger render={<Button variant="cta" />}>Buy</DialogTrigger>   // Base UI composition
 ```
 
 ### Badge
@@ -119,3 +119,17 @@ placed `-left/right-14`, hide below `xl` or reposition), `CarouselDots` (new: pa
 2. Tokens only. Corners `rounded-sm`/`rounded-none`. Transition `duration-200 ease-out`.
 3. Put it in `src/components/malam/` and export it from `index.ts`.
 4. Add it to the demo page (`src/App.tsx`) and to this file.
+
+## Extended components (need extra npm libraries)
+
+Not part of shadcn/ui. Each installs its own library; only add them when the feature is needed.
+
+| Component | Library | Use |
+|---|---|---|
+| `FileUpload` | react-dropzone | Drag-and-drop uploads with previews, progress, validation (`accept`, `maxSize`, `upload`) |
+| `DynamicSelect`, `AsyncDynamicSelect`, `CreatableDynamicSelect` | react-select | Searchable, multi, async and creatable selects |
+| `ImageSlider` | swiper | Slider, gallery with thumbs, carousel, fade |
+| `RichTextEditor` | @editorjs/editorjs | Block WYSIWYG with a formatting top bar; `value` / `onChange` use Editor.js JSON |
+| `FadeIn`, `Stagger`, `Pressable`, `Presence`, `Collapse` | framer-motion | Entrance, hover/press and enter/exit animation; respects reduced motion |
+
+Charts: all chart types (area, line, bar, pie/donut, radar, radial, scatter, composed, sparkline) use `ChartContainer` from `ui/chart` with `--chart-1…5` colors.

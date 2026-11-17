@@ -28,7 +28,7 @@ const quotes = [
 
 export function WebsiteDemo() {
   return (
-    <div className="overflow-hidden rounded-md border border-border bg-background shadow-panel">
+    <div className="flex h-full min-h-[520px] flex-col overflow-hidden rounded-md border border-border bg-background shadow-panel">
       {/* Browser chrome */}
       <div className="flex items-center gap-3 border-b border-border bg-header px-4 py-2.5">
         <span className="flex gap-1.5" aria-hidden>
@@ -42,7 +42,7 @@ export function WebsiteDemo() {
         <span className="w-12" />
       </div>
 
-      <div className="max-h-[720px] overflow-y-auto">
+      <div className="min-h-0 flex-1 overflow-y-auto">
         {/* Nav */}
         <header className="sticky top-0 z-10 flex items-center gap-6 border-b border-border bg-background/90 px-6 py-3 backdrop-blur">
           <span className="flex items-center gap-2 text-lg font-bold text-heading">

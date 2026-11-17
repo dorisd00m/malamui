@@ -1,7 +1,7 @@
 import * as React from "react"
 import { CheckIcon, CopyIcon, MoonStarIcon, RotateCcwIcon } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import { ThemeSwitcher, useTheme } from "@/components/malam"
+import { ModeToggle, ThemeSwitcher, useTheme } from "@/components/malam"
 import { cn } from "@/lib/utils"
 import { REPO_URL } from "./config"
 
@@ -18,12 +18,12 @@ const NAV: { route: Route; label: string; href: string }[] = [
 
 const CUSTOM_VARS = [
   "--primary", "--primary-from", "--primary-to", "--link", "--ring", "--secondary",
-  "--secondary-foreground", "--secondary-from", "--secondary-to", "--success",
-  "--success-from", "--success-to", "--success-foreground", "--sale", "--sale-foreground",
+  "--secondary-foreground", "--secondary-from", "--secondary-to", "--cta",
+  "--cta-from", "--cta-to", "--cta-foreground", "--sale", "--sale-foreground",
   "--review-positive", "--chart-1", "--chart-2", "--chart-4",
 ]
 
-function applyCustom(primary: string, accent: string) {
+function applyCustom(primary: string, accent: string, light = false) {
   const mix = (c: string, w: string, p: number) => `color-mix(in srgb, ${c} ${p}%, ${w})`
   const v: Record<string, string> = {
     "--primary": primary,
@@ -35,16 +35,20 @@ function applyCustom(primary: string, accent: string) {
     "--secondary-foreground": mix(primary, "white", 60),
     "--secondary-from": mix(primary, "#121214", 55),
     "--secondary-to": mix(primary, "white", 60),
-    "--success": mix(accent, "black", 85),
-    "--success-from": accent,
-    "--success-to": mix(accent, "black", 70),
-    "--success-foreground": mix(accent, "white", 15),
+    "--cta": mix(accent, "black", 85),
+    "--cta-from": accent,
+    "--cta-to": mix(accent, "black", 70),
+    "--cta-foreground": mix(accent, "white", 15),
     "--sale": mix(accent, "black", 35),
     "--sale-foreground": mix(accent, "white", 60),
     "--review-positive": mix(primary, "white", 60),
     "--chart-1": primary,
     "--chart-2": mix(primary, "white", 60),
     "--chart-4": mix(accent, "white", 60),
+  }
+  if (light) {
+    // The light-mode stylesheet derives these from --primary so they stay readable on white.
+    for (const k of ["--link", "--ring", "--secondary", "--secondary-foreground", "--review-positive", "--sale", "--sale-foreground"]) delete v[k]
   }
   for (const k in v) document.documentElement.style.setProperty(k, v[k])
 }
@@ -54,7 +58,7 @@ function clearCustom() {
 }
 
 export function CustomColors() {
-  const { theme } = useTheme()
+  const { theme, resolvedMode } = useTheme()
   const [primary, setPrimary] = React.useState("#1a9fff")
   const [accent, setAccent] = React.useState("#e5343d")
   const [active, setActive] = React.useState(false)
@@ -65,10 +69,18 @@ export function CustomColors() {
     setActive(false)
   }, [theme])
 
+  // Re-derive the custom palette when switching between light and dark.
+  React.useEffect(() => {
+    clearCustom()
+    if (active) applyCustom(primary, accent, resolvedMode === "light")
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [resolvedMode])
+
   const update = (p: string, a: string) => {
     setPrimary(p)
     setAccent(a)
-    applyCustom(p, a)
+    clearCustom()
+    applyCustom(p, a, resolvedMode === "light")
     setActive(true)
   }
   const swatch = "h-7 w-9 cursor-pointer rounded-xs border border-border bg-transparent p-0.5"
@@ -128,6 +140,7 @@ export function SiteHeader({ route }: { route: Route }) {
         <div className="ml-auto flex items-center gap-4">
           <CustomColors />
           <ThemeSwitcher />
+          <ModeToggle />
         </div>
       </div>
     </header>
@@ -150,12 +163,12 @@ export function SiteFooter() {
   )
 }
 
-export function Page({ route, children }: { route: Route; children: React.ReactNode }) {
+export function Page({ route, children, footer = true }: { route: Route; children: React.ReactNode; footer?: boolean }) {
   return (
     <div className="min-h-dvh">
       <SiteHeader route={route} />
       {children}
-      <SiteFooter />
+      {footer && <SiteFooter />}
     </div>
   )
 }
@@ -195,5 +208,5 @@ export function Code({ children, title, className }: { children: string; title?:
 }
 
 export function Prose({ children, className }: { children: React.ReactNode; className?: string }) {
-  return <div className={cn("space-y-4 leading-relaxed text-foreground [&_:not(pre)>code]:rounded-xs [&_:not(pre)>code]:bg-black/30 [&_:not(pre)>code]:px-1.5 [&_:not(pre)>code]:py-0.5 [&_:not(pre)>code]:font-mono [&_:not(pre)>code]:text-[0.8125rem] [&_:not(pre)>code]:text-link", className)}>{children}</div>
+  return <div className={cn("space-y-4 leading-relaxed text-foreground [&_:not(pre)>code]:rounded-xs [&_:not(pre)>code]:bg-(--tint) [&_:not(pre)>code]:px-1.5 [&_:not(pre)>code]:py-0.5 [&_:not(pre)>code]:font-mono [&_:not(pre)>code]:text-[0.8125rem] [&_:not(pre)>code]:text-link", className)}>{children}</div>
 }

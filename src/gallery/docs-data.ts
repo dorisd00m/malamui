@@ -5,7 +5,8 @@ export const docs: Record<string, DocInfo> = {
   button: {
     desc: "Triggers an action. Use one primary (blue gradient) button per region.",
     notes: [
-      'variant: "default" | "secondary" | "success" | "outline" | "ghost" | "destructive" | "link"',
+      'variant: "default" | "secondary" | "cta" | "success" | "warning" | "info" | "outline" | "ghost" | "destructive" | "link"',
+      'cta is the theme\'s second accent (buy / install). success, warning and info are status colors: always green, amber and blue.',
       'size: "default" | "sm" | "xs" | "lg" | "icon" | "icon-sm" | "icon-lg"',
       "Use render={<a href=… />} to render a link that looks like a button.",
       'Icon-only buttons need an aria-label.',
@@ -64,9 +65,9 @@ export const docs: Record<string, DocInfo> = {
   tabs: { desc: "Switch between related views in the same space.", notes: ["TabsTrigger and TabsContent are linked by value."] },
 
   card: { desc: "A panel for grouping related content, with header, content and footer slots.", notes: ['size="sm" tightens the padding.'] },
-  badge: { desc: "A small label for status, counts or categories.", notes: ['variant: "default" | "secondary" | "outline" | "destructive" | "sale" | "label" | "live" | "tag"'] },
+  badge: { desc: "A small label for status, counts or categories.", notes: ['variant: "default" | "secondary" | "outline" | "destructive" | "success" | "warning" | "info" | "sale" | "label" | "live" | "tag"'] },
   avatar: { desc: "A user image with a fallback to initials.", notes: ['size: "sm" | "default" | "lg"', "Stack several in AvatarGroup."], file: "avatar" },
-  alert: { desc: "A callout that draws attention to a message.", notes: ['variant="destructive" for errors.'] },
+  alert: { desc: "A callout that draws attention to a message.", notes: ['variant: "default" | "success" | "warning" | "info" | "destructive"'] },
   accordion: { desc: "Vertically stacked sections that expand and collapse.", notes: ["defaultValue is an array of open item values."] },
   collapsible: { desc: "A single section that shows or hides its content." },
   table: { desc: "A styled HTML table." },
@@ -75,6 +76,60 @@ export const docs: Record<string, DocInfo> = {
   "code-block": { desc: "A container for displaying code with an optional header and copy button." },
   carousel: { desc: "A swipeable slideshow built on Embla.", notes: ["Add CarouselDots for pagination."] },
   chart: { desc: "Themed Recharts wrappers. Colors come from the chart tokens.", notes: ["Define series in a ChartConfig and use var(--color-<key>) in the chart.", "Series colors reference --chart-1 … --chart-5, so they follow the active theme."] },
+  "chart-area": { desc: "Area chart with gradient fills and stacking.", file: "chart", notes: ["Add stackId to stack series.", "A <linearGradient> in <defs> gives the soft fade under the line."] },
+  "chart-line": { desc: "Line chart with dots, dashed series and a legend.", file: "chart", notes: ['type="monotone" | "natural" | "linear" | "step" controls the curve.'] },
+  "chart-bar": { desc: "Grouped and stacked bar charts.", file: "chart", notes: ["Same stackId = stacked, no stackId = grouped.", "Use radius on the first and last stacked series for rounded ends."] },
+  "chart-horizontal": { desc: "Horizontal bars with value labels.", file: "chart", notes: ['layout="vertical" with a category YAxis and a numeric XAxis.', "LabelList prints values at the end of each bar."] },
+  "chart-pie": { desc: "Pie and donut charts, including a total in the donut hole.", file: "chart", notes: ["Give each datum a fill of var(--color-<key>).", "innerRadius turns a pie into a donut; use Label to render the center text."] },
+  "chart-radar": { desc: "Radar chart for comparing several metrics at once.", file: "chart" },
+  "chart-radial": { desc: "Radial bars and a gauge.", file: "chart", notes: ["PolarAngleAxis domain={[0, 100]} makes values read as percentages."] },
+  "chart-scatter": { desc: "Scatter plot with a size dimension.", file: "chart", notes: ["ZAxis maps a field to dot size."] },
+  "chart-composed": { desc: "Bars and a line on separate Y axes.", file: "chart", notes: ["Give each axis a yAxisId and point each series at it."] },
+  "chart-sparkline": { desc: "Tiny trend charts inside stat cards.", file: "chart", notes: ["Hide axes, grid and tooltip; keep margins at 0 so the line fills the card."] },
+  "chart-interactive": { desc: "An area chart driven by a time-range Select.", file: "chart", notes: ["Filter the data in state and pass the slice to the chart."] },
+
+  "file-upload": {
+    desc: "Drag-and-drop file picker with previews, progress and validation (react-dropzone).",
+    notes: [
+      "accept uses react-dropzone's MIME map, e.g. { \"image/*\": [] }.",
+      "maxSize is in bytes; rejected files show a reason under the drop zone.",
+      "Pass upload(file, onProgress) to do the real upload; reject the promise to show a retry button.",
+      "Without upload, files are only collected: read them from onFilesChange.",
+    ],
+  },
+  "dynamic-select": {
+    desc: "Searchable single and multi select, async and creatable variants (react-select).",
+    notes: [
+      "DynamicSelect, AsyncDynamicSelect and CreatableDynamicSelect accept every react-select prop.",
+      "isMulti shows chips, isClearable adds a clear button, options can be grouped.",
+      "The menu renders in <body>, so it is never clipped by dialogs or scroll areas.",
+    ],
+  },
+  "image-slider": {
+    desc: "Touch-friendly image slider and gallery (Swiper).",
+    notes: [
+      "slidesPerView > 1 makes a carousel; fade cross-fades single slides.",
+      "thumbs adds a synced thumbnail strip; autoplay pauses on hover.",
+      "Arrow keys and screen readers are supported out of the box.",
+    ],
+  },
+  "rich-text-editor": {
+    desc: "Block-based WYSIWYG editor with a formatting top bar (Editor.js).",
+    notes: [
+      "The top bar sets block style, font family and size, bold / italic / underline / strike, text color, highlight and alignment.",
+      "onChange receives Editor.js OutputData (JSON), which you can store and pass back as value.",
+      "Press / on an empty line for more blocks (lists, quotes, delimiter).",
+      "Font family and size style the whole editor; the rest applies to the selection or current block.",
+    ],
+  },
+  motion: {
+    desc: "Animation primitives (Framer Motion): FadeIn, Stagger, Pressable, Presence and Collapse.",
+    notes: [
+      "All primitives respect the system reduce-motion setting.",
+      "motion, AnimatePresence and useReducedMotion are re-exported for custom animations.",
+      "FadeIn and Stagger animate when scrolled into view by default; pass inView={false} to animate on mount.",
+    ],
+  },
 
   progress: { desc: "Shows completion of a task.", notes: ["Pass value from 0 to 100."] },
   skeleton: { desc: "A loading placeholder shaped like the content to come." },

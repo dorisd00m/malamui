@@ -8,11 +8,11 @@ import { KioskDemo } from "./kiosk"
 import { WebsiteDemo } from "./website"
 
 const demos = [
-  { id: "dashboard", label: "Dashboard", icon: LayoutDashboardIcon, desc: "Admin analytics with stats, chart, table and goals.", view: DashboardDemo },
-  { id: "website", label: "Website", icon: GlobeIcon, desc: "Marketing site: hero, features, pricing, FAQ and footer.", view: WebsiteDemo },
-  { id: "desktop", label: "Desktop app", icon: AppWindowIcon, desc: "Code-editor style window with menubar, explorer, tabs and terminal.", view: DesktopDemo },
-  { id: "kiosk", label: "Kiosk", icon: MonitorSmartphoneIcon, desc: "Touch-first self-order kiosk with large targets and a live cart.", view: KioskDemo },
-  { id: "game", label: "Game", icon: GamepadIcon, desc: "In-game HUD, main menu with settings, and an inventory grid.", view: GameDemo },
+  { id: "dashboard", label: "Dashboard", icon: LayoutDashboardIcon, desc: "Analytics, chart, orders", view: DashboardDemo },
+  { id: "website", label: "Website", icon: GlobeIcon, desc: "Landing page, pricing, FAQ", view: WebsiteDemo },
+  { id: "desktop", label: "Desktop app", icon: AppWindowIcon, desc: "Graphic editor, canvas, layers", view: DesktopDemo },
+  { id: "kiosk", label: "Kiosk", icon: MonitorSmartphoneIcon, desc: "Touch self-order with cart", view: KioskDemo },
+  { id: "game", label: "Game", icon: GamepadIcon, desc: "HUD, main menu, inventory", view: GameDemo },
 ] as const
 
 export type DemoId = (typeof demos)[number]["id"]
@@ -23,31 +23,37 @@ export function DemoPage({ hash }: { hash: string }) {
   const View = current.view
 
   return (
-    <Page route="demo">
-      <div className="mx-auto max-w-[1400px] px-4 pt-6">
-        <div className="mb-5">
-          <h1 className="text-3xl font-bold">Demos</h1>
-          <p className="mt-1 text-muted-foreground">Five complete interfaces built only from Malam UI components. Switch the theme in the toolbar to restyle each one.</p>
-        </div>
-        <nav aria-label="Demos" className="mb-5 grid gap-2 sm:grid-cols-2 lg:grid-cols-5">
+    <Page route="demo" footer={false}>
+      {/* The demo area fills the viewport under the header; each demo scrolls inside it. */}
+      <div className="flex h-[calc(100dvh-3.6rem)] flex-col md:flex-row">
+        <nav
+          aria-label="Demos"
+          className="flex shrink-0 gap-1 overflow-x-auto border-b border-border bg-header p-2 md:w-60 md:flex-col md:overflow-y-auto md:border-r md:border-b-0 md:p-3"
+        >
+          <p className="hidden px-2 pt-1 pb-2 text-xs font-semibold tracking-wider text-muted-foreground uppercase md:block">Demos</p>
           {demos.map((d) => (
             <a
               key={d.id}
               href={`#/demo/${d.id}`}
               aria-current={d.id === current.id ? "page" : undefined}
               className={cn(
-                "rounded-sm border border-border bg-card p-3 transition-colors hover:border-link focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none",
-                d.id === current.id && "border-primary bg-accent"
+                "flex shrink-0 items-center gap-3 rounded-sm px-3 py-2 text-muted-foreground transition-colors hover:bg-accent hover:text-heading focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none",
+                d.id === current.id && "bg-accent text-heading"
               )}
             >
-              <span className="flex items-center gap-2 text-sm font-semibold text-heading">
-                <d.icon className="size-4 text-link" /> {d.label}
+              <d.icon className={cn("size-5 shrink-0", d.id === current.id && "text-link")} />
+              <span className="min-w-0">
+                <span className="block text-sm font-semibold whitespace-nowrap">{d.label}</span>
+                <span className="hidden text-xs text-muted-foreground md:block">{d.desc}</span>
               </span>
-              <span className="mt-1 block text-xs text-muted-foreground">{d.desc}</span>
             </a>
           ))}
         </nav>
-        <View />
+        <section className="min-h-0 min-w-0 flex-1 overflow-auto p-3 md:p-4">
+          <div className="h-full">
+            <View />
+          </div>
+        </section>
       </div>
     </Page>
   )

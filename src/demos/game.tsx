@@ -23,13 +23,14 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip"
 import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/hover-card"
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group"
+import { useTheme } from "@/components/malam"
 import { cn } from "@/lib/utils"
 
 const track = "[&_[data-slot=progress-track]]:h-2.5 [&_[data-slot=progress-track]]:rounded-xs"
 const barColor = {
   "bg-destructive": track + " [&_[data-slot=progress-indicator]]:bg-destructive",
   "bg-primary": track + " [&_[data-slot=progress-indicator]]:bg-primary",
-  "bg-success": track + " [&_[data-slot=progress-indicator]]:bg-success",
+  "bg-cta": track + " [&_[data-slot=progress-indicator]]:bg-cta",
 } as const
 const bar = (c: keyof typeof barColor) => barColor[c]
 
@@ -45,8 +46,9 @@ const hotbar = [
 
 function Hud() {
   const [slot, setSlot] = React.useState(0)
+  const { theme } = useTheme()
   return (
-    <div className="relative aspect-video min-h-[480px] w-full overflow-hidden rounded-md border border-border bg-[radial-gradient(ellipse_at_30%_20%,color-mix(in_srgb,var(--primary)_22%,transparent),transparent_60%),linear-gradient(180deg,#09090b,#16161a_60%,#0a0a0c)]">
+    <div data-theme={theme} className="dark relative aspect-video min-h-[480px] w-full overflow-hidden rounded-md border border-border bg-[radial-gradient(ellipse_at_30%_20%,color-mix(in_srgb,var(--primary)_22%,transparent),transparent_60%),linear-gradient(180deg,#09090b,#16161a_60%,#0a0a0c)]">
       {/* ground grid for atmosphere */}
       <div aria-hidden className="absolute inset-x-0 bottom-0 h-1/2 bg-[linear-gradient(transparent,rgb(255_255_255/0.04)),repeating-linear-gradient(90deg,rgb(255_255_255/0.05)_0_1px,transparent_1px_60px)] [mask-image:linear-gradient(transparent,black)]" />
 
@@ -72,7 +74,7 @@ function Hud() {
           </div>
           <div>
             <div className="flex justify-between"><span>XP</span><span>4,210 / 6,000</span></div>
-            <Progress value={70} className={bar("bg-success")} aria-label="Experience" />
+            <Progress value={70} className={bar("bg-cta")} aria-label="Experience" />
           </div>
         </div>
       </div>
@@ -84,7 +86,7 @@ function Hud() {
           <CompassIcon className="absolute top-2 left-1/2 size-4 -translate-x-1/2 text-muted-foreground" />
           <span className="absolute top-1/2 left-1/2 size-2.5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-primary shadow-glow-sm" />
           <span className="absolute top-8 left-24 size-2 rounded-full bg-destructive" />
-          <span className="absolute top-20 left-7 size-2 rounded-full bg-success" />
+          <span className="absolute top-20 left-7 size-2 rounded-full bg-cta" />
         </div>
         <div className="flex items-center gap-3 rounded-sm bg-black/60 px-3 py-1.5 text-sm text-heading backdrop-blur">
           <span className="flex items-center gap-1.5"><CoinsIcon className="size-4 text-sale-foreground" /> 12,480</span>
@@ -149,8 +151,9 @@ function Hud() {
 
 function MainMenu() {
   const [panel, setPanel] = React.useState<"main" | "settings">("main")
+  const { theme } = useTheme()
   return (
-    <div className="relative grid min-h-[480px] place-items-center overflow-hidden rounded-md border border-border bg-[radial-gradient(ellipse_at_50%_0%,color-mix(in_srgb,var(--primary)_30%,transparent),transparent_65%),linear-gradient(180deg,#09090b,#101013)] p-6">
+    <div data-theme={theme} className="dark relative grid min-h-[480px] place-items-center overflow-hidden rounded-md border border-border bg-[radial-gradient(ellipse_at_50%_0%,color-mix(in_srgb,var(--primary)_30%,transparent),transparent_65%),linear-gradient(180deg,#09090b,#101013)] p-6">
       <div className="w-full max-w-sm text-center">
         <p className="text-xs tracking-[0.5em] text-link uppercase">A tale of lanterns</p>
         <h2 className="mt-2 mb-8 text-5xl font-bold tracking-[0.2em] text-heading uppercase">Hollow</h2>

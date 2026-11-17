@@ -19,10 +19,17 @@ export const DEFAULT_THEMES: ThemeDefinition[] = [
   { name: "solar", label: "Solar", swatches: ["#f5a524", "#4db6ff", "#121214"] },
 ]
 
+export type Mode = "light" | "dark" | "system"
+
 type ThemeContextValue = {
   theme: string
   setTheme: (name: string) => void
   themes: ThemeDefinition[]
+  /** What the user chose: "light", "dark" or "system". */
+  mode: Mode
+  setMode: (mode: Mode) => void
+  /** What is actually applied right now. */
+  resolvedMode: "light" | "dark"
 }
 
 const ThemeContext = React.createContext<ThemeContextValue | null>(null)
@@ -44,6 +51,7 @@ function ThemeProvider({
   defaultTheme = "crimson",
   themes = DEFAULT_THEMES,
   storageKey = "malam-theme",
+  defaultMode = "dark",
   onThemeChange,
 }: {
   children: React.ReactNode
@@ -51,6 +59,8 @@ function ThemeProvider({
   themes?: ThemeDefinition[]
   /** localStorage key. Pass `null` to disable persistence. */
   storageKey?: string | null
+  /** Light/dark mode used when nothing is stored. Stored under `${storageKey}-mode`. */
+  defaultMode?: Mode
   /** Fires after the theme changes (not on first mount). */
   onThemeChange?: (theme: string) => void
 }) {
@@ -59,9 +69,46 @@ function ThemeProvider({
     return stored && themes.some((t) => t.name === stored) ? stored : defaultTheme
   })
 
+  const [mode, setModeState] = React.useState<Mode>(() => {
+    const stored = storageKey ? readStored(`${storageKey}-mode`) : null
+    return stored === "light" || stored === "dark" || stored === "system" ? stored : defaultMode
+  })
+  const [systemDark, setSystemDark] = React.useState(
+    () => typeof window === "undefined" || !window.matchMedia || window.matchMedia("(prefers-color-scheme: dark)").matches
+  )
+  React.useEffect(() => {
+    if (!window.matchMedia) return
+    const mq = window.matchMedia("(prefers-color-scheme: dark)")
+    const on = () => setSystemDark(mq.matches)
+    mq.addEventListener("change", on)
+    return () => mq.removeEventListener("change", on)
+  }, [])
+  const resolvedMode: "light" | "dark" = mode === "system" ? (systemDark ? "dark" : "light") : mode
+
   React.useEffect(() => {
     document.documentElement.dataset.theme = theme
   }, [theme])
+
+  React.useEffect(() => {
+    const root = document.documentElement
+    root.dataset.mode = resolvedMode
+    // shadcn `dark:` variants key off the .dark class
+    root.classList.toggle("dark", resolvedMode === "dark")
+  }, [resolvedMode])
+
+  const setMode = React.useCallback(
+    (next: Mode) => {
+      setModeState(next)
+      if (storageKey) {
+        try {
+          window.localStorage.setItem(`${storageKey}-mode`, next)
+        } catch {
+          /* storage unavailable */
+        }
+      }
+    },
+    [storageKey]
+  )
 
   const setTheme = React.useCallback(
     (name: string) => {
@@ -82,7 +129,10 @@ function ThemeProvider({
     [themes, storageKey, onThemeChange]
   )
 
-  const value = React.useMemo(() => ({ theme, setTheme, themes }), [theme, setTheme, themes])
+  const value = React.useMemo(
+    () => ({ theme, setTheme, themes, mode, setMode, resolvedMode }),
+    [theme, setTheme, themes, mode, setMode, resolvedMode]
+  )
   return <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>
 }
 

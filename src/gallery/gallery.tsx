@@ -10,6 +10,33 @@ import { exampleFor, importStatement } from "./source"
 import * as D from "./demos-display"
 import * as F from "./demos-forms"
 import * as O from "./demos-overlay"
+import * as C from "./demos-charts"
+import * as X from "./demos-extended"
+
+/** Group whose components depend on extra npm libraries beyond shadcn/ui + Recharts. */
+export const EXTENDED_GROUP = "Extended"
+export const EXTENDED_LIBS = "react-dropzone, react-select, Swiper, Editor.js and Framer Motion"
+
+/** Divider shown in lists before the Extended group. */
+export function ExtendedDivider({ compact }: { compact?: boolean }) {
+  return compact ? (
+    <div className="mt-2 mb-3 border-t border-border pt-3">
+      <p className="text-eyebrow text-xs! text-muted-foreground!">Extended</p>
+      <p className="mt-0.5 text-[0.6875rem] leading-snug text-muted-foreground">Needs extra libraries</p>
+    </div>
+  ) : (
+    <div className="border-t-2 border-dashed border-border pt-8">
+      <div className="flex flex-wrap items-center gap-2">
+        <h2 className="text-xl font-semibold">Extended components</h2>
+        <span className="rounded-xs bg-secondary px-2 py-0.5 text-xs font-medium text-secondary-foreground">Extra libraries</span>
+      </div>
+      <p className="mt-2 max-w-3xl text-muted-foreground">
+        These components are not part of shadcn/ui and each one pulls in a third-party library ({EXTENDED_LIBS}). Installing one adds only that
+        library to your project.
+      </p>
+    </div>
+  )
+}
 
 export type Entry = { id: string; title: string; group: string; demo: React.ComponentType; wide?: boolean }
 
@@ -63,7 +90,6 @@ export const entries: Entry[] = [
   { group: "Display", id: "empty", title: "Empty", demo: D.EmptyDemo },
   { group: "Display", id: "code-block", title: "Code Block", demo: D.CodeBlockDemo },
   { group: "Display", id: "carousel", title: "Carousel", demo: D.CarouselDemo },
-  { group: "Display", id: "chart", title: "Chart", demo: D.ChartDemo },
 
   { group: "Feedback & Layout", id: "progress", title: "Progress", demo: D.ProgressDemo },
   { group: "Feedback & Layout", id: "skeleton", title: "Skeleton", demo: D.SkeletonDemo },
@@ -72,13 +98,34 @@ export const entries: Entry[] = [
   { group: "Feedback & Layout", id: "scroll-area", title: "Scroll Area", demo: D.ScrollAreaDemo },
   { group: "Feedback & Layout", id: "aspect-ratio", title: "Aspect Ratio", demo: D.AspectRatioDemo },
   { group: "Feedback & Layout", id: "resizable", title: "Resizable", demo: D.ResizableDemo },
+
+  // Charts: all built on the same ChartContainer (Recharts), themed by the --chart-* tokens
+  { group: "Charts", id: "chart", title: "Chart basics", demo: D.ChartDemo },
+  { group: "Charts", id: "chart-area", title: "Area chart", demo: C.AreaChartDemo },
+  { group: "Charts", id: "chart-line", title: "Line chart", demo: C.LineChartDemo },
+  { group: "Charts", id: "chart-bar", title: "Bar chart: grouped & stacked", demo: C.BarChartDemo, wide: true },
+  { group: "Charts", id: "chart-horizontal", title: "Horizontal bar chart", demo: C.HorizontalBarChartDemo },
+  { group: "Charts", id: "chart-pie", title: "Pie & donut chart", demo: C.PieChartDemo, wide: true },
+  { group: "Charts", id: "chart-radar", title: "Radar chart", demo: C.RadarChartDemo },
+  { group: "Charts", id: "chart-radial", title: "Radial & gauge chart", demo: C.RadialChartDemo, wide: true },
+  { group: "Charts", id: "chart-scatter", title: "Scatter chart", demo: C.ScatterChartDemo },
+  { group: "Charts", id: "chart-composed", title: "Composed chart (bar + line)", demo: C.ComposedChartDemo },
+  { group: "Charts", id: "chart-sparkline", title: "Sparklines in stat cards", demo: C.SparklineDemo, wide: true },
+  { group: "Charts", id: "chart-interactive", title: "Interactive area chart", demo: C.InteractiveAreaChartDemo, wide: true },
+
+  // Extended: these need extra npm libraries, so they are separated from the shadcn-based set above
+  { group: EXTENDED_GROUP, id: "file-upload", title: "File upload", demo: X.FileUploadDemo, wide: true },
+  { group: EXTENDED_GROUP, id: "dynamic-select", title: "Dynamic select", demo: X.DynamicSelectDemo, wide: true },
+  { group: EXTENDED_GROUP, id: "image-slider", title: "Image slider", demo: X.ImageSliderDemo, wide: true },
+  { group: EXTENDED_GROUP, id: "rich-text-editor", title: "Rich text editor", demo: X.RichTextEditorDemo, wide: true },
+  { group: EXTENDED_GROUP, id: "motion", title: "Motion", demo: X.MotionDemo, wide: true },
 ]
 
 /* ---------------------------------------------------------------------- */
 
 
 export const demoNames = new Map<React.ComponentType, string>(
-  Object.entries({ ...F, ...O, ...D }).map(([k, v]) => [v as React.ComponentType, k])
+  Object.entries({ ...F, ...O, ...D, ...C, ...X }).map(([k, v]) => [v as React.ComponentType, k])
 )
 
 function DemoCard({ entry }: { entry: Entry }) {
@@ -156,7 +203,7 @@ export function Gallery() {
           <ScrollArea className="h-[calc(100%-3rem)] pr-3">
             {groups.map((g) => (
               <div key={g} className="mb-4">
-                <p className="mb-1 text-eyebrow text-xs! text-muted-foreground!">{g}</p>
+                {g === EXTENDED_GROUP ? <ExtendedDivider compact /> : <p className="mb-1 text-eyebrow text-xs! text-muted-foreground!">{g}</p>}
                 {filtered
                   .filter((e) => e.group === g)
                   .map((e) => (
@@ -191,7 +238,8 @@ export function Gallery() {
           </div>
           {groups.map((g) => (
             <div key={g}>
-              <h2 className="mb-4 text-eyebrow">{g}</h2>
+              {g === EXTENDED_GROUP ? <ExtendedDivider /> : <h2 className="mb-4 text-eyebrow">{g}</h2>}
+              {g === EXTENDED_GROUP && <div className="mb-4" />}
               <div className="grid gap-4 xl:grid-cols-2">
                 {filtered
                   .filter((e) => e.group === g)

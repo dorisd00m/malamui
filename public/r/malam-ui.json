@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "malam-ui",
   "title": "Malam UI (everything)",
-  "description": "The full library: theme, all UI components and the Malam blocks. Prefer installing single components when you only need a few.",
+  "description": "The core library: theme, every shadcn-based component and the Malam blocks. Components that need extra libraries are in malam-extended.",
   "registryDependencies": [
     "@malam/malam-theme",
     "@malam/malam-blocks",

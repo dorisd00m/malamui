@@ -7,7 +7,7 @@ import { cn } from "@/lib/utils"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Code, Page, Prose } from "../site/shell"
 import { REPO_URL } from "../site/config"
-import { demoNames, entries } from "./gallery"
+import { demoNames, entries, EXTENDED_GROUP, EXTENDED_LIBS, ExtendedDivider } from "./gallery"
 import { docs } from "./docs-data"
 import { depsOf, exampleFor, exportsOf, importStatement } from "./source"
 
@@ -38,7 +38,7 @@ function ComponentSidebar({ activeId }: { activeId?: string }) {
         </a>
         {groups.map((g) => (
           <div key={g} className="mb-4">
-            <p className="mb-1 text-eyebrow text-xs! text-muted-foreground!">{g}</p>
+            {g === EXTENDED_GROUP ? <ExtendedDivider compact /> : <p className="mb-1 text-eyebrow text-xs! text-muted-foreground!">{g}</p>}
             {filtered
               .filter((e) => e.group === g)
               .map((e) => (
@@ -113,6 +113,12 @@ export function ComponentPage({ id }: { id: string }) {
         <header>
           <h1 className="text-4xl font-bold">{entry.title}</h1>
           {info && <p className="mt-2 text-lg text-muted-foreground">{info.desc}</p>}
+          {entry.group === EXTENDED_GROUP && (
+            <p className="mt-3 inline-flex items-center gap-2 rounded-sm border border-border bg-card px-3 py-1.5 text-sm text-muted-foreground">
+              <span className="rounded-xs bg-secondary px-1.5 py-0.5 text-xs font-medium text-secondary-foreground">Extra library</span>
+              Not part of shadcn/ui. Installing it adds {deps.npm.join(", ") || EXTENDED_LIBS} to your project.
+            </p>
+          )}
         </header>
 
         <section className="space-y-3">

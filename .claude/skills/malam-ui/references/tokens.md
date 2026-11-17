@@ -32,7 +32,8 @@ through `@theme inline`, so `bg-<token>`, `text-<token>`, `border-<token>` all w
 |---|---|---|
 | `--primary` | `#1a9fff` | Solid blue (badges, search button). CTA buttons use `bg-primary-gradient` (`#06bfff → #2d73ff`) |
 | `--secondary` | `rgb(103 193 245 / .2)` | Quiet blue button bg; fg `--secondary-foreground` `#66c0f4` |
-| `--success` | `#5c7e10` | Buy/install. Button uses `#75b022 → #588a1b`, fg `#d2efa9` |
+| `--cta` | per theme | Second accent for buy/install (`Button variant="cta"`, `bg-cta-gradient`). Green in Classic, red in Crimson… |
+| `--success` / `--warning` / `--info` | `#2fbf71` / `#f5a524` / `#3b9eff` (darker in light mode) | Status only. Same in every theme. Use `text-success-text` etc. on tinted backgrounds |
 | `--sale` / `--sale-foreground` | `#4c6b22` / `#beee11` | Discount chip + discounted price. **Only for discounts.** |
 | `--strike` | `#7b7b83` | Struck-through original price |
 | `--review-positive` | `#66c0f4` | Positive sentiment |

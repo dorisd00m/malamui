@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "malam-extended",
+  "title": "Malam extended components",
+  "description": "File upload, dynamic select, image slider, rich text editor and motion. Adds react-dropzone, react-select, Swiper, Editor.js and Framer Motion to your project.",
+  "registryDependencies": [
+    "@malam/malam-theme",
+    "@malam/file-upload",
+    "@malam/dynamic-select",
+    "@malam/image-slider",
+    "@malam/rich-text-editor",
+    "@malam/motion"
+  ],
+  "type": "registry:item"
+}

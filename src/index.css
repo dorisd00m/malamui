@@ -68,17 +68,30 @@
   --color-sale-foreground: var(--sale-foreground);
   --color-price-surface: var(--price-surface);
   --color-strike: var(--strike);
-  --color-success: var(--success);
-  --color-success-foreground: var(--success-foreground);
+  --color-cta: var(--cta);
+  --color-cta-foreground: var(--cta-foreground);
   --color-review-positive: var(--review-positive);
   --color-review-mixed: var(--review-mixed);
   --color-review-negative: var(--review-negative);
   --color-live: var(--live);
 
+  /* Status colors (theme independent) */
+  --color-success: var(--success);
+  --color-success-foreground: var(--success-foreground);
+  --color-success-text: var(--success-text);
+  --color-warning: var(--warning);
+  --color-warning-foreground: var(--warning-foreground);
+  --color-warning-text: var(--warning-text);
+  --color-info: var(--info);
+  --color-info-foreground: var(--info-foreground);
+  --color-info-text: var(--info-text);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-destructive-text: var(--destructive-text);
+
   /* Shadows ------------------------------------------------------------- */
   --shadow-glow: var(--glow);
   --shadow-glow-sm: var(--glow-sm);
-  --shadow-panel: 0 2px 8px rgb(0 0 0 / 0.25);
+  --shadow-panel: var(--panel-shadow);
 
   /* Radius: this design is nearly square. Never exceed radius-lg. ------- */
   --radius-xs: 1px;
@@ -127,12 +140,30 @@
   /* Status (theme-independent) */
   --primary-foreground: #ffffff;
   --destructive: #c15755;
+  --destructive-foreground: #ffffff;
+
+  /* Status: same in every accent theme. *-text is for tinted backgrounds. */
+  --success: #2fbf71;
+  --success-foreground: #04210f;
+  --success-text: #6ee7a8;
+  --warning: #f5a524;
+  --warning-foreground: #1f1300;
+  --warning-text: #fbbf24;
+  --info: #3b9eff;
+  --info-foreground: #ffffff;
+  --info-text: #7cc4ff;
   --strike: #7b7b83;
   --price-surface: #2f2f35;
   --review-mixed: #b9a074;
   --review-negative: #a34c25;
 
   /* Lines */
+  --destructive-text: color-mix(in srgb, var(--destructive), white 45%);
+  --input-border: rgb(0 0 0 / 0.4);
+  --inset-shadow: rgb(0 0 0 / 0.4);
+  --tint: rgb(0 0 0 / 0.2);
+  --panel-shadow: 0 2px 8px rgb(0 0 0 / 0.25);
+
   --border: rgb(255 255 255 / 0.09);
   --input: #3a3a42;
   --input-placeholder: #8e8e96;
@@ -156,7 +187,7 @@
 /* 3. Themes -------------------------------------------------------------- */
 /* Every theme defines the same set of variables:
    primary(+from/to) · link · ring · secondary(+fg, hover from/to) · nav-tint
-   success(+fg, from/to) · sale(+fg) · review-positive · live · chart-1/2/4 */
+   cta(+fg, from/to) · sale(+fg) · review-positive · live · chart-1/2/4 */
 
 /* Crimson (default): blue · black · red */
 :root,
@@ -172,10 +203,10 @@
   --secondary-to: #66c0f4;
   --nav-tint: 62 103 150;
 
-  --success: #c8232c;
-  --success-from: #e5343d;
-  --success-to: #a3161e;
-  --success-foreground: #ffe3e4;
+  --cta: #c8232c;
+  --cta-from: #e5343d;
+  --cta-to: #a3161e;
+  --cta-foreground: #ffe3e4;
   --sale: #7a1d24;
   --sale-foreground: #ff6b70;
   --review-positive: #66c0f4;
@@ -199,10 +230,10 @@
   --secondary-to: #66c0f4;
   --nav-tint: 62 103 150;
 
-  --success: #5c7e10;
-  --success-from: #75b022;
-  --success-to: #588a1b;
-  --success-foreground: #d2efa9;
+  --cta: #5c7e10;
+  --cta-from: #75b022;
+  --cta-to: #588a1b;
+  --cta-foreground: #d2efa9;
   --sale: #4c6b22;
   --sale-foreground: #beee11;
   --review-positive: #66c0f4;
@@ -226,10 +257,10 @@
   --secondary-to: #66c0f4;
   --nav-tint: 62 103 150;
 
-  --success: #d9731a;
-  --success-from: #f48c25;
-  --success-to: #c25a0c;
-  --success-foreground: #fff0dd;
+  --cta: #d9731a;
+  --cta-from: #f48c25;
+  --cta-to: #c25a0c;
+  --cta-foreground: #fff0dd;
   --sale: #6e3a0c;
   --sale-foreground: #ffb347;
   --review-positive: #66c0f4;
@@ -253,10 +284,10 @@
   --secondary-to: #b98cff;
   --nav-tint: 104 78 170;
 
-  --success: #c2357f;
-  --success-from: #e0479e;
-  --success-to: #a8236f;
-  --success-foreground: #ffe0f1;
+  --cta: #c2357f;
+  --cta-from: #e0479e;
+  --cta-to: #a8236f;
+  --cta-foreground: #ffe0f1;
   --sale: #5e1f47;
   --sale-foreground: #ff7ac6;
   --review-positive: #c3a6ff;
@@ -280,10 +311,10 @@
   --secondary-to: #7be3ac;
   --nav-tint: 40 110 85;
 
-  --success: #c99a1c;
-  --success-from: #e8b730;
-  --success-to: #a87a0c;
-  --success-foreground: #fff3cf;
+  --cta: #c99a1c;
+  --cta-from: #e8b730;
+  --cta-to: #a87a0c;
+  --cta-foreground: #fff3cf;
   --sale: #5e4a0c;
   --sale-foreground: #ffd45e;
   --review-positive: #7be3ac;
@@ -307,10 +338,10 @@
   --secondary-to: #7de3ee;
   --nav-tint: 40 105 120;
 
-  --success: #e0583f;
-  --success-from: #ff7358;
-  --success-to: #bf3f28;
-  --success-foreground: #ffe4de;
+  --cta: #e0583f;
+  --cta-from: #ff7358;
+  --cta-to: #bf3f28;
+  --cta-foreground: #ffe4de;
   --sale: #6e2a1c;
   --sale-foreground: #ff9a85;
   --review-positive: #7de3ee;
@@ -334,10 +365,10 @@
   --secondary-to: #ff9db7;
   --nav-tint: 150 60 90;
 
-  --success: #e39a1b;
-  --success-from: #ffb938;
-  --success-to: #bf7a0a;
-  --success-foreground: #fff0d0;
+  --cta: #e39a1b;
+  --cta-from: #ffb938;
+  --cta-to: #bf7a0a;
+  --cta-foreground: #fff0d0;
   --sale: #6b4308;
   --sale-foreground: #ffc861;
   --review-positive: #ff9db7;
@@ -361,10 +392,10 @@
   --secondary-to: #ffd27d;
   --nav-tint: 140 100 40;
 
-  --success: #2a9df4;
-  --success-from: #4db6ff;
-  --success-to: #1a7fd1;
-  --success-foreground: #dff1ff;
+  --cta: #2a9df4;
+  --cta-from: #4db6ff;
+  --cta-to: #1a7fd1;
+  --cta-foreground: #dff1ff;
   --sale: #17476e;
   --sale-foreground: #7cc8ff;
   --review-positive: #ffd27d;
@@ -375,6 +406,82 @@
   --chart-4: #7cc8ff;
 }
 
+/* 3b. Light mode ------------------------------------------------------------
+   <html data-mode="light"> (set by ThemeProvider). Only neutrals change here;
+   accent themes keep working because link/ring/secondary text are re-derived
+   from --primary so they stay readable on white. */
+:root[data-mode="light"] {
+  color-scheme: light;
+
+  --header: #ffffff;
+  --background: #f4f4f6;
+  --surface: #ebebef;
+  --card: #ffffff;
+  --surface-raised: #e4e4e9;
+  --popover: #ffffff;
+  --muted: #ececf0;
+  --accent: #e6e6ec;
+  --accent-foreground: #0e0e11;
+
+  --heading: #0e0e11;
+  --foreground: #3a3a42;
+  --card-foreground: #3a3a42;
+  --popover-foreground: #2a2a30;
+  --muted-foreground: #6b6b75;
+
+  --destructive: #d23b3b;
+
+  --success: #16a34a;
+  --success-foreground: #ffffff;
+  --success-text: #15803d;
+  --warning: #d97706;
+  --warning-foreground: #ffffff;
+  --warning-text: #b45309;
+  --info: #2563eb;
+  --info-foreground: #ffffff;
+  --info-text: #1d4ed8;
+  --destructive-text: #b42323;
+  --strike: #8a8a94;
+  --price-surface: #e2e2e8;
+  --review-mixed: #9a7a2a;
+  --review-negative: #b5471b;
+
+  --border: rgb(0 0 0 / 0.1);
+  --input: #cfcfd6;
+  --input-border: #cfcfd6;
+  --input-placeholder: #8a8a94;
+  --inset-shadow: rgb(0 0 0 / 0.06);
+  --tint: rgb(0 0 0 / 0.04);
+  --panel-shadow: 0 1px 3px rgb(0 0 0 / 0.1), 0 1px 2px rgb(0 0 0 / 0.06);
+
+  --chart-3: #8a8a94;
+  --chart-5: #9a7a2a;
+
+  --sidebar: #ffffff;
+  --sidebar-foreground: #3a3a42;
+  --sidebar-accent: #e6e6ec;
+  --sidebar-accent-foreground: #0e0e11;
+  --sidebar-border: rgb(0 0 0 / 0.1);
+
+  --gradient-panel: linear-gradient(180deg, rgb(255 255 255 / 0.9) 0%, rgb(244 244 247 / 0.9) 100%);
+  --gradient-hero-info: linear-gradient(135deg, #ffffff 0%, #ececf1 100%);
+  --gradient-promo: linear-gradient(90deg, #ececf2 0%, #f8f8fb 100%);
+  --page-glow: radial-gradient(ellipse 80% 420px at 50% 0%, rgb(0 0 0 / 0.035), transparent 70%);
+}
+
+/* Accent text/surfaces re-derived for light backgrounds. Also applied to nested
+   [data-theme] wrappers so a themed subtree inside light mode stays readable. */
+:root[data-mode="light"],
+[data-mode="light"] [data-theme]:not(.dark) {
+  --link: color-mix(in srgb, var(--primary) 72%, black);
+  --ring: color-mix(in srgb, var(--primary) 80%, black);
+  --secondary: color-mix(in srgb, var(--primary) 14%, transparent);
+  --secondary-foreground: color-mix(in srgb, var(--primary) 72%, black);
+  --review-positive: color-mix(in srgb, var(--primary) 72%, black);
+  --sale: color-mix(in srgb, var(--cta) 16%, white);
+  --sale-foreground: color-mix(in srgb, var(--cta) 78%, black);
+}
+
 /* 4. Derived (recomputed on every themed element) ------------------------ */
 :root,
 [data-theme] {
@@ -382,7 +489,7 @@
   --sidebar-ring: var(--ring);
   --gradient-primary: linear-gradient(90deg, var(--primary-from) 0%, var(--primary-to) 100%);
   --gradient-secondary: linear-gradient(90deg, var(--secondary-from) 0%, var(--secondary-to) 100%);
-  --gradient-success: linear-gradient(180deg, var(--success-from) 0%, var(--success-to) 100%);
+  --gradient-cta: linear-gradient(180deg, var(--cta-from) 0%, var(--cta-to) 100%);
   --gradient-nav: linear-gradient(90deg, rgb(var(--nav-tint) / 0.55) 10%, rgb(var(--nav-tint) / 0.35) 50%, rgb(var(--nav-tint) / 0.25) 100%);
   --glow: 0 0 12px color-mix(in srgb, var(--primary) 40%, transparent);
   --glow-sm: 0 0 8px color-mix(in srgb, var(--primary) 45%, transparent);
@@ -394,7 +501,7 @@
 @utility bg-hero-info { background-image: var(--gradient-hero-info); }
 @utility bg-primary-gradient { background-image: var(--gradient-primary); }
 @utility bg-secondary-gradient { background-image: var(--gradient-secondary); }
-@utility bg-success-gradient { background-image: var(--gradient-success); }
+@utility bg-cta-gradient { background-image: var(--gradient-cta); }
 @utility bg-promo { background-image: var(--gradient-promo); }
 @utility text-eyebrow {
   font-size: 0.875rem;
@@ -433,3 +540,81 @@
     }
   }
 }
+
+/* Editor.js (rich-text-editor): bind its popovers and blocks to Malam tokens -------- */
+html .ce-popover {
+  --color-border: var(--border);
+  --color-shadow: rgb(0 0 0 / 0.25);
+  --color-background: var(--popover);
+  --color-text-primary: var(--popover-foreground);
+  --color-text-secondary: var(--muted-foreground);
+  --color-background-item-hover: var(--accent);
+  --color-background-item-focus: var(--accent);
+  --color-border-icon: var(--border);
+  --color-text-icon-active: var(--link);
+  --color-background-icon-active: color-mix(in srgb, var(--primary) 16%, transparent);
+}
+html .ce-inline-toolbar,
+html .ce-conversion-toolbar {
+  background: var(--popover);
+  border-color: var(--border);
+  color: var(--popover-foreground);
+}
+html .ce-inline-tool,
+html .ce-toolbar__plus,
+html .ce-toolbar__settings-btn {
+  color: var(--muted-foreground);
+}
+html .ce-toolbar__plus:hover,
+html .ce-toolbar__settings-btn:hover,
+html .ce-inline-tool:hover {
+  background: var(--accent);
+  color: var(--heading);
+}
+.malam-editor .ce-block__content,
+.malam-editor .ce-toolbar__content {
+  max-width: none;
+}
+.malam-editor .ce-block--selected .ce-block__content {
+  background: color-mix(in srgb, var(--primary) 16%, transparent);
+}
+.malam-editor .ce-header {
+  color: var(--heading);
+  padding: 0.5em 0 0.25em;
+}
+.malam-editor .ce-paragraph {
+  line-height: 1.65;
+}
+.malam-editor .ce-paragraph[data-placeholder]:empty::before,
+.malam-editor [data-placeholder-active]:empty::before {
+  color: var(--muted-foreground);
+}
+.malam-editor .cdx-quote__text {
+  min-height: 0;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  box-shadow: none;
+}
+.malam-editor .cdx-quote__caption {
+  color: var(--muted-foreground);
+}
+.malam-editor .ce-delimiter::before {
+  color: var(--muted-foreground);
+}
+.malam-editor .inline-code {
+  background: var(--tint);
+  color: var(--link);
+  border: 0;
+  border-radius: 4px;
+  padding: 1px 5px;
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+}
+.malam-editor .codex-editor__redactor {
+  padding-bottom: 72px !important;
+}
+/* Tailwind's preflight flattens headings; give Editor.js headings real sizes again. */
+.malam-editor h1.ce-header { font-size: 2em; font-weight: 700; }
+.malam-editor h2.ce-header { font-size: 1.6em; font-weight: 700; }
+.malam-editor h3.ce-header { font-size: 1.35em; font-weight: 650; }
+.malam-editor h4.ce-header { font-size: 1.15em; font-weight: 650; }
