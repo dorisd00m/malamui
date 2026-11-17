@@ -126,6 +126,7 @@ Not part of shadcn/ui. Each installs its own library; only add them when the fea
 
 | Component | Library | Use |
 |---|---|---|
+| `Icon` | @iconify/react | Any of 200,000+ Iconify icons: `<Icon icon="lucide:house" />`. Uses currentColor; `addIcon` / `addCollection` for offline use |
 | `FileUpload` | react-dropzone | Drag-and-drop uploads with previews, progress, validation (`accept`, `maxSize`, `upload`) |
 | `DynamicSelect`, `AsyncDynamicSelect`, `CreatableDynamicSelect` | react-select | Searchable, multi, async and creatable selects |
 | `ImageSlider` | swiper | Slider, gallery with thumbs, carousel, fade |
@@ -133,3 +134,26 @@ Not part of shadcn/ui. Each installs its own library; only add them when the fea
 | `FadeIn`, `Stagger`, `Pressable`, `Presence`, `Collapse` | framer-motion | Entrance, hover/press and enter/exit animation; respects reduced motion |
 
 Charts: all chart types (area, line, bar, pie/donut, radar, radial, scatter, composed, sparkline) use `ChartContainer` from `ui/chart` with `--chart-1…5` colors.
+
+## Also available
+
+| Component | Use |
+|---|---|
+| `Rating` | Star input / display. `value`, `onValueChange`, `allowHalf`, `readOnly`. Keyboard accessible (acts as a slider) |
+| `DatePicker`, `DateRangePicker` | Popover + Calendar. `fromDate` / `toDate`, `captionLayout="dropdown"`, `presets` for ranges. Formats with `Intl`, no date library |
+| `H1`–`H4`, `P`, `Lead`, `Large`, `Small`, `Muted`, `Blockquote`, `List`, `InlineCode`, `Prose` | Typography. Wrap raw HTML/Markdown output in `Prose` |
+
+Each component page in the docs lists several examples (variants, forms, controlled usage). Check them before inventing a new pattern.
+
+## Chat and AI
+
+| Component | Use |
+|---|---|
+| `Message`, `MessageContent`, `MessageHeader`, `MessageFooter`, `MessageAvatar`, `MessageGroup` | One row of a conversation. `align="end"` for the sender |
+| `Bubble`, `BubbleContent`, `BubbleReactions`, `BubbleGroup` | The text bubble. Variants: default (yours), muted (theirs), ghost (long AI answers), destructive (errors) |
+| `MessageScroller…` | Scrolling list that keeps new messages in view, with jump-to-latest and `useMessageScroller()` |
+| `Attachment…` | File or image chip with state (uploading, error, done) and actions |
+| `Marker` | Date break or "New messages" divider (`variant="separator"`) |
+| `Trace…` | What an agent is doing: thinking, searching, tool calls, expandable details |
+| `Questionnaire…` | Multi-step questions with choices, shortcuts, validation and progress; it is a real `<form>` |
+| `Sidebar…` | App sidebar: groups, menus, collapsible to icons, mobile sheet, `SidebarTrigger` (Ctrl+B) |

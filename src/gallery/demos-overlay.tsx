@@ -10,7 +10,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
-import { Avatar, AvatarFallback, AvatarGroup } from "@/components/ui/avatar"
+import { Avatar, AvatarFallback, AvatarImage, AvatarGroup } from "@/components/ui/avatar"
 import { Button } from "@/components/ui/button"
 import {
   Breadcrumb,
@@ -198,6 +198,7 @@ export function HoverCardDemo() {
       <HoverCardContent>
         <div className="flex gap-3">
           <Avatar>
+            <AvatarImage src="https://picsum.photos/seed/malam-profile/96/96" alt="" />
             <AvatarFallback>DK</AvatarFallback>
           </Avatar>
           <div className="text-sm">
@@ -389,6 +390,7 @@ export function AvatarDemo() {
     <AvatarGroup>
       {["AB", "CD", "EF"].map((i) => (
         <Avatar key={i}>
+          <AvatarImage src={`https://picsum.photos/seed/${i}/96/96`} alt="" />
           <AvatarFallback>{i}</AvatarFallback>
         </Avatar>
       ))}

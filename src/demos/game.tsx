@@ -12,7 +12,7 @@ import {
   SwordsIcon,
   WandSparklesIcon,
 } from "lucide-react"
-import { Avatar, AvatarFallback } from "@/components/ui/avatar"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Kbd } from "@/components/ui/kbd"
@@ -25,6 +25,7 @@ import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/h
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group"
 import { useTheme } from "@/components/malam"
 import { cn } from "@/lib/utils"
+import { picsum } from "@/lib/picsum"
 
 const track = "[&_[data-slot=progress-track]]:h-2.5 [&_[data-slot=progress-track]]:rounded-xs"
 const barColor = {
@@ -56,6 +57,7 @@ function Hud() {
       <div className="absolute top-4 left-4 w-64 space-y-2 rounded-sm border border-border bg-black/60 p-3 backdrop-blur">
         <div className="flex items-center gap-3">
           <Avatar size="lg">
+            <AvatarImage src={picsum("kaelen", 96)} alt="" />
             <AvatarFallback>KR</AvatarFallback>
           </Avatar>
           <div>

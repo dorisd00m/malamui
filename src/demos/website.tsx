@@ -1,12 +1,13 @@
 import { ArrowRightIcon, CheckIcon, GlobeIcon, LockIcon, RocketIcon, ShieldCheckIcon, StarIcon, ZapIcon } from "lucide-react"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
-import { Avatar, AvatarFallback } from "@/components/ui/avatar"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { InputGroup, InputGroupAddon, InputGroupInput } from "@/components/ui/input-group"
 import { Separator } from "@/components/ui/separator"
+import { picsum } from "@/lib/picsum"
 
 const features = [
   { icon: ZapIcon, title: "Instant deploys", body: "Push to main and your site is live in seconds, with automatic previews for every branch." },
@@ -157,6 +158,7 @@ export function WebsiteDemo() {
                   <p className="text-foreground">“{q.text}”</p>
                   <div className="flex items-center gap-3">
                     <Avatar>
+                      <AvatarImage src={picsum(q.name, 80)} alt="" />
                       <AvatarFallback>{q.name.split(" ").map((n) => n[0]).join("")}</AvatarFallback>
                     </Avatar>
                     <div>

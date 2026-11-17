@@ -15,7 +15,7 @@ import {
   UsersIcon,
 } from "lucide-react"
 import { Area, AreaChart, CartesianGrid, XAxis } from "recharts"
-import { Avatar, AvatarFallback } from "@/components/ui/avatar"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
@@ -36,6 +36,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { toast } from "@/components/ui/toast"
 import { cn } from "@/lib/utils"
+import { picsum } from "@/lib/picsum"
 
 const navItems = [
   { label: "Overview", icon: LayoutDashboardIcon },
@@ -152,6 +153,7 @@ export function DashboardDemo() {
               <DropdownMenu>
                 <DropdownMenuTrigger render={<Button variant="ghost" size="sm" aria-label="Account menu" />}>
                   <Avatar size="sm">
+                    <AvatarImage src={picsum("axel", 64)} alt="" />
                     <AvatarFallback>AX</AvatarFallback>
                   </Avatar>
                   <span className="hidden sm:inline">Axel</span>
@@ -244,6 +246,7 @@ export function DashboardDemo() {
                   {sales.map((s) => (
                     <div key={s.email} className="flex items-center gap-3">
                       <Avatar>
+                        <AvatarImage src={picsum(s.name, 80)} alt="" />
                         <AvatarFallback>{s.initials}</AvatarFallback>
                       </Avatar>
                       <div className="min-w-0 flex-1">

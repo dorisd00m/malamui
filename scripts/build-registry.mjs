@@ -18,7 +18,7 @@ const versions = { ...pkg.dependencies, ...pkg.devDependencies }
 
 const NS = "@malam"
 /** Components that depend on third-party libraries beyond shadcn/ui + Recharts. Kept out of the core bundle. */
-const EXTENDED = ["file-upload", "dynamic-select", "image-slider", "rich-text-editor", "motion"]
+const EXTENDED = ["file-upload", "dynamic-select", "image-slider", "rich-text-editor", "icon", "motion"]
 const importsOf = (src) => [...src.matchAll(/(?:import|export)\s[^;]*?from\s+"([^"]+)"/g)].map((m) => m[1])
 
 function npmName(spec) {
@@ -108,6 +108,19 @@ for (const f of uiFiles) {
     files: blockFiles.map((f) => ({ path: `src/components/malam/${f}`, type: "registry:component", target: `src/components/malam/${f}` })),
   })
 }
+
+items.push({
+  name: "use-highlighted-code",
+  type: "registry:hook",
+  title: "Use highlighted code",
+  description: "Shiki syntax highlighting hook for CodeBlock. Colors come from the --code-* tokens in malam-theme.",
+  dependencies: [withVersion("shiki")],
+  registryDependencies: [`${NS}/malam-theme`],
+  files: [
+    { path: "src/hooks/use-highlighted-code.ts", type: "registry:hook" },
+    { path: "src/lib/highlighter.tsx", type: "registry:lib" },
+  ],
+})
 
 items.push({
   name: "malam-ui",

@@ -1,0 +1,19 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "icon",
+  "title": "Icon",
+  "dependencies": [
+    "@iconify/react@^6.0.4"
+  ],
+  "registryDependencies": [
+    "@malam/malam-theme"
+  ],
+  "files": [
+    {
+      "path": "src/components/ui/icon.tsx",
+      "content": "import { Icon as IconifyIcon, addCollection, addIcon, loadIcons, type IconProps as IconifyIconProps } from \"@iconify/react\"\nimport { cn } from \"@/lib/utils\"\n\nexport type IconProps = Omit<IconifyIconProps, \"icon\" | \"width\" | \"height\"> & {\n  /** Iconify name: \"<set>:<icon>\", e.g. \"lucide:house\", \"mdi:github\", \"logos:react\". Browse sets at icon-sets.iconify.design. */\n  icon: string\n  /** Width and height (number = px, or any CSS size). Defaults to 1em so it follows the text size. */\n  size?: number | string\n  /** Accessible name. Without it the icon is decorative and hidden from screen readers. */\n  label?: string\n}\n\n/**\n * Any icon from Iconify (200,000+ icons in 150+ sets) with one component.\n * Icons are fetched on demand from the Iconify API and cached; use addIcon / addCollection (re-exported below)\n * to bundle the ones you need and work fully offline.\n */\nfunction Icon({ icon, size = \"1em\", label, className, ...props }: IconProps) {\n  return (\n    <IconifyIcon\n      data-slot=\"icon\"\n      icon={icon}\n      width={size}\n      height={size}\n      className={cn(\"shrink-0\", className)}\n      {...(label ? { role: \"img\", \"aria-label\": label } : { \"aria-hidden\": true })}\n      {...props}\n    />\n  )\n}\n\nexport { Icon, addIcon, addCollection, loadIcons }\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

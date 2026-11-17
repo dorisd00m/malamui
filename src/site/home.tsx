@@ -1,17 +1,12 @@
 import * as React from "react"
 import {
-  AppWindowIcon,
   ArrowRightIcon,
   BotIcon,
   CircleCheckIcon,
   FileUpIcon,
-  GamepadIcon,
-  GlobeIcon,
   InfoIcon,
   LayersIcon,
-  LayoutDashboardIcon,
   MonitorIcon,
-  MonitorSmartphoneIcon,
   MoonIcon,
   OctagonXIcon,
   PaletteIcon,
@@ -21,6 +16,7 @@ import {
   SunIcon,
   TriangleAlertIcon,
   WandSparklesIcon,
+  ShapesIcon,
   ImagesIcon,
   ListFilterIcon,
 } from "lucide-react"
@@ -39,6 +35,7 @@ import { DEFAULT_THEMES, useTheme, type Mode } from "@/components/malam"
 import { entries } from "../gallery/gallery"
 import { InteractiveAreaChartDemo, SparklineDemo } from "../gallery/demos-charts"
 import { sampleSlides } from "../gallery/demos-extended"
+import { DemoShowcase } from "./demo-showcase"
 import { Code, Page } from "./shell"
 import { INSTALL_CMD } from "./config"
 
@@ -160,7 +157,7 @@ const features = [
   { icon: PaletteIcon, title: "Themes and light mode", body: "Eight accent themes plus light, dark and system mode. Re-theme a page or just one subtree." },
   { icon: WandSparklesIcon, title: "Motion built in", body: "FadeIn, Stagger, Presence and more on Framer Motion, all respecting reduced-motion." },
   { icon: ShieldCheckIcon, title: "Status colors that stay put", body: "Success is always green, warning amber, info blue. Never recolored by a theme." },
-  { icon: FileUpIcon, title: "Beyond shadcn", body: "File upload, async selects, image sliders and a rich text editor, kept in a clearly separate set." },
+  { icon: FileUpIcon, title: "Beyond shadcn", body: "File upload, async selects, image sliders, a rich text editor and 200,000+ Iconify icons, kept in a clearly separate set." },
   { icon: BotIcon, title: "Agent-ready", body: "A skill teaches Claude Code and other agents the tokens, rules and recipes." },
 ]
 
@@ -169,15 +166,8 @@ const extended = [
   { icon: ListFilterIcon, name: "Dynamic select", lib: "react-select", id: "dynamic-select" },
   { icon: ImagesIcon, name: "Image slider", lib: "Swiper", id: "image-slider" },
   { icon: PenLineIcon, name: "Rich text editor", lib: "Editor.js", id: "rich-text-editor" },
+  { icon: ShapesIcon, name: "Icon", lib: "Iconify", id: "icon" },
   { icon: WandSparklesIcon, name: "Motion", lib: "Framer Motion", id: "motion" },
-]
-
-const demoCards = [
-  { href: "#/demo/dashboard", icon: LayoutDashboardIcon, title: "Dashboard", body: "Stats, charts, tables and goals." },
-  { href: "#/demo/website", icon: GlobeIcon, title: "Website", body: "Landing page, pricing and FAQ." },
-  { href: "#/demo/desktop", icon: AppWindowIcon, title: "Desktop app", body: "A graphic editor with layers." },
-  { href: "#/demo/kiosk", icon: MonitorSmartphoneIcon, title: "Kiosk", body: "Touch-first self-order flow." },
-  { href: "#/demo/game", icon: GamepadIcon, title: "Game", body: "HUD, main menu and inventory." },
 ]
 
 const tagOptions: SelectOption[] = ["Action", "Strategy", "Puzzle", "Racing", "Cozy", "Co-op"].map((c) => ({ value: c.toLowerCase(), label: c }))
@@ -188,7 +178,7 @@ export function Home() {
     { n: componentFiles, suffix: "", label: "components" },
     { n: DEFAULT_THEMES.length, suffix: "", label: "color themes" },
     { n: chartCount, suffix: "", label: "chart samples" },
-    { n: 5, suffix: "", label: "extended components" },
+    { n: extended.length, suffix: "", label: "extended components" },
   ]
 
   return (
@@ -420,7 +410,7 @@ export function Home() {
               </Card>
             </FadeIn>
           </div>
-          <Stagger className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
+          <Stagger className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-6">
             {extended.map((e) => (
               <StaggerItem key={e.id}>
                 <Pressable>
@@ -441,26 +431,7 @@ export function Home() {
         </Section>
 
         {/* ------------------------------- Demos ------------------------------- */}
-        <Section eyebrow="Demos" title="Five complete interfaces" intro="See Malam used end to end, from a dashboard to a game HUD.">
-          <Stagger className="grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
-            {demoCards.map((d) => (
-              <StaggerItem key={d.href}>
-                <Pressable className="h-full">
-                  <a
-                    href={d.href}
-                    className="group flex h-full flex-col rounded-sm border border-border bg-card bg-panel p-4 transition-colors hover:border-link focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none"
-                  >
-                    <d.icon className="mb-3 size-6 text-link" />
-                    <span className="flex items-center gap-1.5 font-semibold text-heading">
-                      {d.title} <ArrowRightIcon className="size-4 transition-transform group-hover:translate-x-1" />
-                    </span>
-                    <span className="mt-1 text-sm text-muted-foreground">{d.body}</span>
-                  </a>
-                </Pressable>
-              </StaggerItem>
-            ))}
-          </Stagger>
-        </Section>
+        <DemoShowcase />
 
         {/* -------------------------------- AI -------------------------------- */}
         <Section eyebrow="Agentic AI" title="Teach your coding agent Malam" intro="Install the skill once and agents build on-brand UI with the right tokens, components and checks.">

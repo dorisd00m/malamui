@@ -107,25 +107,14 @@ export function DynamicSelectDemo() {
 
 /* Image slider (Swiper) ----------------------------------------------------------- */
 
-const palette: [string, string][] = [
-  ["#1a9fff", "#7346e8"],
-  ["#2fbf71", "#12b8c9"],
-  ["#f5a524", "#e0583f"],
-  ["#f0507a", "#9b6bff"],
-  ["#12b8c9", "#2a9df4"],
-  ["#7346e8", "#e0479e"],
-]
-/** Generates a gradient "photo" as an SVG data URI so the demo needs no network. */
-const placeholder = (i: number): SliderImage => {
-  const [a, b] = palette[i % palette.length]
-  const svg = `<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1280 720'><defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='1'><stop offset='0' stop-color='${a}'/><stop offset='1' stop-color='${b}'/></linearGradient></defs><rect width='1280' height='720' fill='url(#g)'/><circle cx='${280 + i * 120}' cy='220' r='${110 + (i % 3) * 30}' fill='white' fill-opacity='.18'/><circle cx='${900 - i * 60}' cy='480' r='${170 - (i % 2) * 40}' fill='black' fill-opacity='.16'/><path d='M0 640 Q320 ${520 - i * 10} 640 620 T1280 ${600 + i * 8} V720 H0Z' fill='black' fill-opacity='.28'/></svg>`
-  return {
-    src: `data:image/svg+xml;utf8,${encodeURIComponent(svg)}`,
-    alt: `Scene ${i + 1}`,
-    title: ["Aurora ridge", "Emerald bay", "Amber dunes", "Rose canyon", "Glacier lake", "Violet dusk"][i % 6],
-    description: "Placeholder artwork generated in the browser",
-  }
-}
+const titles = ["Aurora ridge", "Emerald bay", "Amber dunes", "Rose canyon", "Glacier lake", "Violet dusk"]
+/** Sample photos from picsum.photos (same seed, same image). */
+const placeholder = (i: number): SliderImage => ({
+  src: `https://picsum.photos/seed/malam-slide-${i}/1280/720`,
+  alt: `Scene ${i + 1}`,
+  title: titles[i % titles.length],
+  description: "Photo from picsum.photos",
+})
 const slides = Array.from({ length: 6 }, (_, i) => placeholder(i))
 
 export function ImageSliderDemo() {

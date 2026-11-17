@@ -12,10 +12,16 @@ import * as F from "./demos-forms"
 import * as O from "./demos-overlay"
 import * as C from "./demos-charts"
 import * as X from "./demos-extended"
+import * as ED from "./examples-display"
+import * as EI from "./examples-icon"
+import * as EC from "./examples-chat"
+import * as ES from "./examples-sidebar"
+import * as EM from "./examples-more"
+import { examples } from "./examples"
 
 /** Group whose components depend on extra npm libraries beyond shadcn/ui + Recharts. */
 export const EXTENDED_GROUP = "Extended"
-export const EXTENDED_LIBS = "react-dropzone, react-select, Swiper, Editor.js and Framer Motion"
+export const EXTENDED_LIBS = "react-dropzone, react-select, Swiper, Editor.js, Iconify and Framer Motion"
 
 /** Divider shown in lists before the Extended group. */
 export function ExtendedDivider({ compact }: { compact?: boolean }) {
@@ -41,9 +47,11 @@ export function ExtendedDivider({ compact }: { compact?: boolean }) {
 export type Entry = { id: string; title: string; group: string; demo: React.ComponentType; wide?: boolean }
 
 export const entries: Entry[] = [
+  { group: "Typography", id: "typography", title: "Typography", demo: ED.TypographyDemo, wide: true },
   { group: "Actions", id: "button", title: "Button", demo: F.ButtonDemo, wide: true },
   { group: "Actions", id: "button-group", title: "Button Group", demo: F.ButtonGroupDemo },
-  { group: "Actions", id: "toggle", title: "Toggle & Toggle Group", demo: F.ToggleDemo },
+  { group: "Actions", id: "toggle", title: "Toggle", demo: F.ToggleDemo },
+  { group: "Actions", id: "toggle-group", title: "Toggle Group", demo: EM.ToggleGroupDemo },
   { group: "Actions", id: "kbd", title: "Kbd", demo: F.KbdDemo },
 
   { group: "Forms", id: "input", title: "Input", demo: F.InputDemo },
@@ -60,6 +68,9 @@ export const entries: Entry[] = [
   { group: "Forms", id: "combobox", title: "Combobox", demo: F.ComboboxDemo },
   { group: "Forms", id: "input-otp", title: "Input OTP", demo: F.InputOTPDemo },
   { group: "Forms", id: "calendar", title: "Calendar", demo: F.CalendarDemo },
+  { group: "Forms", id: "date-picker", title: "Date picker", demo: ED.DatePickerDemo },
+  { group: "Forms", id: "date-range-picker", title: "Date range picker", demo: ED.DateRangePickerDemo },
+  { group: "Forms", id: "rating", title: "Rating", demo: ED.RatingDemo },
 
   { group: "Overlays", id: "dialog", title: "Dialog", demo: O.DialogDemo },
   { group: "Overlays", id: "alert-dialog", title: "Alert Dialog", demo: O.AlertDialogDemo },
@@ -78,6 +89,7 @@ export const entries: Entry[] = [
   { group: "Menus & Navigation", id: "breadcrumb", title: "Breadcrumb", demo: O.BreadcrumbDemo },
   { group: "Menus & Navigation", id: "pagination", title: "Pagination", demo: O.PaginationDemo },
   { group: "Menus & Navigation", id: "tabs", title: "Tabs", demo: D.TabsDemo },
+  { group: "Menus & Navigation", id: "sidebar", title: "Sidebar", demo: ES.SidebarDemo, wide: true },
 
   { group: "Display", id: "card", title: "Card", demo: D.CardDemo },
   { group: "Display", id: "badge", title: "Badge", demo: D.BadgeDemo },
@@ -98,6 +110,16 @@ export const entries: Entry[] = [
   { group: "Feedback & Layout", id: "scroll-area", title: "Scroll Area", demo: D.ScrollAreaDemo },
   { group: "Feedback & Layout", id: "aspect-ratio", title: "Aspect Ratio", demo: D.AspectRatioDemo },
   { group: "Feedback & Layout", id: "resizable", title: "Resizable", demo: D.ResizableDemo },
+  { group: "Feedback & Layout", id: "direction", title: "Direction (RTL)", demo: EM.DirectionDemo },
+
+  // Chat & AI building blocks
+  { group: "Chat & AI", id: "message", title: "Message", demo: EC.MessageDemo, wide: true },
+  { group: "Chat & AI", id: "bubble", title: "Bubble", demo: EC.MessageVariantsExample },
+  { group: "Chat & AI", id: "message-scroller", title: "Message Scroller", demo: EC.MessageScrollerDemo, wide: true },
+  { group: "Chat & AI", id: "attachment", title: "Attachment", demo: EC.AttachmentDemo },
+  { group: "Chat & AI", id: "marker", title: "Marker", demo: EC.MarkerDemo },
+  { group: "Chat & AI", id: "trace", title: "Trace", demo: EC.TraceDemo },
+  { group: "Chat & AI", id: "questionnaire", title: "Questionnaire", demo: EC.QuestionnaireDemo, wide: true },
 
   // Charts: all built on the same ChartContainer (Recharts), themed by the --chart-* tokens
   { group: "Charts", id: "chart", title: "Chart basics", demo: D.ChartDemo },
@@ -118,6 +140,7 @@ export const entries: Entry[] = [
   { group: EXTENDED_GROUP, id: "dynamic-select", title: "Dynamic select", demo: X.DynamicSelectDemo, wide: true },
   { group: EXTENDED_GROUP, id: "image-slider", title: "Image slider", demo: X.ImageSliderDemo, wide: true },
   { group: EXTENDED_GROUP, id: "rich-text-editor", title: "Rich text editor", demo: X.RichTextEditorDemo, wide: true },
+  { group: EXTENDED_GROUP, id: "icon", title: "Icon", demo: EI.IconDemo, wide: true },
   { group: EXTENDED_GROUP, id: "motion", title: "Motion", demo: X.MotionDemo, wide: true },
 ]
 
@@ -125,7 +148,7 @@ export const entries: Entry[] = [
 
 
 export const demoNames = new Map<React.ComponentType, string>(
-  Object.entries({ ...F, ...O, ...D, ...C, ...X }).map(([k, v]) => [v as React.ComponentType, k])
+  Object.entries({ ...F, ...O, ...D, ...C, ...X, ...ED, ...EI, ...EC, ...ES, ...EM }).map(([k, v]) => [v as React.ComponentType, k])
 )
 
 function DemoCard({ entry }: { entry: Entry }) {
@@ -145,7 +168,7 @@ function DemoCard({ entry }: { entry: Entry }) {
             className="flex items-center gap-1 text-xs text-link hover:underline focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none"
             aria-label={`${entry.title} documentation`}
           >
-            Docs <ArrowRightIcon className="size-3" />
+            {examples[entry.id]?.length ? `Docs · +${examples[entry.id].length} examples` : "Docs"} <ArrowRightIcon className="size-3" />
           </a>
         </header>
         {info && <p className="border-b border-border px-4 py-2.5 text-[0.8125rem] text-muted-foreground">{info.desc}</p>}

@@ -3,6 +3,7 @@ import { CheckIcon, CopyIcon, MoonStarIcon, RotateCcwIcon } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { ModeToggle, ThemeSwitcher, useTheme } from "@/components/malam"
 import { cn } from "@/lib/utils"
+import { useHighlightedCode } from "@/hooks/use-highlighted-code"
 import { REPO_URL } from "./config"
 
 export type Route = "home" | "docs" | "components" | "skill" | "demo"
@@ -175,8 +176,62 @@ export function Page({ route, children, footer = true }: { route: Route; childre
 
 /* Small shared pieces ----------------------------------------------------- */
 
-export function Code({ children, title, className }: { children: string; title?: string; className?: string }) {
+const LANG_LABEL: Record<string, string> = {
+  tsx: "TSX",
+  jsx: "JSX",
+  ts: "TS",
+  css: "CSS",
+  html: "HTML",
+  json: "JSON",
+  bash: "Shell",
+  markdown: "Markdown",
+  text: "Text",
+}
+
+/** Best-effort language from a title ("src/index.css") or from the code itself. */
+function inferLang(title: string | undefined, code: string): string {
+  const t = (title ?? "").toLowerCase()
+  if (/\.(tsx|jsx)\b/.test(t)) return "tsx"
+  if (/\.(ts|js|mjs|cjs)\b/.test(t)) return "ts"
+  if (/\.css\b/.test(t)) return "css"
+  if (/\.html?\b/.test(t) || t === "html") return "html"
+  if (/\.json\b/.test(t) || t === "json") return "json"
+  if (/\.md\b/.test(t)) return "markdown"
+  if (/(terminal|shell|install|bash|powershell|command)/.test(t)) return "bash"
+  const c = code.trimStart()
+  if (/^(npx|npm|yarn|pnpm|git|node|cd|mkdir|cp|curl|\$)\s/.test(c)) return "bash"
+  if (c.startsWith("---")) return "markdown"
+  if (/^[{[]\s*["\n]/.test(c) && /"[^"]+"\s*:/.test(c)) return "json"
+  if (/^<(!doctype|html|link|script|meta)/i.test(c)) return "html"
+  if (/@import|^\s*(:root|\[data-)[^{]*\{|--[\w-]+\s*:/m.test(c) && !/\bimport\b[^;]*from/.test(c)) return "css"
+  if (/\b(import|export|const|function|return)\b|<\/?[A-Z][\w.]*|=>/.test(c)) return "tsx"
+  return "text"
+}
+
+/**
+ * Syntax-highlighted code panel (Shiki, colors from the --code-* tokens). It stays dark in light mode,
+ * like most code editors, and gets line numbers for anything longer than a few lines.
+ */
+export function Code({
+  children,
+  title,
+  className,
+  lang,
+  lineNumbers,
+}: {
+  children: string
+  title?: string
+  className?: string
+  lang?: string
+  lineNumbers?: boolean
+}) {
   const [copied, setCopied] = React.useState(false)
+  const language = lang ?? inferLang(title, children)
+  const lines = useHighlightedCode(children, language)
+  const shell = language === "bash"
+  const numbers = lineNumbers ?? (!shell && lines.length > 4)
+  const raw = children.replace(/\n$/, "").split("\n")
+
   const copy = async () => {
     try {
       await navigator.clipboard.writeText(children)
@@ -186,22 +241,45 @@ export function Code({ children, title, className }: { children: string; title?:
       /* clipboard unavailable */
     }
   }
+
   return (
-    <div className={cn("overflow-hidden rounded-sm border border-border bg-surface", className)}>
-      <div className="flex items-center justify-between border-b border-border px-3 py-1.5 text-xs text-muted-foreground">
-        <span>{title ?? " "}</span>
+    <div className={cn("group/code relative overflow-hidden rounded-md border border-(--code-border) bg-(--code-background) text-(--code-foreground) shadow-panel", className)}>
+      <span aria-hidden className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-primary/70 via-cta/40 to-transparent" />
+      <div className="flex items-center gap-2 border-b border-(--code-border) bg-(--code-header) py-1.5 pr-2 pl-3 text-xs text-(--code-muted)">
+        <span aria-hidden className="flex gap-1.5">
+          <span className="size-2.5 rounded-full bg-white/15" />
+          <span className="size-2.5 rounded-full bg-white/15" />
+          <span className="size-2.5 rounded-full bg-white/15" />
+        </span>
+        <span className="truncate pl-1.5 font-medium text-(--code-foreground)/80">{title ?? ""}</span>
+        <span className="ml-auto rounded-xs bg-white/8 px-1.5 py-0.5 text-[0.6875rem] font-medium tracking-wide uppercase">
+          {LANG_LABEL[language] ?? language}
+        </span>
         <button
           type="button"
           onClick={copy}
           aria-label="Copy code"
-          className="flex items-center gap-1 rounded-xs px-1.5 py-0.5 hover:bg-accent hover:text-heading focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none"
+          className="flex items-center gap-1 rounded-xs px-1.5 py-0.5 transition-colors hover:bg-white/10 hover:text-white focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none"
         >
-          {copied ? <CheckIcon className="size-3.5" /> : <CopyIcon className="size-3.5" />}
+          {copied ? <CheckIcon className="size-3.5 text-(--code-token-string)" /> : <CopyIcon className="size-3.5" />}
           {copied ? "Copied" : "Copy"}
         </button>
       </div>
-      <pre className="overflow-x-auto p-4 font-mono text-[0.8125rem] leading-relaxed text-foreground">
-        <code>{children}</code>
+      <pre className="overflow-x-auto py-3 font-mono text-[0.8125rem] leading-6">
+        <code className="block min-w-max">
+          {lines.map((line, i) => (
+            <span key={i} className="flex px-1 hover:bg-white/[0.035]">
+              {numbers && <span aria-hidden className="w-9 shrink-0 pr-3 text-right text-(--code-muted)/55 select-none">{i + 1}</span>}
+              <span className={cn("whitespace-pre", numbers ? "pr-4" : "px-3")}>
+                {shell && raw[i]?.trim() && !raw[i].trim().startsWith("#") && !/^\s/.test(raw[i]) && (
+                  <span aria-hidden className="mr-2 text-(--code-muted) select-none">$</span>
+                )}
+                {line}
+                {"\n"}
+              </span>
+            </span>
+          ))}
+        </code>
       </pre>
     </div>
   )

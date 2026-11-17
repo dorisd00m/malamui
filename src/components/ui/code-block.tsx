@@ -13,7 +13,8 @@ const codeBlockVariants = cva(
     variants: {
       variant: {
         default:
-          "border border-input text-foreground has-[>[data-slot=code-block-content]:focus-visible]:border-ring dark:bg-input/30",
+          // Always dark (like an editor): the .dark class scopes the dark tokens to this block in light mode too.
+          "dark border border-(--code-border) bg-(--code-background) text-(--code-foreground) has-[>[data-slot=code-block-content]:focus-visible]:border-ring",
         destructive:
           "border border-destructive/30 text-destructive dark:border-destructive/40",
       },

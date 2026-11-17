@@ -27,6 +27,7 @@
     "@malam/combobox",
     "@malam/command",
     "@malam/context-menu",
+    "@malam/date-picker",
     "@malam/dialog",
     "@malam/direction",
     "@malam/drawer",
@@ -51,6 +52,7 @@
     "@malam/progress",
     "@malam/questionnaire",
     "@malam/radio-group",
+    "@malam/rating",
     "@malam/resizable",
     "@malam/scroll-area",
     "@malam/select",
@@ -68,7 +70,8 @@
     "@malam/toggle-group",
     "@malam/toggle",
     "@malam/tooltip",
-    "@malam/trace"
+    "@malam/trace",
+    "@malam/typography"
   ],
   "type": "registry:item"
 }

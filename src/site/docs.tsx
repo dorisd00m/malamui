@@ -5,6 +5,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { InfoIcon } from "lucide-react"
 import { DEFAULT_THEMES } from "@/components/malam"
 import { Code, Page, Prose } from "./shell"
+import { FONT_OPTIONS, FontPicker } from "./font-picker"
 import { COMPONENTS_JSON_SNIPPET, INSTALL_CMD, REPO_URL } from "./config"
 
 const sections = [
@@ -14,6 +15,7 @@ const sections = [
   { id: "theming", title: "Theming" },
   { id: "color-mode", title: "Light and dark mode" },
   { id: "custom-theme", title: "Create a theme" },
+  { id: "fonts", title: "Fonts" },
   { id: "tokens", title: "Design tokens" },
   { id: "store-components", title: "Store components" },
   { id: "registry", title: "Publishing updates" },
@@ -103,8 +105,9 @@ export function Docs() {
 npx shadcn@latest add @malam/dynamic-select   # react-select
 npx shadcn@latest add @malam/image-slider     # swiper
 npx shadcn@latest add @malam/rich-text-editor # editor.js
+npx shadcn@latest add @malam/icon             # iconify
 npx shadcn@latest add @malam/motion           # framer-motion
-npx shadcn@latest add @malam/malam-extended   # all five`}</Code>
+npx shadcn@latest add @malam/malam-extended   # all six`}</Code>
             <p>
               <code>-o</code> overwrites the default shadcn primitives with the Malam versions. Every component pulls in the Malam theme
               and its npm packages automatically.
@@ -256,6 +259,93 @@ const themes = [
               Gradients and glows are derived from these variables on every themed element, so nested{" "}
               <code>data-theme</code> wrappers work without extra CSS. The toolbar color pickers on this site apply the same variables inline.
             </p>
+          </Section>
+
+          <Section id="fonts" title="Fonts">
+            <p>
+              Malam uses <strong>Figtree</strong>, a Google Font released under the SIL Open Font License, so it is free for personal and
+              commercial projects. It is self-hosted through <code>@fontsource-variable/figtree</code> (no request to Google at runtime). No
+              commercial typeface is bundled, and you should not add one unless you hold a license that covers web use.
+            </p>
+            <p>
+              The font lives in a single variable, <code>--malam-font-sans</code>, which every component reads through Tailwind's{" "}
+              <code>font-sans</code>. Change that one variable and the whole UI follows. Try it here (it re-fonts this very page):
+            </p>
+            <FontPicker />
+
+            <h3 className="pt-2 text-lg font-semibold">Switch the font with Fontsource (recommended)</h3>
+            <Code title="1. Install a variable font">{`npm install @fontsource-variable/albert-sans`}</Code>
+            <Code title="2. src/index.css: import it and override the variable">{`@import "./styles/malam.css";
+@import "@fontsource-variable/albert-sans";
+
+:root {
+  --malam-font-sans: "Albert Sans Variable", ui-sans-serif, system-ui, sans-serif;
+}`}</Code>
+            <p>
+              Fontsource names variable fonts <code>"&lt;Name&gt; Variable"</code>. You can remove the <code>@import</code> of Figtree from your
+              stylesheet once you no longer use it, and uninstall <code>@fontsource-variable/figtree</code>.
+            </p>
+
+            <h3 className="pt-2 text-lg font-semibold">Or load it from Google Fonts</h3>
+            <Code title="index.html">{`<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Albert+Sans:wght@400..700&display=swap" rel="stylesheet" />`}</Code>
+            <Code title="CSS">{`:root {
+  --malam-font-sans: "Albert Sans", ui-sans-serif, system-ui, sans-serif;
+}`}</Code>
+            <p>
+              The CDN is quicker to set up, but visitors' browsers contact Google. Self-hosting with Fontsource avoids that and works offline.
+            </p>
+
+            <h3 className="pt-2 text-lg font-semibold">Your own font files</h3>
+            <Code title="CSS">{`@font-face {
+  font-family: "My Sans";
+  src: url("/fonts/my-sans.woff2") format("woff2");
+  font-weight: 100 900;
+  font-display: swap;
+}
+
+:root {
+  --malam-font-sans: "My Sans", ui-sans-serif, system-ui, sans-serif;
+}`}</Code>
+
+            <h3 className="pt-2 text-lg font-semibold">More ways to use it</h3>
+            <ul className="list-disc space-y-1.5 pl-6">
+              <li>
+                <strong>One area only:</strong> variables inherit, so set it on a wrapper:{" "}
+                <code>{`<div style={{ "--malam-font-sans": '"Inter Variable", sans-serif' }}>…</div>`}</code>.
+              </li>
+              <li>
+                <strong>Monospace:</strong> override <code>--malam-font-mono</code> the same way (used by code blocks, kbd and the editor).
+              </li>
+              <li>
+                <strong>Headings:</strong> <code>--font-heading</code> follows the sans font by default. Point it at another family if you
+                want a display face.
+              </li>
+              <li>
+                <strong>Performance:</strong> variable fonts need one file for every weight. Only the language subsets your pages use are
+                downloaded.
+              </li>
+            </ul>
+
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>Font</TableHead>
+                  <TableHead>Package</TableHead>
+                  <TableHead>License</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {FONT_OPTIONS.map((f) => (
+                  <TableRow key={f.id}>
+                    <TableCell>{f.name}</TableCell>
+                    <TableCell><code>@fontsource-variable/{f.id}</code></TableCell>
+                    <TableCell>SIL OFL 1.1</TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
           </Section>
 
           <Section id="tokens" title="Design tokens">

@@ -21,9 +21,10 @@
 
 @theme inline {
   /* Typography ---------------------------------------------------------- */
-  --font-sans: "Figtree Variable", "Motiva Sans", Arial, Helvetica, sans-serif;
+  /* Reads --malam-font-sans so the font can be swapped from plain CSS or at runtime (see Docs → Fonts). */
+  --font-sans: var(--malam-font-sans);
   --font-heading: var(--font-sans);
-  --font-mono: "JetBrains Mono", Consolas, "SFMono-Regular", Menlo, monospace;
+  --font-mono: var(--malam-font-mono);
 
   /* shadcn semantic colors --------------------------------------------- */
   --color-background: var(--background);
@@ -119,6 +120,11 @@
   color-scheme: dark;
   --radius: 4px;
 
+  /* Typography. Figtree (SIL OFL, free for commercial use) via @fontsource.
+     To change the font: install another @fontsource package, import it above, and edit this line. */
+  --malam-font-sans: "Figtree Variable", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  --malam-font-mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", Consolas, Menlo, monospace;
+
   /* Surfaces (darkest → lightest) */
   --header: #0a0a0b;
   --background: #121214;
@@ -165,6 +171,22 @@
   --panel-shadow: 0 2px 8px rgb(0 0 0 / 0.25);
 
   --border: rgb(255 255 255 / 0.09);
+
+  /* Code blocks: always dark, in both modes. */
+  --code-background: #0d0e12;
+  --code-header: #14161c;
+  --code-border: rgb(255 255 255 / 0.08);
+  --code-foreground: #e6e7ec;
+  --code-muted: #7d8190;
+  --code-token-comment: #6b7083;
+  --code-token-keyword: #c4a7ff;
+  --code-token-string: #86e2a8;
+  --code-token-string-expression: #86e2a8;
+  --code-token-function: #7cc4ff;
+  --code-token-constant: #ffb86b;
+  --code-token-parameter: #f5a3c7;
+  --code-token-punctuation: #9a9fb0;
+  --code-token-link: #7cc4ff;
   --input: #3a3a42;
   --input-placeholder: #8e8e96;
 

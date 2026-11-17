@@ -50,6 +50,6 @@ npx shadcn@latest build   # after changing components or theme → public/r/mala
 
 ## Notes
 
-- Fonts: uses **Figtree** (OFL). The extracted `../store-design/fonts/MotivaSans-*.ttf` are a commercial
-  typeface; don't ship them unless you hold a license.
+- Fonts: uses **Figtree** (SIL OFL, free for commercial use) through `@fontsource-variable/figtree`. No commercial typeface is
+  bundled. Change it by editing `--malam-font-sans`; see Documentation → Fonts.
 - Branding: Malam is its own brand. Don't add another store's name, logo, or product artwork.

@@ -46,3 +46,10 @@ Every page: `StoreHeader` → `StoreNav` (inside the 1200px container) → `<mai
   search goes full width. Carousel arrows hidden below `xl` (dots remain).
 - Tab lists scroll horizontally (`overflow-x-auto`, already in `TabsList`).
 - Test at 390px: no horizontal scroll, tap targets ≥ 32px.
+
+## Placeholder images
+
+For avatars, cards, carousels and sliders in previews and mockups, use https://picsum.photos with a seed so the same image
+always returns: `https://picsum.photos/seed/<seed>/<width>/<height>` (e.g. `/seed/olivia/96/96` for an avatar, `/seed/hero/1280/720`
+for a slide). Always set `alt` (empty for decorative images), `loading="lazy"` and keep `AvatarFallback` as the offline fallback.
+Replace them with real assets before shipping.

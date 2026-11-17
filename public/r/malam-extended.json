@@ -9,6 +9,7 @@
     "@malam/dynamic-select",
     "@malam/image-slider",
     "@malam/rich-text-editor",
+    "@malam/icon",
     "@malam/motion"
   ],
   "type": "registry:item"

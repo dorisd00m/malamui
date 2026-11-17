@@ -88,6 +88,76 @@ export const docs: Record<string, DocInfo> = {
   "chart-sparkline": { desc: "Tiny trend charts inside stat cards.", file: "chart", notes: ["Hide axes, grid and tooltip; keep margins at 0 so the line fills the card."] },
   "chart-interactive": { desc: "An area chart driven by a time-range Select.", file: "chart", notes: ["Filter the data in state and pass the slice to the chart."] },
 
+  "toggle-group": { desc: "A set of toggle buttons for single or multiple selection.", notes: ["Pass multiple for several pressed items; value is always an array.", 'variant="outline" and size apply to every item; spacing separates them.', 'orientation="vertical" stacks the items.'] },
+  sidebar: {
+    desc: "A composable, collapsible application sidebar with groups, menus, submenus and a mobile sheet.",
+    notes: [
+      "Wrap the app in SidebarProvider, then render Sidebar and SidebarInset side by side.",
+      'collapsible="icon" shrinks to icons, "offcanvas" hides it, "none" keeps it fixed. Ctrl+B toggles it.',
+      'variant: "sidebar" | "floating" | "inset"; side: "left" | "right".',
+      "Below 768px the sidebar becomes a Sheet automatically (useSidebar exposes isMobile and openMobile).",
+      "Sidebar is fixed to the viewport. The previews on this page add className=\"absolute h-full\" so it stays inside the example box; drop that in an app.",
+    ],
+  },
+  message: { desc: "A chat message row with avatar, header, bubbles and footer. Align it to the start or the end.", notes: ["Message align=\"start\" | \"end\" mirrors the layout for the sender.", "Compose with Bubble and BubbleContent for the text, MessageHeader and MessageFooter for names and status.", "Use MessageGroup to stack related messages with tight spacing."] },
+  bubble: { desc: "A chat bubble with seven variants and optional reactions.", notes: ['variant: "default" (yours) | "secondary" | "muted" (theirs) | "tinted" | "outline" | "ghost" (long AI answers) | "destructive" (errors).', "BubbleContent accepts render, so it can be a button or link.", "BubbleReactions sits on the top or bottom edge."] },
+  "message-scroller": {
+    desc: "A scrolling message list that keeps new messages in view, with a jump-to-latest button.",
+    notes: [
+      "Provider options: autoScroll, defaultScrollPosition (\"start\" | \"end\" | \"last-anchor\").",
+      "Give each MessageScrollerItem a messageId to jump to it with scrollToMessage.",
+      "preserveScrollOnPrepend on the viewport keeps your place when older messages load above.",
+      "Needs @shadcn/react, installed automatically with the registry item.",
+    ],
+  },
+  attachment: { desc: "A file or image chip with state (idle, uploading, processing, error, done), size and actions.", notes: ['orientation="vertical" makes square thumbnails.', "AttachmentMedia variant=\"image\" fades while uploading.", "Group them in AttachmentGroup for a scrollable row."] },
+  marker: { desc: "An inline divider or status line inside a conversation: date breaks, \"New messages\", system notes.", notes: ['variant: "default" | "separator" (lines on both sides) | "border".'] },
+  trace: { desc: "Shows what an AI agent is doing: thinking, searching, calling tools, with expandable details.", notes: ['TraceLine status: "running" | "pending" | "error".', "Wrap lines in TraceCollapsible with a trigger and content for expandable details."] },
+  questionnaire: {
+    desc: "A multi-step question flow with choices, text answers, shortcuts, validation and progress.",
+    notes: [
+      "Describe the steps in the items prop and render a QuestionnaireItem for each name.",
+      'shortcuts="numbers" or "letters" lets users pick choices from the keyboard; Enter moves on.',
+      "multiple on an item switches choices from radios to checkboxes; required enables validation.",
+      "It is a real form: handle onSubmit and read FormData.",
+    ],
+  },
+  direction: { desc: "Sets text direction for a subtree so components lay out right-to-left for Arabic or Hebrew.", notes: ["Wrap the subtree in DirectionProvider and also set the dir attribute for native elements."] },
+  typography: {
+    desc: "Headings, body text, lists, quotes and inline code with consistent spacing, plus Prose for raw HTML.",
+    notes: [
+      "H1–H4, P, Lead, Large, Small, Muted, Blockquote, List and InlineCode only set size, weight and spacing. Color comes from tokens.",
+      "Wrap CMS or Markdown output in <Prose> to style raw h1–h4, p, ul, ol, blockquote, code, pre, table and img elements.",
+      "The font comes from --malam-font-sans; see Documentation → Fonts.",
+    ],
+  },
+  rating: {
+    desc: "Star rating input and display, with half stars and keyboard support.",
+    notes: [
+      "Controlled (value + onValueChange) or uncontrolled (defaultValue).",
+      "allowHalf enables 0.5 steps; allowClear lets users click the current value to reset it.",
+      "readOnly renders an image-like display for averages. Fractions fill partially.",
+      "The interactive version behaves as a slider: arrow keys, Home and End work.",
+    ],
+  },
+  "date-picker": {
+    desc: "A button that opens a calendar popover and shows the chosen date.",
+    notes: [
+      "locale and format use Intl.DateTimeFormat, so no date library is required.",
+      'captionLayout="dropdown" adds month and year selects. Combine with fromDate / toDate.',
+      "clearable adds an x button once a date is chosen.",
+      "Built from Popover, Calendar and Button, so every Calendar prop (disabled days, modifiers) still applies if you copy the file.",
+    ],
+  },
+  "date-range-picker": {
+    desc: "Select a start and end date, with optional presets like Last 7 days.",
+    file: "date-picker",
+    notes: [
+      "presets={true} shows Today, Last 7 days, Last 30 days and This month. Pass your own { label, range() } list to customize.",
+      "numberOfMonths={1} for narrow layouts.",
+      "Value is a { from, to } DateRange from react-day-picker.",
+    ],
+  },
   "file-upload": {
     desc: "Drag-and-drop file picker with previews, progress and validation (react-dropzone).",
     notes: [
@@ -120,6 +190,16 @@ export const docs: Record<string, DocInfo> = {
       "onChange receives Editor.js OutputData (JSON), which you can store and pass back as value.",
       "Press / on an empty line for more blocks (lists, quotes, delimiter).",
       "Font family and size style the whole editor; the rest applies to the selection or current block.",
+    ],
+  },
+  icon: {
+    desc: "Any of 200,000+ icons from Iconify (Lucide, Material, Tabler, Phosphor, Solar, brand logos and more).",
+    notes: [
+      'icon is "<set>:<name>", e.g. "lucide:house" or "mdi:github". Browse sets at icon-sets.iconify.design.',
+      "Icons load on demand from the Iconify API and are cached. Use addIcon or addCollection (re-exported) to bundle icons and work offline.",
+      "Icons use currentColor, so Tailwind text-* classes recolor them. Multi-color sets (logos, flat-color-icons) keep their own colors.",
+      "size defaults to 1em. Inside Button, Badge and Input group the size comes from the parent.",
+      "Pass label for an informative icon; otherwise it is hidden from screen readers.",
     ],
   },
   motion: {

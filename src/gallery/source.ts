@@ -7,13 +7,22 @@ import overlaySrc from "./demos-overlay.tsx?raw"
 import displaySrc from "./demos-display.tsx?raw"
 import chartsSrc from "./demos-charts.tsx?raw"
 import extendedSrc from "./demos-extended.tsx?raw"
+import exFormsSrc from "./examples-forms.tsx?raw"
+import exOverlaySrc from "./examples-overlay.tsx?raw"
+import exDisplaySrc from "./examples-display.tsx?raw"
+import exRadioSrc from "./examples-radio.tsx?raw"
+import exIconSrc from "./examples-icon.tsx?raw"
+import exChatSrc from "./examples-chat.tsx?raw"
+import exSidebarSrc from "./examples-sidebar.tsx?raw"
+import exMoreSrc from "./examples-more.tsx?raw"
+import exFinalSrc from "./examples-final.tsx?raw"
 
 const uiFiles = import.meta.glob("../components/ui/*.tsx", { query: "?raw", import: "default", eager: true }) as Record<
   string,
   string
 >
 
-const demoSources = [formsSrc, overlaySrc, displaySrc, chartsSrc, extendedSrc]
+const demoSources = [formsSrc, overlaySrc, displaySrc, chartsSrc, extendedSrc, exFormsSrc, exOverlaySrc, exDisplaySrc, exRadioSrc, exIconSrc, exChatSrc, exSidebarSrc, exMoreSrc, exFinalSrc]
 
 type ImportStmt = { names: string[]; from: string; namespace?: string }
 

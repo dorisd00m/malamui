@@ -1,5 +1,5 @@
-import * as React from "react"
 import {
+  createCssVariablesTheme,
   createHighlighterCore,
   type GrammarState,
   type HighlighterCore,
@@ -35,14 +35,20 @@ const aliases: Record<string, keyof typeof languages> = {
   zsh: "bash",
 }
 
+// Token colors come from CSS variables (--code-token-keyword, --code-token-string…), defined in the
+// stylesheet, so code follows Malam's palette instead of a fixed GitHub theme.
+const malamTheme = createCssVariablesTheme({
+  name: "malam-css",
+  variablePrefix: "--code-",
+  variableDefaults: {},
+  fontStyle: true,
+})
+
 let highlighter: Promise<HighlighterCore> | undefined
 
 function getHighlighter() {
   highlighter ??= createHighlighterCore({
-    themes: [
-      import("shiki/themes/github-light.mjs"),
-      import("shiki/themes/github-dark.mjs"),
-    ],
+    themes: [malamTheme],
     langs: [],
     engine: createJavaScriptRegexEngine({ forgiving: true }),
   })
@@ -86,8 +92,7 @@ export async function loadHighlighter(language: string) {
       const tokenize = (text: string) =>
         shiki.codeToTokens(text, {
           lang,
-          themes: { light: "github-light", dark: "github-dark" },
-          defaultColor: false,
+          theme: "malam-css",
           grammarState: state,
         }).tokens
 
@@ -103,8 +108,11 @@ export async function loadHighlighter(language: string) {
           line.map((token, index) => (
             <span
               key={index}
-              style={token.htmlStyle as React.CSSProperties}
-              className="text-(--shiki-light) dark:text-(--shiki-dark)"
+              style={{
+                color: token.color,
+                fontStyle: token.fontStyle && token.fontStyle & 1 ? "italic" : undefined,
+                fontWeight: token.fontStyle && token.fontStyle & 2 ? 700 : undefined,
+              }}
             >
               {token.content}
             </span>

@@ -418,6 +418,27 @@
       ]
     },
     {
+      "name": "date-picker",
+      "type": "registry:ui",
+      "title": "Date Picker",
+      "dependencies": [
+        "lucide-react@^1.74.0",
+        "react-day-picker@^10.0.2"
+      ],
+      "registryDependencies": [
+        "@malam/button",
+        "@malam/calendar",
+        "@malam/malam-theme",
+        "@malam/popover"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/date-picker.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
       "name": "dialog",
       "type": "registry:ui",
       "title": "Dialog",
@@ -574,6 +595,23 @@
       "files": [
         {
           "path": "src/components/ui/hover-card.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "icon",
+      "type": "registry:ui",
+      "title": "Icon",
+      "dependencies": [
+        "@iconify/react@^6.0.4"
+      ],
+      "registryDependencies": [
+        "@malam/malam-theme"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/icon.tsx",
           "type": "registry:ui"
         }
       ]
@@ -908,6 +946,23 @@
       "files": [
         {
           "path": "src/components/ui/radio-group.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "rating",
+      "type": "registry:ui",
+      "title": "Rating",
+      "dependencies": [
+        "lucide-react@^1.74.0"
+      ],
+      "registryDependencies": [
+        "@malam/malam-theme"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/rating.tsx",
           "type": "registry:ui"
         }
       ]
@@ -1259,6 +1314,21 @@
       ]
     },
     {
+      "name": "typography",
+      "type": "registry:ui",
+      "title": "Typography",
+      "dependencies": [],
+      "registryDependencies": [
+        "@malam/malam-theme"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/typography.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
       "name": "malam-blocks",
       "type": "registry:item",
       "title": "Malam blocks",
@@ -1338,6 +1408,28 @@
       ]
     },
     {
+      "name": "use-highlighted-code",
+      "type": "registry:hook",
+      "title": "Use highlighted code",
+      "description": "Shiki syntax highlighting hook for CodeBlock. Colors come from the --code-* tokens in malam-theme.",
+      "dependencies": [
+        "shiki@^4.6.0"
+      ],
+      "registryDependencies": [
+        "@malam/malam-theme"
+      ],
+      "files": [
+        {
+          "path": "src/hooks/use-highlighted-code.ts",
+          "type": "registry:hook"
+        },
+        {
+          "path": "src/lib/highlighter.tsx",
+          "type": "registry:lib"
+        }
+      ]
+    },
+    {
       "name": "malam-ui",
       "type": "registry:item",
       "title": "Malam UI (everything)",
@@ -1366,6 +1458,7 @@
         "@malam/combobox",
         "@malam/command",
         "@malam/context-menu",
+        "@malam/date-picker",
         "@malam/dialog",
         "@malam/direction",
         "@malam/drawer",
@@ -1390,6 +1483,7 @@
         "@malam/progress",
         "@malam/questionnaire",
         "@malam/radio-group",
+        "@malam/rating",
         "@malam/resizable",
         "@malam/scroll-area",
         "@malam/select",
@@ -1407,7 +1501,8 @@
         "@malam/toggle-group",
         "@malam/toggle",
         "@malam/tooltip",
-        "@malam/trace"
+        "@malam/trace",
+        "@malam/typography"
       ]
     },
     {
@@ -1421,6 +1516,7 @@
         "@malam/dynamic-select",
         "@malam/image-slider",
         "@malam/rich-text-editor",
+        "@malam/icon",
         "@malam/motion"
       ]
     }

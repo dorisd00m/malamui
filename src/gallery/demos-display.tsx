@@ -4,7 +4,7 @@ import { Bar, BarChart, CartesianGrid, XAxis } from "recharts"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 import { AspectRatio } from "@/components/ui/aspect-ratio"
-import { Avatar, AvatarFallback } from "@/components/ui/avatar"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
@@ -104,6 +104,7 @@ export function BadgeDemo() {
 export function CardDemo() {
   return (
     <Card className="max-w-sm">
+      <img src="https://picsum.photos/seed/ironveil/640/360" alt="Ironveil Tactics artwork" loading="lazy" className="aspect-video w-full object-cover" />
       <CardHeader>
         <CardTitle>Ironveil Tactics</CardTitle>
         <CardDescription>Turn-based strategy · Very Positive</CardDescription>
@@ -231,8 +232,8 @@ export function CollapsibleDemo() {
 export function AspectRatioDemo() {
   return (
     <div className="w-64">
-      <AspectRatio ratio={16 / 9} className="flex items-center justify-center rounded-sm bg-panel text-sm text-muted-foreground">
-        16 : 9
+      <AspectRatio ratio={16 / 9} className="overflow-hidden rounded-sm bg-muted">
+        <img src="https://picsum.photos/seed/aspect-ratio/640/360" alt="Random landscape photo" loading="lazy" className="size-full object-cover" />
       </AspectRatio>
     </div>
   )
@@ -244,9 +245,7 @@ export function CarouselDemo() {
       <CarouselContent>
         {[1, 2, 3, 4].map((n) => (
           <CarouselItem key={n}>
-            <div className="flex aspect-video items-center justify-center rounded-sm bg-panel text-3xl font-semibold text-heading">
-              {n}
-            </div>
+            <img src={`https://picsum.photos/seed/carousel-${n}/640/360`} alt={`Slide ${n}`} loading="lazy" className="aspect-video w-full rounded-sm object-cover" />
           </CarouselItem>
         ))}
       </CarouselContent>
@@ -290,6 +289,7 @@ export function ItemDemo() {
     <Item variant="outline" className="max-w-sm">
       <ItemMedia>
         <Avatar>
+          <AvatarImage src="https://picsum.photos/seed/lantern-hollow/96/96" alt="" />
           <AvatarFallback>LH</AvatarFallback>
         </Avatar>
       </ItemMedia>

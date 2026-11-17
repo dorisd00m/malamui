@@ -10,6 +10,7 @@ import { REPO_URL } from "../site/config"
 import { demoNames, entries, EXTENDED_GROUP, EXTENDED_LIBS, ExtendedDivider } from "./gallery"
 import { docs } from "./docs-data"
 import { depsOf, exampleFor, exportsOf, importStatement } from "./source"
+import { examples, exampleNames, type ExampleDef } from "./examples"
 
 function DepLink({ id }: { id: string }) {
   return entries.some((e) => e.id === id) ? (
@@ -61,6 +62,38 @@ function ComponentSidebar({ activeId }: { activeId?: string }) {
   )
 }
 
+const slug = (t: string) => t.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "")
+
+/** One example: a live preview and the exact source, side by side as tabs. */
+function ExampleBlock({ ex }: { ex: ExampleDef }) {
+  const Demo = ex.demo
+  const code = React.useMemo(() => exampleFor(exampleNames.get(ex.demo) ?? ""), [ex.demo])
+  return (
+    <div id={`example-${slug(ex.title)}`} className="scroll-mt-24 space-y-2">
+      <h3 className="text-base font-semibold text-heading">{ex.title}</h3>
+      {ex.description && <p className="text-sm text-muted-foreground">{ex.description}</p>}
+      <div className="overflow-hidden rounded-sm border border-border bg-card">
+        <Tabs defaultValue="preview">
+          <TabsList variant="line" className="px-3">
+            <TabsTrigger value="preview">Preview</TabsTrigger>
+            <TabsTrigger value="code">Code</TabsTrigger>
+          </TabsList>
+          <TabsContent value="preview">
+            <div className="flex min-h-32 items-center p-6">
+              <div className="w-full">
+                <Demo />
+              </div>
+            </div>
+          </TabsContent>
+          <TabsContent value="code">
+            <Code className="rounded-none border-0">{code}</Code>
+          </TabsContent>
+        </Tabs>
+      </div>
+    </div>
+  )
+}
+
 function H2({ id, children }: { id: string; children: React.ReactNode }) {
   return (
     <h2 id={id} className="scroll-mt-24 border-b border-border pb-2 text-xl font-semibold">
@@ -93,6 +126,7 @@ export function ComponentPage({ id }: { id: string }) {
   const next = entries[index + 1]
   const example = exampleFor(demoNames.get(entry.demo) ?? "")
   const imports = importStatement(file)
+  const more = examples[id] ?? []
   const exports = exportsOf(file)
   const deps = depsOf(file)
   const installCmd = `npx shadcn@latest add @malam/${file}`
@@ -132,6 +166,24 @@ export function ComponentPage({ id }: { id: string }) {
           </div>
           <p className="text-xs text-muted-foreground">Change the theme in the toolbar to see this component in every palette.</p>
         </section>
+
+        {more.length > 0 && (
+          <section className="space-y-5">
+            <H2 id="examples">Examples</H2>
+            <ul className="flex flex-wrap gap-x-4 gap-y-1 text-sm">
+              {more.map((ex) => (
+                <li key={ex.title}>
+                  <a className="text-link hover:underline" href={`#example-${slug(ex.title)}`} onClick={(e) => { e.preventDefault(); document.getElementById(`example-${slug(ex.title)}`)?.scrollIntoView({ behavior: "smooth", block: "start" }) }}>
+                    {ex.title}
+                  </a>
+                </li>
+              ))}
+            </ul>
+            {more.map((ex) => (
+              <ExampleBlock key={ex.title} ex={ex} />
+            ))}
+          </section>
+        )}
 
         <section className="space-y-3">
           <H2 id="installation">Installation</H2>

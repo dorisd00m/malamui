@@ -58,7 +58,7 @@ through `@theme inline`, so `bg-<token>`, `text-<token>`, `border-<token>` all w
 
 ## Typography
 
-- Family: `Figtree Variable` (free stand-in for the commercial "Motiva Sans"), then Arial/Helvetica. Mono: Consolas.
+- Family: `Figtree Variable` (OFL, free for commercial use) via the `--malam-font-sans` variable, then system sans. Mono: Consolas. To change the font, override `--malam-font-sans`; never hardcode font names in components.
 - `text-eyebrow`: 14px / 600 / uppercase / 0.04em tracking / white. Section titles.
 - Scale in use: `text-xs` 12 (meta) · `text-[0.8125rem]` 13 (prices, reviews, nav) · `text-sm` 14 (body) ·
   `text-base` 16 (list titles, top nav) · `text-xl` 20 (hero title, promo title) · `text-2xl` 24 (page title).
