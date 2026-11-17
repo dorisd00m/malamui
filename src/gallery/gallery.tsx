@@ -263,7 +263,7 @@ export function Gallery() {
             <div key={g}>
               {g === EXTENDED_GROUP ? <ExtendedDivider /> : <h2 className="mb-4 text-eyebrow">{g}</h2>}
               {g === EXTENDED_GROUP && <div className="mb-4" />}
-              <div className="grid gap-4 xl:grid-cols-2">
+              <div className="grid grid-cols-1 gap-4 xl:grid-cols-2 [&>*]:min-w-0">
                 {filtered
                   .filter((e) => e.group === g)
                   .map((e) => (

@@ -117,7 +117,7 @@ npx shadcn@latest add @malam/malam-extended   # all six`}</Code>
               <AlertTitle>Prefer a single URL?</AlertTitle>
               <AlertDescription>
                 You can also install the whole bundle without registering anything:{" "}
-                <code>npx shadcn@latest add https://raw.githubusercontent.com/dorisd00m/malamui/main/public/r/malam-ui.json</code>. The{" "}
+                <code className="break-all">npx shadcn@latest add https://raw.githubusercontent.com/dorisd00m/malamui/main/public/r/malam-ui.json</code>. The{" "}
                 <code>@malam/…</code> form is needed for installing individual components.
               </AlertDescription>
             </Alert>
