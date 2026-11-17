@@ -25,11 +25,11 @@ npm run dev
 ## Use in another project
 
 1. The project needs Tailwind v4 and shadcn initialised (`npx shadcn@latest init`).
-2. Host `public/r/malam-ui.json` somewhere (any static host, or `npm run build && npx vite preview` locally), then:
-   ```bash
-   npx shadcn@latest add https://<your-host>/r/malam-ui.json -y -o
+2. Register the public registry in `components.json`:
+   ```json
+   { "registries": { "@malam": "https://raw.githubusercontent.com/dorisd00m/malamui/main/public/r/{name}.json" } }
    ```
-   `-o` overwrites the default shadcn primitives with the Malam versions.
+   then run `npx shadcn@latest add @malam/malam-ui -y -o` (everything) or `npx shadcn@latest add @malam/button` (a single component). `-o` overwrites the default shadcn primitives with the Malam versions.
 3. Replace the contents of your main CSS file with `@import "./styles/malam.css";` (adjust the path).
 4. Add `class="dark"` to `<html>` and wrap the app in `<TooltipProvider>`.
 
@@ -41,7 +41,6 @@ On Windows, pass an `http(s)://` URL; shadcn rejects `C:\...` paths.
 - **Claude Code, all projects:** copy `skill/malam-ui/` to `~/.claude/skills/malam-ui/`.
 - **Claude.ai / Claude Desktop:** upload `malam-ui.skill` under Settings → Capabilities → Skills.
 
-Update `<REGISTRY_URL>` in `skill/malam-ui/SKILL.md` once you host the registry.
 
 ## Rebuilding
 

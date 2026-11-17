@@ -1,0 +1,86 @@
+/** Short human docs per component id. `file` overrides src/components/ui/<id>.tsx when different. */
+export type DocInfo = { desc: string; notes?: string[]; file?: string }
+
+export const docs: Record<string, DocInfo> = {
+  button: {
+    desc: "Triggers an action. Use one primary (blue gradient) button per region.",
+    notes: [
+      'variant: "default" | "secondary" | "success" | "outline" | "ghost" | "destructive" | "link"',
+      'size: "default" | "sm" | "xs" | "lg" | "icon" | "icon-sm" | "icon-lg"',
+      "Use render={<a href=… />} to render a link that looks like a button.",
+      'Icon-only buttons need an aria-label.',
+    ],
+  },
+  "button-group": { desc: "Joins related buttons into one segmented control.", notes: ["Use ButtonGroupSeparator and ButtonGroupText for dividers and labels."] },
+  toggle: {
+    desc: "A two-state button, or a group of them for single or multiple selection.",
+    notes: ["ToggleGroup value is an array, even for single selection.", "Import ToggleGroup from @/components/ui/toggle-group."],
+    file: "toggle",
+  },
+  kbd: { desc: "Displays a keyboard shortcut.", notes: ["Wrap several in KbdGroup for chords."] },
+
+  input: { desc: "A single-line text field.", notes: ['Set aria-invalid to show the error style.', "Works with any native input type."] },
+  "input-group": { desc: "An input with addons, icons or buttons attached inside the border.", notes: ['InputGroupAddon takes align="inline-start" | "inline-end" | "block-start" | "block-end".'] },
+  textarea: { desc: "A multi-line text field." },
+  label: { desc: "An accessible label. Pair it with a control using htmlFor / id." },
+  field: {
+    desc: "Layout primitive for form controls: label, control, description and error laid out consistently.",
+    notes: [
+      'Field orientation: "vertical" (default) | "horizontal" | "responsive".',
+      "Set data-invalid on Field and aria-invalid on the control, then render FieldError.",
+      "Group related fields in FieldSet with a FieldLegend, and split sections with FieldSeparator.",
+      "Use FieldContent to stack a label and description beside a checkbox or switch.",
+    ],
+  },
+  checkbox: { desc: "A control for toggling a boolean option.", notes: ["Use defaultChecked for uncontrolled, checked + onCheckedChange for controlled."] },
+  "radio-group": { desc: "Choose exactly one option from a set.", notes: ["Each RadioGroupItem needs a unique value."] },
+  switch: { desc: "An on/off toggle for settings that apply immediately." },
+  slider: { desc: "Pick a value or range along a track.", notes: ["value is an array: [40] for one thumb, [20, 80] for a range."] },
+  select: { desc: "A styled dropdown for choosing one value.", notes: ["Use SelectGroup + SelectLabel to section long lists."] },
+  "native-select": { desc: "The browser's own select, styled. Best on mobile and for very long lists." },
+  combobox: { desc: "A searchable select. Type to filter the list.", notes: ["Pass the data to Combobox items, then render ComboboxItem via the ComboboxList render function."] },
+  "input-otp": { desc: "One-time-code input split into slots.", notes: ["maxLength must equal the number of InputOTPSlot elements."] },
+  calendar: { desc: "A date picker calendar built on react-day-picker.", notes: ['mode="single" | "multiple" | "range"'] },
+
+  dialog: { desc: "A modal window that interrupts the page for focused input.", notes: ["Use render={<Button />} on DialogTrigger to style the trigger.", "DialogTitle and DialogDescription are required for accessibility."] },
+  "alert-dialog": { desc: "A modal that demands an explicit confirm or cancel, for destructive actions." },
+  sheet: { desc: "A panel that slides in from the screen edge.", notes: ['SheetContent side="top" | "right" | "bottom" | "left"'] },
+  drawer: { desc: "A swipeable panel, great for mobile bottom sheets." },
+  popover: { desc: "Floating content anchored to a trigger, for small forms or details." },
+  tooltip: { desc: "A short hint on hover or focus.", notes: ["TooltipProvider must wrap your app once (already done in main.tsx)."] },
+  "hover-card": { desc: "A rich preview that appears when hovering a link or trigger." },
+  toast: {
+    desc: "Transient notifications. Mount <Toaster /> once, then call toast.add().",
+    notes: ["toast.add({ title, description, type }) where type is e.g. \"success\" or \"error\".", "<Toaster /> is mounted in main.tsx."],
+  },
+
+  "dropdown-menu": { desc: "A menu of actions opened from a button." },
+  "context-menu": { desc: "A menu opened by right-click or long press on an area." },
+  menubar: { desc: "A desktop-style horizontal menu bar (File, Edit, View…)." },
+  "navigation-menu": { desc: "Site navigation with optional flyout panels." },
+  command: { desc: "A command palette with search, groups and shortcuts.", notes: ["Wrap in CommandDialog to open it as a modal with ⌘K."] },
+  breadcrumb: { desc: "Shows the path to the current page." },
+  pagination: { desc: "Page navigation with previous, next and numbered links." },
+  tabs: { desc: "Switch between related views in the same space.", notes: ["TabsTrigger and TabsContent are linked by value."] },
+
+  card: { desc: "A panel for grouping related content, with header, content and footer slots.", notes: ['size="sm" tightens the padding.'] },
+  badge: { desc: "A small label for status, counts or categories.", notes: ['variant: "default" | "secondary" | "outline" | "destructive" | "sale" | "label" | "live" | "tag"'] },
+  avatar: { desc: "A user image with a fallback to initials.", notes: ['size: "sm" | "default" | "lg"', "Stack several in AvatarGroup."], file: "avatar" },
+  alert: { desc: "A callout that draws attention to a message.", notes: ['variant="destructive" for errors.'] },
+  accordion: { desc: "Vertically stacked sections that expand and collapse.", notes: ["defaultValue is an array of open item values."] },
+  collapsible: { desc: "A single section that shows or hides its content." },
+  table: { desc: "A styled HTML table." },
+  item: { desc: "A flexible row for lists: media, title, description and actions." },
+  empty: { desc: "A placeholder for screens with no data yet." },
+  "code-block": { desc: "A container for displaying code with an optional header and copy button." },
+  carousel: { desc: "A swipeable slideshow built on Embla.", notes: ["Add CarouselDots for pagination."] },
+  chart: { desc: "Themed Recharts wrappers. Colors come from the chart tokens.", notes: ["Define series in a ChartConfig and use var(--color-<key>) in the chart.", "Series colors reference --chart-1 … --chart-5, so they follow the active theme."] },
+
+  progress: { desc: "Shows completion of a task.", notes: ["Pass value from 0 to 100."] },
+  skeleton: { desc: "A loading placeholder shaped like the content to come." },
+  spinner: { desc: "An indeterminate loading indicator." },
+  separator: { desc: "A thin line dividing content.", notes: ['orientation="vertical" for inline dividers.'] },
+  "scroll-area": { desc: "A scroll container with themed scrollbars." },
+  "aspect-ratio": { desc: "Keeps content at a fixed width-to-height ratio." },
+  resizable: { desc: "Panels the user can resize by dragging a handle.", notes: ['orientation="horizontal" | "vertical" on ResizablePanelGroup.'] },
+}

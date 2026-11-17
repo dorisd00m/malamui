@@ -6,6 +6,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
 import { SectionHeader } from "@/components/malam"
 import { Code, Page, Prose } from "./shell"
+import { COMPONENTS_JSON_SNIPPET, INSTALL_CMD } from "./config"
 
 const rules = [
   ["Tokens, never raw hex", "Agents use bg-card, text-heading, bg-sale… so every theme keeps working."],
@@ -124,15 +125,11 @@ Use design tokens, never raw hex colors.`}</Code>
   }
 }`}</Code>
           <Prose className="mt-4">
-            <p>To let the agent install Malam through MCP, register the registry in <code>components.json</code>:</p>
+            <p>To let the agent install Malam through MCP, register the public registry in <code>components.json</code>:</p>
           </Prose>
-          <Code className="mt-4" title="components.json">{`{
-  "registries": {
-    "@malam": "https://<your-host>/r/{name}.json"
-  }
-}`}</Code>
+          <Code className="mt-4" title="components.json">{COMPONENTS_JSON_SNIPPET}</Code>
           <Prose className="mt-4">
-            <p>The agent can then run <code>npx shadcn@latest add @malam/malam-ui</code> without you pasting URLs.</p>
+            <p>The agent can then run <code>{INSTALL_CMD}</code>, or add single components such as <code>npx shadcn@latest add @malam/button</code>, without you pasting URLs.</p>
           </Prose>
         </section>
 

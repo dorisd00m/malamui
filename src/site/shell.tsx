@@ -3,12 +3,13 @@ import { CheckIcon, CopyIcon, MoonStarIcon, RotateCcwIcon } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { ThemeSwitcher, useTheme } from "@/components/malam"
 import { cn } from "@/lib/utils"
+import { REPO_URL } from "./config"
 
 export type Route = "home" | "docs" | "components" | "skill" | "demo"
 
 const NAV: { route: Route; label: string; href: string }[] = [
   { route: "docs", label: "Documentation", href: "#/docs" },
-  { route: "components", label: "Components", href: "#/components" },
+  { route: "components", label: "Components", href: "#/components/button" },
   { route: "skill", label: "AI Skill", href: "#/skill" },
   { route: "demo", label: "Demo", href: "#/demo" },
 ]
@@ -140,8 +141,9 @@ export function SiteFooter() {
         <span>Malam UI: Tailwind v4 · shadcn/ui · Base UI. Titles and artwork in demos are placeholders.</span>
         <span className="flex gap-4">
           <a href="#/docs" className="hover:text-heading">Docs</a>
-          <a href="#/components" className="hover:text-heading">Components</a>
+          <a href="#/components/button" className="hover:text-heading">Components</a>
           <a href="#/skill" className="hover:text-heading">AI Skill</a>
+          <a href={REPO_URL} target="_blank" rel="noreferrer" className="hover:text-heading">GitHub</a>
         </span>
       </div>
     </footer>

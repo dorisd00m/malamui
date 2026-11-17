@@ -1,19 +1,16 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry.json",
   "name": "malam-ui",
-  "homepage": "https://example.com/malam-ui",
+  "homepage": "https://github.com/dorisd00m/malamui",
   "items": [
     {
-      "name": "malam-ui",
+      "name": "malam-theme",
       "type": "registry:item",
-      "title": "Malam UI",
-      "description": "Dark, near-black design system: theme, restyled shadcn primitives, and store components (PriceTag, ProductCapsule, FeaturedHero, StoreHeader...).",
+      "title": "Malam theme",
+      "description": "Design tokens, 8 color themes, gradients and the cn() helper. Every Malam component depends on this.",
       "dependencies": [
-        "@base-ui/react@^1.9.0",
-        "class-variance-authority@^0.7.1",
         "cn@^0.5.2",
-        "embla-carousel-react@^8.6.0",
-        "lucide-react@^1.74.0",
+        "class-variance-authority@^0.7.1",
         "tw-animate-css@^1.4.0",
         "shadcn@^4.23.0",
         "@fontsource-variable/figtree@^5.3.0"
@@ -27,67 +24,1158 @@
         {
           "path": "src/lib/utils.ts",
           "type": "registry:lib"
-        },
+        }
+      ]
+    },
+    {
+      "name": "use-mobile",
+      "type": "registry:hook",
+      "title": "Use Mobile",
+      "dependencies": [],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "src/hooks/use-mobile.ts",
+          "type": "registry:hook"
+        }
+      ]
+    },
+    {
+      "name": "accordion",
+      "type": "registry:ui",
+      "title": "Accordion",
+      "dependencies": [
+        "@base-ui/react@^1.9.0",
+        "lucide-react@^1.74.0"
+      ],
+      "registryDependencies": [
+        "@malam/malam-theme"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/accordion.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "alert-dialog",
+      "type": "registry:ui",
+      "title": "Alert Dialog",
+      "dependencies": [
+        "@base-ui/react@^1.9.0"
+      ],
+      "registryDependencies": [
+        "@malam/button",
+        "@malam/malam-theme"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/alert-dialog.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "alert",
+      "type": "registry:ui",
+      "title": "Alert",
+      "dependencies": [
+        "class-variance-authority@^0.7.1"
+      ],
+      "registryDependencies": [
+        "@malam/malam-theme"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/alert.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "aspect-ratio",
+      "type": "registry:ui",
+      "title": "Aspect Ratio",
+      "dependencies": [],
+      "registryDependencies": [
+        "@malam/malam-theme"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/aspect-ratio.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "attachment",
+      "type": "registry:ui",
+      "title": "Attachment",
+      "dependencies": [
+        "@base-ui/react@^1.9.0",
+        "class-variance-authority@^0.7.1"
+      ],
+      "registryDependencies": [
+        "@malam/button",
+        "@malam/malam-theme"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/attachment.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "avatar",
+      "type": "registry:ui",
+      "title": "Avatar",
+      "dependencies": [
+        "@base-ui/react@^1.9.0"
+      ],
+      "registryDependencies": [
+        "@malam/malam-theme"
+      ],
+      "files": [
         {
           "path": "src/components/ui/avatar.tsx",
           "type": "registry:ui"
-        },
+        }
+      ]
+    },
+    {
+      "name": "badge",
+      "type": "registry:ui",
+      "title": "Badge",
+      "dependencies": [
+        "@base-ui/react@^1.9.0",
+        "class-variance-authority@^0.7.1"
+      ],
+      "registryDependencies": [
+        "@malam/malam-theme"
+      ],
+      "files": [
         {
           "path": "src/components/ui/badge.tsx",
           "type": "registry:ui"
-        },
+        }
+      ]
+    },
+    {
+      "name": "breadcrumb",
+      "type": "registry:ui",
+      "title": "Breadcrumb",
+      "dependencies": [
+        "@base-ui/react@^1.9.0",
+        "lucide-react@^1.74.0"
+      ],
+      "registryDependencies": [
+        "@malam/malam-theme"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/breadcrumb.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "bubble",
+      "type": "registry:ui",
+      "title": "Bubble",
+      "dependencies": [
+        "@base-ui/react@^1.9.0",
+        "class-variance-authority@^0.7.1"
+      ],
+      "registryDependencies": [
+        "@malam/malam-theme"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/bubble.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "button-group",
+      "type": "registry:ui",
+      "title": "Button Group",
+      "dependencies": [
+        "@base-ui/react@^1.9.0",
+        "class-variance-authority@^0.7.1"
+      ],
+      "registryDependencies": [
+        "@malam/malam-theme",
+        "@malam/separator"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/button-group.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "button",
+      "type": "registry:ui",
+      "title": "Button",
+      "dependencies": [
+        "@base-ui/react@^1.9.0",
+        "class-variance-authority@^0.7.1"
+      ],
+      "registryDependencies": [
+        "@malam/malam-theme"
+      ],
+      "files": [
         {
           "path": "src/components/ui/button.tsx",
           "type": "registry:ui"
-        },
+        }
+      ]
+    },
+    {
+      "name": "calendar",
+      "type": "registry:ui",
+      "title": "Calendar",
+      "dependencies": [
+        "lucide-react@^1.74.0",
+        "react-day-picker@^10.0.2"
+      ],
+      "registryDependencies": [
+        "@malam/button",
+        "@malam/malam-theme"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/calendar.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "card",
+      "type": "registry:ui",
+      "title": "Card",
+      "dependencies": [],
+      "registryDependencies": [
+        "@malam/malam-theme"
+      ],
+      "files": [
         {
           "path": "src/components/ui/card.tsx",
           "type": "registry:ui"
-        },
+        }
+      ]
+    },
+    {
+      "name": "carousel",
+      "type": "registry:ui",
+      "title": "Carousel",
+      "dependencies": [
+        "embla-carousel-react@^8.6.0",
+        "lucide-react@^1.74.0"
+      ],
+      "registryDependencies": [
+        "@malam/button",
+        "@malam/malam-theme"
+      ],
+      "files": [
         {
           "path": "src/components/ui/carousel.tsx",
           "type": "registry:ui"
-        },
+        }
+      ]
+    },
+    {
+      "name": "chart",
+      "type": "registry:ui",
+      "title": "Chart",
+      "dependencies": [
+        "recharts@^3.8.0"
+      ],
+      "registryDependencies": [
+        "@malam/malam-theme"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/chart.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "checkbox",
+      "type": "registry:ui",
+      "title": "Checkbox",
+      "dependencies": [
+        "@base-ui/react@^1.9.0",
+        "lucide-react@^1.74.0"
+      ],
+      "registryDependencies": [
+        "@malam/malam-theme"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/checkbox.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "code-block",
+      "type": "registry:ui",
+      "title": "Code Block",
+      "dependencies": [
+        "class-variance-authority@^0.7.1",
+        "lucide-react@^1.74.0"
+      ],
+      "registryDependencies": [
+        "@malam/button",
+        "@malam/malam-theme"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/code-block.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "collapsible",
+      "type": "registry:ui",
+      "title": "Collapsible",
+      "dependencies": [
+        "@base-ui/react@^1.9.0"
+      ],
+      "registryDependencies": [
+        "@malam/malam-theme"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/collapsible.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "combobox",
+      "type": "registry:ui",
+      "title": "Combobox",
+      "dependencies": [
+        "@base-ui/react@^1.9.0",
+        "lucide-react@^1.74.0"
+      ],
+      "registryDependencies": [
+        "@malam/button",
+        "@malam/input-group",
+        "@malam/malam-theme"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/combobox.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "command",
+      "type": "registry:ui",
+      "title": "Command",
+      "dependencies": [
+        "cmdk@^1.1.1",
+        "lucide-react@^1.74.0"
+      ],
+      "registryDependencies": [
+        "@malam/dialog",
+        "@malam/input-group",
+        "@malam/malam-theme"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/command.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "context-menu",
+      "type": "registry:ui",
+      "title": "Context Menu",
+      "dependencies": [
+        "@base-ui/react@^1.9.0",
+        "lucide-react@^1.74.0"
+      ],
+      "registryDependencies": [
+        "@malam/malam-theme"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/context-menu.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "dialog",
+      "type": "registry:ui",
+      "title": "Dialog",
+      "dependencies": [
+        "@base-ui/react@^1.9.0",
+        "lucide-react@^1.74.0"
+      ],
+      "registryDependencies": [
+        "@malam/button",
+        "@malam/malam-theme"
+      ],
+      "files": [
         {
           "path": "src/components/ui/dialog.tsx",
           "type": "registry:ui"
-        },
+        }
+      ]
+    },
+    {
+      "name": "direction",
+      "type": "registry:ui",
+      "title": "Direction",
+      "dependencies": [
+        "@base-ui/react@^1.9.0"
+      ],
+      "registryDependencies": [
+        "@malam/malam-theme"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/direction.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "drawer",
+      "type": "registry:ui",
+      "title": "Drawer",
+      "dependencies": [
+        "@base-ui/react@^1.9.0"
+      ],
+      "registryDependencies": [
+        "@malam/malam-theme"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/drawer.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "dropdown-menu",
+      "type": "registry:ui",
+      "title": "Dropdown Menu",
+      "dependencies": [
+        "@base-ui/react@^1.9.0",
+        "lucide-react@^1.74.0"
+      ],
+      "registryDependencies": [
+        "@malam/malam-theme"
+      ],
+      "files": [
         {
           "path": "src/components/ui/dropdown-menu.tsx",
           "type": "registry:ui"
-        },
+        }
+      ]
+    },
+    {
+      "name": "empty",
+      "type": "registry:ui",
+      "title": "Empty",
+      "dependencies": [
+        "class-variance-authority@^0.7.1"
+      ],
+      "registryDependencies": [
+        "@malam/malam-theme"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/empty.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "field",
+      "type": "registry:ui",
+      "title": "Field",
+      "dependencies": [
+        "class-variance-authority@^0.7.1"
+      ],
+      "registryDependencies": [
+        "@malam/label",
+        "@malam/malam-theme",
+        "@malam/separator"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/field.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "hover-card",
+      "type": "registry:ui",
+      "title": "Hover Card",
+      "dependencies": [
+        "@base-ui/react@^1.9.0"
+      ],
+      "registryDependencies": [
+        "@malam/malam-theme"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/hover-card.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "input-group",
+      "type": "registry:ui",
+      "title": "Input Group",
+      "dependencies": [
+        "class-variance-authority@^0.7.1"
+      ],
+      "registryDependencies": [
+        "@malam/button",
+        "@malam/input",
+        "@malam/malam-theme",
+        "@malam/textarea"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/input-group.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "input-otp",
+      "type": "registry:ui",
+      "title": "Input Otp",
+      "dependencies": [
+        "input-otp@^1.5.0",
+        "lucide-react@^1.74.0"
+      ],
+      "registryDependencies": [
+        "@malam/malam-theme"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/input-otp.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "input",
+      "type": "registry:ui",
+      "title": "Input",
+      "dependencies": [
+        "@base-ui/react@^1.9.0"
+      ],
+      "registryDependencies": [
+        "@malam/malam-theme"
+      ],
+      "files": [
         {
           "path": "src/components/ui/input.tsx",
           "type": "registry:ui"
-        },
+        }
+      ]
+    },
+    {
+      "name": "item",
+      "type": "registry:ui",
+      "title": "Item",
+      "dependencies": [
+        "@base-ui/react@^1.9.0",
+        "class-variance-authority@^0.7.1"
+      ],
+      "registryDependencies": [
+        "@malam/malam-theme",
+        "@malam/separator"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/item.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "kbd",
+      "type": "registry:ui",
+      "title": "Kbd",
+      "dependencies": [],
+      "registryDependencies": [
+        "@malam/malam-theme"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/kbd.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "label",
+      "type": "registry:ui",
+      "title": "Label",
+      "dependencies": [],
+      "registryDependencies": [
+        "@malam/malam-theme"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/label.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "marker",
+      "type": "registry:ui",
+      "title": "Marker",
+      "dependencies": [
+        "@base-ui/react@^1.9.0",
+        "class-variance-authority@^0.7.1"
+      ],
+      "registryDependencies": [
+        "@malam/malam-theme"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/marker.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "menubar",
+      "type": "registry:ui",
+      "title": "Menubar",
+      "dependencies": [
+        "@base-ui/react@^1.9.0",
+        "lucide-react@^1.74.0"
+      ],
+      "registryDependencies": [
+        "@malam/dropdown-menu",
+        "@malam/malam-theme"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/menubar.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "message-scroller",
+      "type": "registry:ui",
+      "title": "Message Scroller",
+      "dependencies": [
+        "@shadcn/react@^0.3.1",
+        "lucide-react@^1.74.0"
+      ],
+      "registryDependencies": [
+        "@malam/button",
+        "@malam/malam-theme"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/message-scroller.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "message",
+      "type": "registry:ui",
+      "title": "Message",
+      "dependencies": [],
+      "registryDependencies": [
+        "@malam/malam-theme"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/message.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "native-select",
+      "type": "registry:ui",
+      "title": "Native Select",
+      "dependencies": [
+        "lucide-react@^1.74.0"
+      ],
+      "registryDependencies": [
+        "@malam/malam-theme"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/native-select.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "navigation-menu",
+      "type": "registry:ui",
+      "title": "Navigation Menu",
+      "dependencies": [
+        "@base-ui/react@^1.9.0",
+        "class-variance-authority@^0.7.1",
+        "lucide-react@^1.74.0"
+      ],
+      "registryDependencies": [
+        "@malam/malam-theme"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/navigation-menu.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "pagination",
+      "type": "registry:ui",
+      "title": "Pagination",
+      "dependencies": [
+        "lucide-react@^1.74.0"
+      ],
+      "registryDependencies": [
+        "@malam/button",
+        "@malam/malam-theme"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/pagination.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "popover",
+      "type": "registry:ui",
+      "title": "Popover",
+      "dependencies": [
+        "@base-ui/react@^1.9.0"
+      ],
+      "registryDependencies": [
+        "@malam/malam-theme"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/popover.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "progress",
+      "type": "registry:ui",
+      "title": "Progress",
+      "dependencies": [
+        "@base-ui/react@^1.9.0"
+      ],
+      "registryDependencies": [
+        "@malam/malam-theme"
+      ],
+      "files": [
         {
           "path": "src/components/ui/progress.tsx",
           "type": "registry:ui"
-        },
+        }
+      ]
+    },
+    {
+      "name": "questionnaire",
+      "type": "registry:ui",
+      "title": "Questionnaire",
+      "dependencies": [
+        "@shadcn/react@^0.3.1",
+        "lucide-react@^1.74.0"
+      ],
+      "registryDependencies": [
+        "@malam/button",
+        "@malam/malam-theme"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/questionnaire.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "radio-group",
+      "type": "registry:ui",
+      "title": "Radio Group",
+      "dependencies": [
+        "@base-ui/react@^1.9.0"
+      ],
+      "registryDependencies": [
+        "@malam/malam-theme"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/radio-group.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "resizable",
+      "type": "registry:ui",
+      "title": "Resizable",
+      "dependencies": [
+        "react-resizable-panels@^4.24.0"
+      ],
+      "registryDependencies": [
+        "@malam/malam-theme"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/resizable.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "scroll-area",
+      "type": "registry:ui",
+      "title": "Scroll Area",
+      "dependencies": [
+        "@base-ui/react@^1.9.0"
+      ],
+      "registryDependencies": [
+        "@malam/malam-theme"
+      ],
+      "files": [
         {
           "path": "src/components/ui/scroll-area.tsx",
           "type": "registry:ui"
-        },
+        }
+      ]
+    },
+    {
+      "name": "select",
+      "type": "registry:ui",
+      "title": "Select",
+      "dependencies": [
+        "@base-ui/react@^1.9.0",
+        "lucide-react@^1.74.0"
+      ],
+      "registryDependencies": [
+        "@malam/malam-theme"
+      ],
+      "files": [
         {
           "path": "src/components/ui/select.tsx",
           "type": "registry:ui"
-        },
+        }
+      ]
+    },
+    {
+      "name": "separator",
+      "type": "registry:ui",
+      "title": "Separator",
+      "dependencies": [
+        "@base-ui/react@^1.9.0"
+      ],
+      "registryDependencies": [
+        "@malam/malam-theme"
+      ],
+      "files": [
         {
           "path": "src/components/ui/separator.tsx",
           "type": "registry:ui"
-        },
+        }
+      ]
+    },
+    {
+      "name": "sheet",
+      "type": "registry:ui",
+      "title": "Sheet",
+      "dependencies": [
+        "@base-ui/react@^1.9.0",
+        "lucide-react@^1.74.0"
+      ],
+      "registryDependencies": [
+        "@malam/button",
+        "@malam/malam-theme"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/sheet.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "sidebar",
+      "type": "registry:ui",
+      "title": "Sidebar",
+      "dependencies": [
+        "@base-ui/react@^1.9.0",
+        "class-variance-authority@^0.7.1",
+        "lucide-react@^1.74.0"
+      ],
+      "registryDependencies": [
+        "@malam/button",
+        "@malam/input",
+        "@malam/malam-theme",
+        "@malam/separator",
+        "@malam/sheet",
+        "@malam/skeleton",
+        "@malam/tooltip",
+        "@malam/use-mobile"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/sidebar.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "skeleton",
+      "type": "registry:ui",
+      "title": "Skeleton",
+      "dependencies": [],
+      "registryDependencies": [
+        "@malam/malam-theme"
+      ],
+      "files": [
         {
           "path": "src/components/ui/skeleton.tsx",
           "type": "registry:ui"
-        },
+        }
+      ]
+    },
+    {
+      "name": "slider",
+      "type": "registry:ui",
+      "title": "Slider",
+      "dependencies": [
+        "@base-ui/react@^1.9.0"
+      ],
+      "registryDependencies": [
+        "@malam/malam-theme"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/slider.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "spinner",
+      "type": "registry:ui",
+      "title": "Spinner",
+      "dependencies": [
+        "lucide-react@^1.74.0"
+      ],
+      "registryDependencies": [
+        "@malam/malam-theme"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/spinner.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "switch",
+      "type": "registry:ui",
+      "title": "Switch",
+      "dependencies": [
+        "@base-ui/react@^1.9.0"
+      ],
+      "registryDependencies": [
+        "@malam/malam-theme"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/switch.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "table",
+      "type": "registry:ui",
+      "title": "Table",
+      "dependencies": [],
+      "registryDependencies": [
+        "@malam/malam-theme"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/table.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "tabs",
+      "type": "registry:ui",
+      "title": "Tabs",
+      "dependencies": [
+        "@base-ui/react@^1.9.0",
+        "class-variance-authority@^0.7.1"
+      ],
+      "registryDependencies": [
+        "@malam/malam-theme"
+      ],
+      "files": [
         {
           "path": "src/components/ui/tabs.tsx",
           "type": "registry:ui"
-        },
+        }
+      ]
+    },
+    {
+      "name": "textarea",
+      "type": "registry:ui",
+      "title": "Textarea",
+      "dependencies": [],
+      "registryDependencies": [
+        "@malam/malam-theme"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/textarea.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "toast",
+      "type": "registry:ui",
+      "title": "Toast",
+      "dependencies": [
+        "@base-ui/react@^1.9.0",
+        "lucide-react@^1.74.0"
+      ],
+      "registryDependencies": [
+        "@malam/button",
+        "@malam/malam-theme"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/toast.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "toggle-group",
+      "type": "registry:ui",
+      "title": "Toggle Group",
+      "dependencies": [
+        "@base-ui/react@^1.9.0",
+        "class-variance-authority@^0.7.1"
+      ],
+      "registryDependencies": [
+        "@malam/malam-theme",
+        "@malam/toggle"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/toggle-group.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "toggle",
+      "type": "registry:ui",
+      "title": "Toggle",
+      "dependencies": [
+        "@base-ui/react@^1.9.0",
+        "class-variance-authority@^0.7.1"
+      ],
+      "registryDependencies": [
+        "@malam/malam-theme"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/toggle.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "tooltip",
+      "type": "registry:ui",
+      "title": "Tooltip",
+      "dependencies": [
+        "@base-ui/react@^1.9.0"
+      ],
+      "registryDependencies": [
+        "@malam/malam-theme"
+      ],
+      "files": [
         {
           "path": "src/components/ui/tooltip.tsx",
           "type": "registry:ui"
-        },
+        }
+      ]
+    },
+    {
+      "name": "trace",
+      "type": "registry:ui",
+      "title": "Trace",
+      "dependencies": [
+        "lucide-react@^1.74.0"
+      ],
+      "registryDependencies": [
+        "@malam/collapsible",
+        "@malam/malam-theme"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/trace.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "malam-blocks",
+      "type": "registry:item",
+      "title": "Malam blocks",
+      "description": "PriceTag, ProductCapsule, FeaturedHero, SectionHeader, StoreHeader, PromoBanner, ThemeProvider and ThemeSwitcher.",
+      "dependencies": [
+        "lucide-react@^1.74.0"
+      ],
+      "registryDependencies": [
+        "@malam/badge",
+        "@malam/button",
+        "@malam/carousel",
+        "@malam/dropdown-menu",
+        "@malam/input",
+        "@malam/malam-theme"
+      ],
+      "files": [
         {
           "path": "src/components/malam/cover-art.tsx",
           "type": "registry:component",
@@ -132,7 +1220,90 @@
           "path": "src/components/malam/store-header.tsx",
           "type": "registry:component",
           "target": "src/components/malam/store-header.tsx"
+        },
+        {
+          "path": "src/components/malam/theme-provider.tsx",
+          "type": "registry:component",
+          "target": "src/components/malam/theme-provider.tsx"
+        },
+        {
+          "path": "src/components/malam/theme-switcher.tsx",
+          "type": "registry:component",
+          "target": "src/components/malam/theme-switcher.tsx"
         }
+      ]
+    },
+    {
+      "name": "malam-ui",
+      "type": "registry:item",
+      "title": "Malam UI (everything)",
+      "description": "The full library: theme, all UI components and the Malam blocks. Prefer installing single components when you only need a few.",
+      "registryDependencies": [
+        "@malam/malam-theme",
+        "@malam/malam-blocks",
+        "@malam/accordion",
+        "@malam/alert-dialog",
+        "@malam/alert",
+        "@malam/aspect-ratio",
+        "@malam/attachment",
+        "@malam/avatar",
+        "@malam/badge",
+        "@malam/breadcrumb",
+        "@malam/bubble",
+        "@malam/button-group",
+        "@malam/button",
+        "@malam/calendar",
+        "@malam/card",
+        "@malam/carousel",
+        "@malam/chart",
+        "@malam/checkbox",
+        "@malam/code-block",
+        "@malam/collapsible",
+        "@malam/combobox",
+        "@malam/command",
+        "@malam/context-menu",
+        "@malam/dialog",
+        "@malam/direction",
+        "@malam/drawer",
+        "@malam/dropdown-menu",
+        "@malam/empty",
+        "@malam/field",
+        "@malam/hover-card",
+        "@malam/input-group",
+        "@malam/input-otp",
+        "@malam/input",
+        "@malam/item",
+        "@malam/kbd",
+        "@malam/label",
+        "@malam/marker",
+        "@malam/menubar",
+        "@malam/message-scroller",
+        "@malam/message",
+        "@malam/native-select",
+        "@malam/navigation-menu",
+        "@malam/pagination",
+        "@malam/popover",
+        "@malam/progress",
+        "@malam/questionnaire",
+        "@malam/radio-group",
+        "@malam/resizable",
+        "@malam/scroll-area",
+        "@malam/select",
+        "@malam/separator",
+        "@malam/sheet",
+        "@malam/sidebar",
+        "@malam/skeleton",
+        "@malam/slider",
+        "@malam/spinner",
+        "@malam/switch",
+        "@malam/table",
+        "@malam/tabs",
+        "@malam/textarea",
+        "@malam/toast",
+        "@malam/toggle-group",
+        "@malam/toggle",
+        "@malam/tooltip",
+        "@malam/trace"
       ]
     }
   ]

@@ -6,6 +6,7 @@ import { Progress } from "@/components/ui/progress"
 import { SectionHeader } from "@/components/malam"
 import { DEFAULT_THEMES, useTheme } from "@/components/malam"
 import { Code, Page } from "./shell"
+import { INSTALL_CMD } from "./config"
 
 const features = [
   { icon: LayersIcon, title: "Full shadcn/ui set", body: "Every shadcn component restyled for Malam on Base UI primitives, plus extra blocks like PriceTag and ProductCapsule." },
@@ -63,14 +64,14 @@ export function Home() {
                 <Button variant="success" size="lg" render={<a href="#/docs" />}>
                   Get started <ArrowRightIcon />
                 </Button>
-                <Button variant="secondary" size="lg" render={<a href="#/components" />}>
+                <Button variant="secondary" size="lg" render={<a href="#/components/button" />}>
                   Browse components
                 </Button>
                 <Button variant="ghost" size="lg" render={<a href="#/skill" />}>
                   <BotIcon /> Use with AI
                 </Button>
               </div>
-              <Code className="mt-8 max-w-xl" title="Install">{`npx shadcn@latest add https://<your-host>/r/malam-ui.json -y -o`}</Code>
+              <Code className="mt-8 max-w-xl" title="Install">{INSTALL_CMD}</Code>
             </div>
 
             <div className="rounded-sm border border-border bg-card bg-panel p-5">
@@ -124,7 +125,7 @@ export function Home() {
           <div className="grid gap-4 md:grid-cols-3">
             {[
               { href: "#/docs", icon: BookOpenIcon, title: "Documentation", body: "Install, theme, and customize in five minutes." },
-              { href: "#/components", icon: LayersIcon, title: "Components", body: `Live previews of every component, themeable on the spot.` },
+              { href: "#/components/button", icon: LayersIcon, title: "Components", body: `Live previews of every component, themeable on the spot.` },
               { href: "#/skill", icon: BotIcon, title: "AI Skill", body: "Teach Claude Code and other agents to build in Malam." },
             ].map((l) => (
               <a key={l.href} href={l.href} className="group rounded-sm border border-border bg-card bg-panel p-5 transition-colors hover:border-link">

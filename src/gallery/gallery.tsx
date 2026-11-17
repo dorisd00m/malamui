@@ -1,15 +1,19 @@
 import * as React from "react"
-import { SearchIcon } from "lucide-react"
+import { ArrowRightIcon, SearchIcon } from "lucide-react"
 import { Input } from "@/components/ui/input"
 import { ScrollArea } from "@/components/ui/scroll-area"
-import { Page } from "../site/shell"
+import { Code, Page } from "../site/shell"
+import { INSTALL_CMD } from "../site/config"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { docs } from "./docs-data"
+import { exampleFor, importStatement } from "./source"
 import * as D from "./demos-display"
 import * as F from "./demos-forms"
 import * as O from "./demos-overlay"
 
-type Entry = { id: string; title: string; group: string; demo: React.ComponentType; wide?: boolean }
+export type Entry = { id: string; title: string; group: string; demo: React.ComponentType; wide?: boolean }
 
-const entries: Entry[] = [
+export const entries: Entry[] = [
   { group: "Actions", id: "button", title: "Button", demo: F.ButtonDemo, wide: true },
   { group: "Actions", id: "button-group", title: "Button Group", demo: F.ButtonGroupDemo },
   { group: "Actions", id: "toggle", title: "Toggle & Toggle Group", demo: F.ToggleDemo },
@@ -73,20 +77,64 @@ const entries: Entry[] = [
 /* ---------------------------------------------------------------------- */
 
 
+export const demoNames = new Map<React.ComponentType, string>(
+  Object.entries({ ...F, ...O, ...D }).map(([k, v]) => [v as React.ComponentType, k])
+)
+
 function DemoCard({ entry }: { entry: Entry }) {
   const Demo = entry.demo
+  const info = docs[entry.id]
+  const file = info?.file ?? entry.id
+  const example = React.useMemo(() => exampleFor(demoNames.get(entry.demo) ?? ""), [entry.demo])
+  const imports = React.useMemo(() => importStatement(file), [file])
+
   return (
     <section id={entry.id} className={"scroll-mt-24 " + (entry.wide ? "xl:col-span-2" : "")}>
       <div className="overflow-hidden rounded-sm border border-border bg-card">
-        <header className="flex items-center justify-between border-b border-border px-4 py-2.5">
+        <header className="flex items-center justify-between gap-3 border-b border-border px-4 py-2.5">
           <h3 className="text-sm font-semibold text-heading">{entry.title}</h3>
-          <code className="text-xs text-muted-foreground">ui/{entry.id}</code>
+          <a
+            href={`#/components/${entry.id}`}
+            className="flex items-center gap-1 text-xs text-link hover:underline focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none"
+            aria-label={`${entry.title} documentation`}
+          >
+            Docs <ArrowRightIcon className="size-3" />
+          </a>
         </header>
-        <div className="flex min-h-28 items-center p-5">
-          <div className="w-full">
-            <Demo />
-          </div>
-        </div>
+        {info && <p className="border-b border-border px-4 py-2.5 text-[0.8125rem] text-muted-foreground">{info.desc}</p>}
+        <Tabs defaultValue="preview">
+          <TabsList variant="line" className="px-3">
+            <TabsTrigger value="preview">Preview</TabsTrigger>
+            <TabsTrigger value="usage">Usage</TabsTrigger>
+          </TabsList>
+          <TabsContent value="preview">
+            <div className="flex min-h-28 items-center p-5">
+              <div className="w-full">
+                <Demo />
+              </div>
+            </div>
+          </TabsContent>
+          <TabsContent value="usage">
+            <div className="space-y-4 p-4">
+              {imports && <Code title="Import">{imports}</Code>}
+              {example && <Code title="Example">{example}</Code>}
+              {info?.notes && (
+                <div>
+                  <h4 className="mb-1.5 text-xs font-semibold tracking-wider text-muted-foreground uppercase">Notes</h4>
+                  <ul className="list-disc space-y-1 pl-5 text-[0.8125rem]">
+                    {info.notes.map((n) => (
+                      <li key={n}>{n}</li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+              <p className="text-xs text-muted-foreground">
+                Install: <code>npx shadcn@latest add @malam/{file}</code>. Full guide in the{" "}
+                <a className="text-link hover:underline" href={`#/components/${entry.id}`}>documentation</a>.
+              </p>
+            </div>
+          </TabsContent>
+        </Tabs>
       </div>
     </section>
   )
@@ -131,12 +179,13 @@ export function Gallery() {
 
         <main className="min-w-0 flex-1 space-y-10">
           <div>
-            <h1 className="text-3xl font-bold">Components</h1>
+            <h1 className="text-3xl font-bold">All components</h1>
             <p className="mt-1 text-muted-foreground">
               {entries.length} shadcn/ui components restyled for Malam. Change the theme or pick custom colors in the
               toolbar and every preview updates live.
             </p>
           </div>
+          <Code title="Install a single component, or everything with @malam/malam-ui (one-time registry setup: see Documentation)">{`npx shadcn@latest add @malam/button\n${INSTALL_CMD}`}</Code>
           <div className="lg:hidden">
             <Input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Search components" />
           </div>

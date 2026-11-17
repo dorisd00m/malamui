@@ -4,6 +4,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { InfoIcon } from "lucide-react"
 import { DEFAULT_THEMES } from "@/components/malam"
 import { Code, Page, Prose } from "./shell"
+import { COMPONENTS_JSON_SNIPPET, INSTALL_CMD, REPO_URL } from "./config"
 
 const sections = [
   { id: "introduction", title: "Introduction" },
@@ -13,7 +14,7 @@ const sections = [
   { id: "custom-theme", title: "Create a theme" },
   { id: "tokens", title: "Design tokens" },
   { id: "store-components", title: "Store components" },
-  { id: "registry", title: "Hosting the registry" },
+  { id: "registry", title: "Publishing updates" },
 ]
 
 function Section({ id, title, children }: { id: string; title: string; children: React.ReactNode }) {
@@ -89,11 +90,26 @@ export function Docs() {
           <Section id="installation" title="Installation">
             <p>Your project needs Tailwind v4 and an initialised shadcn setup.</p>
             <Code title="1. Initialise shadcn (skip if done)">{`npx shadcn@latest init`}</Code>
-            <Code title="2. Add Malam from the registry">{`npx shadcn@latest add https://<your-host>/r/malam-ui.json -y -o`}</Code>
             <p>
-              <code>-o</code> overwrites the default shadcn primitives with the Malam versions. On Windows pass an{" "}
-              <code>http(s)://</code> URL; local <code>C:\</code> paths are rejected.
+              Malam is published from a public GitHub repository (<a className="text-link hover:underline" href={REPO_URL} target="_blank" rel="noreferrer">dorisd00m/malamui</a>).
+              Register it once in <code>components.json</code>, then install anything by name.
             </p>
+            <Code title="2a. Register the registry in components.json">{COMPONENTS_JSON_SNIPPET}</Code>
+            <Code title="2b. Install everything">{INSTALL_CMD}</Code>
+            <Code title="…or just the components you need">{`npx shadcn@latest add @malam/button @malam/card @malam/dialog`}</Code>
+            <p>
+              <code>-o</code> overwrites the default shadcn primitives with the Malam versions. Every component pulls in the Malam theme
+              and its npm packages automatically.
+            </p>
+            <Alert>
+              <InfoIcon />
+              <AlertTitle>Prefer a single URL?</AlertTitle>
+              <AlertDescription>
+                You can also install the whole bundle without registering anything:{" "}
+                <code>npx shadcn@latest add https://raw.githubusercontent.com/dorisd00m/malamui/main/public/r/malam-ui.json</code>. The{" "}
+                <code>@malam/…</code> form is needed for installing individual components.
+              </AlertDescription>
+            </Alert>
             <Code title="3. src/index.css">{`@import "./styles/malam.css";`}</Code>
             <Code title="4. index.html">{`<html lang="en" class="dark">`}</Code>
             <Alert>
@@ -267,11 +283,11 @@ const themes = [
             <p>See the <a className="text-link hover:underline" href="#/demo">sample dashboard</a> for them in context.</p>
           </Section>
 
-          <Section id="registry" title="Hosting the registry">
-            <p>After changing components or the theme, rebuild and host the output folder on any static host.</p>
+          <Section id="registry" title="Publishing updates">
+            <p>After changing components or the theme, rebuild the registry.</p>
             <Code title="Terminal">{`npx shadcn@latest build     # → public/r/malam-ui.json
-npm run build               # static site in dist/`}</Code>
-            <p>Then replace <code>&lt;your-host&gt;</code> in the install command with your URL.</p>
+git add public/r && git commit -m "Update registry" && git push`}</Code>
+            <p>Commit the generated <code>public/r/malam-ui.json</code> and push to <code>main</code>. Collaborators pick up the new version the next time they run the install command.</p>
           </Section>
         </main>
       </div>

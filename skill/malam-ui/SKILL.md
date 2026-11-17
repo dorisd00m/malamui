@@ -20,8 +20,10 @@ Read this file fully before writing UI. Open `references/` only when you need th
 Check first: if `src/styles/malam.css` and `src/components/malam/index.ts` exist, skip this section.
 
 ```bash
-# Tailwind v4 + shadcn must already be initialised (npx shadcn@latest init)
-npx shadcn@latest add <REGISTRY_URL>/r/malam-ui.json -y -o
+# Tailwind v4 + shadcn must already be initialised (npx shadcn@latest init).
+# Register the public registry once in components.json:
+#   "registries": { "@malam": "https://raw.githubusercontent.com/dorisd00m/malamui/main/public/r/{name}.json" }
+npx shadcn@latest add @malam/malam-ui -y -o
 ```
 
 Then make the main stylesheet (`src/index.css`, `app/globals.css`, …) contain only:

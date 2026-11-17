@@ -1,0 +1,19 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "direction",
+  "title": "Direction",
+  "dependencies": [
+    "@base-ui/react@^1.9.0"
+  ],
+  "registryDependencies": [
+    "@malam/malam-theme"
+  ],
+  "files": [
+    {
+      "path": "src/components/ui/direction.tsx",
+      "content": "export {\n  DirectionProvider,\n  useDirection,\n} from \"@base-ui/react/direction-provider\"\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}
