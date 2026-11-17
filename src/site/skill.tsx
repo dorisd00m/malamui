@@ -38,10 +38,10 @@ export function SkillPage() {
             With it, an agent builds Malam-correct UI on the first try instead of guessing at colors and components.
           </p>
           <div className="mt-6 flex flex-wrap gap-3">
-            <Button variant="success" render={<a href="/malam-ui.skill" download />}>
+            <Button variant="success" render={<a href={`${import.meta.env.BASE_URL}malam-ui.skill`} download />}>
               <DownloadIcon /> Download malam-ui.skill
             </Button>
-            <Button variant="secondary" render={<a href="/SKILL.md" target="_blank" rel="noreferrer" />}>
+            <Button variant="secondary" render={<a href={`${import.meta.env.BASE_URL}SKILL.md`} target="_blank" rel="noreferrer" />}>
               <FileTextIcon /> View SKILL.md
             </Button>
           </div>
