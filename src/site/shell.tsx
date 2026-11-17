@@ -118,19 +118,19 @@ export function SiteHeader({ route }: { route: Route }) {
   return (
     <header className="sticky top-0 z-40 border-b border-border bg-background/85 backdrop-blur">
       <div className="mx-auto flex max-w-[1400px] flex-wrap items-center gap-x-6 gap-y-2 px-4 py-3">
-        <a href="#/" className="flex items-center gap-2 text-heading">
+        <a href="#/" className="order-1 flex items-center gap-2 text-heading">
           <MoonStarIcon className="size-6 text-link" />
           <span className="text-lg font-bold tracking-[0.12em] uppercase">Malam</span>
           <span className="hidden text-sm font-normal text-muted-foreground sm:inline">UI</span>
         </a>
-        <nav className="flex items-center gap-1" aria-label="Main">
+        <nav className="order-3 -mx-1 flex w-full items-center gap-1 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:order-2 md:mx-0 md:w-auto" aria-label="Main">
           {NAV.map((n) => (
             <a
               key={n.route}
               href={n.href}
               aria-current={n.route === route ? "page" : undefined}
               className={cn(
-                "rounded-xs px-3 py-1.5 text-sm text-muted-foreground hover:bg-accent hover:text-heading",
+                "shrink-0 rounded-xs px-3 py-1.5 text-sm text-muted-foreground hover:bg-accent hover:text-heading",
                 n.route === route && "bg-accent text-heading"
               )}
             >
@@ -138,8 +138,10 @@ export function SiteHeader({ route }: { route: Route }) {
             </a>
           ))}
         </nav>
-        <div className="ml-auto flex items-center gap-4">
-          <CustomColors />
+        <div className="order-2 ml-auto flex items-center gap-3 sm:gap-4 md:order-3">
+          <span className="hidden sm:contents">
+            <CustomColors />
+          </span>
           <ThemeSwitcher />
           <ModeToggle />
         </div>

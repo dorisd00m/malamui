@@ -55,11 +55,70 @@ function ScaledStage({ children }: { children: React.ReactNode }) {
   )
 }
 
+function useIsDesktop() {
+  const [yes, setYes] = React.useState(() => (typeof window === "undefined" ? true : window.matchMedia("(min-width: 1024px)").matches))
+  React.useEffect(() => {
+    const mq = window.matchMedia("(min-width: 1024px)")
+    const on = () => setYes(mq.matches)
+    mq.addEventListener("change", on)
+    return () => mq.removeEventListener("change", on)
+  }, [])
+  return yes
+}
+
+/** Small screens: no scroll-jacking. Pick a demo with tabs and pan a half-size preview sideways. */
+function MobileShowcase() {
+  const [index, setIndex] = React.useState(0)
+  const current = steps[index]
+  const View = current.view
+  const scale = 0.5
+  return (
+    <section aria-label="Demos" className="mx-auto max-w-[1400px] px-4 py-14">
+      <p className="mb-2 text-xs font-semibold tracking-[0.18em] text-link uppercase">Demos</p>
+      <h2 className="text-3xl font-bold tracking-tight">Five complete interfaces</h2>
+      <p className="mt-3 text-muted-foreground">Each one is built only from Malam components and follows your theme.</p>
+      <div className="mt-5 flex flex-wrap gap-2" role="tablist" aria-label="Demos">
+        {steps.map((s, i) => (
+          <button
+            key={s.id}
+            type="button"
+            role="tab"
+            aria-selected={i === index}
+            onClick={() => setIndex(i)}
+            className={cn(
+              "inline-flex items-center gap-1.5 rounded-sm border px-3 py-1.5 text-sm outline-none focus-visible:ring-2 focus-visible:ring-ring",
+              i === index ? "border-primary bg-primary text-primary-foreground" : "border-border text-muted-foreground hover:bg-accent"
+            )}
+          >
+            <s.icon className="size-4" /> {s.title}
+          </button>
+        ))}
+      </div>
+      <p className="mt-3 text-sm text-muted-foreground">{current.body}</p>
+      <div className="mt-4 overflow-x-auto rounded-md border border-border bg-background shadow-panel">
+        <div style={{ width: STAGE_W * scale, height: STAGE_H * scale }} className="relative overflow-hidden">
+          <div style={{ width: STAGE_W, height: STAGE_H, transform: `scale(${scale})`, transformOrigin: "top left" }} inert>
+            <View />
+          </div>
+        </div>
+      </div>
+      <p className="mt-2 text-xs text-muted-foreground">Swipe sideways to see the whole preview.</p>
+      <Button variant="secondary" className="mt-4" render={<a href={`#/demo/${current.id}`} />}>
+        Open {current.title.toLowerCase()} demo <ArrowRightIcon />
+      </Button>
+    </section>
+  )
+}
+
 /**
  * Scroll-driven showcase: the section is tall and its content is sticky. Scrolling through it moves from
  * one live demo to the next. The previews are inert (not interactive) so they never trap the page scroll.
  */
 export function DemoShowcase() {
+  return useIsDesktop() ? <DesktopShowcase /> : <MobileShowcase />
+}
+
+function DesktopShowcase() {
   const ref = React.useRef<HTMLElement>(null)
   const reduce = useReducedMotion()
   const [index, setIndex] = React.useState(0)

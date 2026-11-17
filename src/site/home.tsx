@@ -141,7 +141,7 @@ function ModePicker() {
     <ToggleGroup value={[mode]} onValueChange={(v) => v[0] && setMode(v[0] as Mode)} aria-label="Color mode">
       {opts.map((o) => (
         <ToggleGroupItem key={o.v} value={o.v} aria-label={o.label}>
-          <o.icon /> {o.label}
+          <o.icon /> <span className="hidden min-[400px]:inline">{o.label}</span>
         </ToggleGroupItem>
       ))}
     </ToggleGroup>
@@ -187,10 +187,10 @@ export function Home() {
         {/* ----------------------------- Hero ----------------------------- */}
         <section className="relative">
           <AmbientGlow />
-          <div className="mx-auto grid max-w-[1200px] items-center gap-10 px-4 pt-16 pb-12 lg:grid-cols-[1.1fr_1fr] lg:pt-24">
+          <div className="mx-auto grid max-w-[1200px] grid-cols-1 items-center gap-10 px-4 pt-16 pb-12 lg:grid-cols-[1.1fr_1fr] lg:pt-24 [&>*]:min-w-0">
             <Stagger inView={false} stagger={0.09}>
               <StaggerItem>
-                <Badge className="mb-4">
+                <Badge className="mb-4 h-auto max-w-full whitespace-normal py-1 text-left">
                   <SparklesIcon /> Tailwind v4 · shadcn/ui · Base UI · Framer Motion
                 </Badge>
               </StaggerItem>
@@ -223,7 +223,7 @@ export function Home() {
 
             <FadeIn inView={false} direction="left" delay={0.25} distance={28}>
               <div className="rounded-md border border-border bg-card/90 bg-panel p-5 shadow-panel backdrop-blur">
-                <div className="mb-3 flex items-center justify-between gap-2">
+                <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
                   <p className="text-eyebrow text-xs!">Try it live</p>
                   <ModePicker />
                 </div>
@@ -278,7 +278,7 @@ export function Home() {
 
         {/* --------------------------- Features --------------------------- */}
         <Section eyebrow="Why Malam" title="Everything a product UI needs" intro="Start with solid primitives, then reach for animation, charts and richer inputs when you need them.">
-          <Stagger className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <Stagger className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 [&>*]:min-w-0">
             {features.map((f) => (
               <StaggerItem key={f.title}>
                 <Pressable className="h-full" hoverScale={1.015} lift={3}>
@@ -301,7 +301,7 @@ export function Home() {
           title="Themes, light mode and honest status colors"
           intro="Pick an accent, flip to light, or build your own with two color pickers. Status colors stay semantic in every theme."
         >
-          <div className="grid gap-4 lg:grid-cols-2">
+          <div className="grid grid-cols-1 gap-4 lg:grid-cols-2 [&>*]:min-w-0">
             <FadeIn direction="right">
               <Card className="h-full">
                 <CardHeader>
@@ -374,7 +374,7 @@ export function Home() {
           title="Beyond shadcn"
           intro="Upload, search, browse and write. Each one adds only its own library to your project."
         >
-          <div className="grid gap-4 lg:grid-cols-2">
+          <div className="grid grid-cols-1 gap-4 lg:grid-cols-2 [&>*]:min-w-0">
             <FadeIn direction="right">
               <Card className="h-full">
                 <CardHeader>
@@ -435,7 +435,7 @@ export function Home() {
 
         {/* -------------------------------- AI -------------------------------- */}
         <Section eyebrow="Agentic AI" title="Teach your coding agent Malam" intro="Install the skill once and agents build on-brand UI with the right tokens, components and checks.">
-          <div className="grid items-start gap-6 lg:grid-cols-2">
+          <div className="grid grid-cols-1 items-start gap-6 lg:grid-cols-2 [&>*]:min-w-0">
             <FadeIn direction="right" className="space-y-3">
               {[
                 "Build a settings page with a Field form and a status Alert.",
@@ -467,7 +467,7 @@ description: Build UI in the Malam design system…
 
         {/* ------------------------------ Install ------------------------------ */}
         <Section eyebrow="Get started" title="Three steps">
-          <Stagger className="grid gap-4 md:grid-cols-3">
+          <Stagger className="grid grid-cols-1 gap-4 md:grid-cols-3 [&>*]:min-w-0">
             {[
               ["1. Register", "Add the registry to components.json once.", `"registries": {\n  "@malam": "https://raw.githubusercontent.com/\n    dorisd00m/malamui/main/public/r/{name}.json"\n}`],
               ["2. Install", "Everything, or just what you need.", `${INSTALL_CMD}\n\nnpx shadcn@latest add @malam/button`],
